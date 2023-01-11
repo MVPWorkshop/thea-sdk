@@ -1,0 +1,19 @@
+{
+	"compilerOptions": {
+		"target": "es6",
+		"module": "esnext",
+		"declaration": true,
+		"noImplicitAny": true,
+		"outDir": "dist",
+		"esModuleInterop": true,
+		"baseUrl": "./",
+		"importHelpers": true,
+		"noImplicitThis": true,
+		"noImplicitReturns": true,
+		"strictNullChecks": true,
+		"strictBindCallApply": true,
+		"moduleResolution": "node",
+		"resolveJsonModule": true,
+		"skipLibCheck": true
+	}
+}
