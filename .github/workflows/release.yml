@@ -1,0 +1,35 @@
+on:
+  push:
+    branches:
+      - master
+      
+name: release
+jobs:
+  release-please:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: google-github-actions/release-please-action@v3
+        id: release
+        with:
+          release-type: node
+          package-name: release-please-action
+          default-branch: master
+      - uses: actions/checkout@v3
+        if: ${{ steps.release.outputs.release_created }}
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          registry-url: https://registry.npmjs.org/
+        if: ${{ steps.release.outputs.release_created }}
+      - name: install dependencies
+        run: npm ci 
+        if: ${{ steps.release.outputs.release_created }}
+      - name: run rollup build
+        run:  npm run build
+        if: ${{ steps.release.outputs.release_created }}
+      - name: publish to npm registry
+        run: npm publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+        if: ${{ steps.release.outputs.release_created }}
+        
