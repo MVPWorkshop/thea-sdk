@@ -4,12 +4,9 @@ import { Provider } from "@ethersproject/providers";
 
 export enum TheaNetwork {
 	MAINNET = 1,
-	ROPSTEN = 3,
-	RINKEBY = 4,
 	GOERLI = 5,
 	GÖRLI = 5,
-	KOVAN = 42,
-	LOCAL = 1337
+	GANACHE = 1337
 }
 
 export type ProviderOrSigner = Provider | Signer;

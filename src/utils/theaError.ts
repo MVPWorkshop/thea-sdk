@@ -10,11 +10,11 @@ export type ErrorType =
 	| "SIGNER_REQUIRED"
 	| "TRANSACTION_FAILED"
 	| "INSUFFICIENT_FUNDS"
-	| "NOT_SUPPORED_TOKEN_TYPE";
+	| "NOT_SUPPORED_TOKEN_TYPE"
+	| "API_CALL_ERROR";
 
 export type ErrorProps = {
 	type: ErrorType;
-	contractFunction?: string;
 	message: string;
 };
 export class TheaError extends Error {
@@ -32,5 +32,12 @@ export class TheaTransactionError extends TheaError {
 		super(props);
 		this.contractDetails = details;
 		Object.setPrototypeOf(this, TheaTransactionError.prototype);
+	}
+}
+
+export class TheaAPICallError extends TheaError {
+	constructor(readonly message: string, readonly method: "GET" | "POST", readonly endpoint: string) {
+		super({ type: "API_CALL_ERROR", message });
+		Object.setPrototypeOf(this, TheaAPICallError.prototype);
 	}
 }
