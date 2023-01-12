@@ -1,5 +1,12 @@
 import { ProviderOrSigner, IRegistryContract, UnwrapTokenState, UnwrapRequestId } from "../types";
-import { ContractWrapper, Events, REGISTRY_CONTRACT_ADDRESS, signerRequired, TheaError } from "../utils";
+import {
+	ContractWrapper,
+	Events,
+	REGISTRY_CONTRACT_ADDRESS,
+	signerRequired,
+	TheaError,
+	tokenAmountShouldBeTon
+} from "../utils";
 import Registry_ABI from "../abi/Registry_ABI.json";
 import { BigNumber, BigNumberish } from "@ethersproject/bignumber";
 import { ContractReceipt, Event } from "@ethersproject/contracts";
@@ -25,7 +32,7 @@ export class Unwrap extends ContractWrapper<IRegistryContract> {
 		offchainAccount: string
 	): Promise<ContractReceipt & UnwrapRequestId> {
 		signerRequired(this.providerOrSigner);
-		this.amountShouldBeTon(amount);
+		tokenAmountShouldBeTon(amount);
 
 		await checkBalance(this.providerOrSigner as Signer, { token: "ERC1155", tokenId, amount });
 
@@ -58,20 +65,6 @@ export class Unwrap extends ContractWrapper<IRegistryContract> {
 			tokenId: tokenId.toString(),
 			amount: amount.toString()
 		};
-	}
-
-	/**
-	 * Amount should be in ton format
-	 * @param amount amount to be checked
-	 */
-	private amountShouldBeTon(amount: BigNumberish): void {
-		const amountBigNumber = BigNumber.from(amount);
-		if (amountBigNumber.lte(0) || amountBigNumber.mod(1000).toNumber() !== 0) {
-			throw new TheaError({
-				type: "INVALID_TOKEN_AMOUNT_VALUE",
-				message: "Amount should be a ton. Value must be greater than 0 and divisible by 1000"
-			});
-		}
 	}
 
 	/**

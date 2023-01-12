@@ -8,6 +8,7 @@ import {
 	SDG_TOKEN_CONTRACT_ADDRESS,
 	signerRequired,
 	TheaError,
+	tokenAmountShouldBeTon,
 	validateAddress,
 	VINTAGE_TOKEN_CONTRACT_ADDRESS
 } from "../../src/utils";
@@ -80,6 +81,25 @@ describe("Utils", () => {
 		it("should return RATING_TOKEN_CONTRACT_ADDRESS if token is Rating", () => {
 			const result = getERC20ContractAddress("Rating");
 			expect(result).toBe(RATING_TOKEN_CONTRACT_ADDRESS);
+		});
+	});
+
+	describe("tokenAmountShouldBeTon", () => {
+		it("should throw error if amount is not ton", () => {
+			expect(() => {
+				tokenAmountShouldBeTon(100);
+			}).toThrow(
+				new TheaError({
+					type: "INVALID_TOKEN_AMOUNT_VALUE",
+					message: "Amount should be a ton. Value must be greater than 0 and divisible by 1000"
+				})
+			);
+		});
+
+		it("should not throw error if amount is ton", () => {
+			expect(() => {
+				tokenAmountShouldBeTon(1000);
+			}).not.toThrow();
 		});
 	});
 });

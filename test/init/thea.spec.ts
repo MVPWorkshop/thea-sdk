@@ -1,4 +1,4 @@
-import { TheaNetwork, TheaSDK, Unwrap } from "../../src";
+import { TheaNetwork, TheaSDK, Unwrap, Offset } from "../../src";
 import { TheaError } from "../../src/utils";
 import { ExternalProvider, InfuraProvider, Provider, Web3Provider } from "@ethersproject/providers";
 import { Wallet } from "@ethersproject/wallet";
@@ -45,6 +45,7 @@ describe("TheaSDK", () => {
 			});
 
 			expect(Unwrap).toHaveBeenCalledTimes(1);
+			expect(Offset).toHaveBeenCalledTimes(1);
 		});
 		it("should return TheaSDK instance using web3Provider", () => {
 			const web3Provider = new Web3Provider({} as ExternalProvider);
@@ -59,6 +60,7 @@ describe("TheaSDK", () => {
 			expect(result.providerOrSigner).toBeDefined();
 			expect(getSignerSpy).toHaveBeenCalled();
 			expect(Unwrap).toBeCalled();
+			expect(Offset).toBeCalled();
 		});
 
 		it("should return TheaSDK instance using signer", () => {
