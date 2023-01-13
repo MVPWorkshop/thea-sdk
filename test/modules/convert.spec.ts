@@ -121,11 +121,11 @@ describe("Convert", () => {
 
 		/* eslint-disable  @typescript-eslint/no-explicit-any */
 		it("should extract id and amount from event", () => {
-			const id = "1";
+			const tokenId = "1";
 			const amount = "1000";
 			const event: Partial<Event> = {
 				event: Events.convert,
-				args: { id, amount } as any
+				args: { tokenId, amount } as any
 			};
 			const result = convert.extractIdAndAmountFromEvent([event as Event]);
 			expect(result.id).toBe("1");

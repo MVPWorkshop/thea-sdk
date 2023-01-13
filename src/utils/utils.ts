@@ -1,7 +1,6 @@
 import { Signer } from "@ethersproject/abstract-signer";
 import { isAddress } from "@ethersproject/address";
 import { Contract, ContractInterface } from "@ethersproject/contracts";
-import { BigNumberish } from "ethers";
 import { ProviderOrSigner, TheaERC20Token } from "../types";
 import {
 	BASE_TOKEN_MANAGER_CONTRACT_ADDRESS,
@@ -11,6 +10,7 @@ import {
 } from "./consts";
 import { TheaError } from "./theaError";
 import BaseTokenManager_ABI from "../abi/BaseTokenManager_ABI.json";
+import { BigNumberish } from "@ethersproject/bignumber";
 
 /* eslint-disable  @typescript-eslint/no-explicit-any */
 export const castAbiInterface = (abi: any) => {

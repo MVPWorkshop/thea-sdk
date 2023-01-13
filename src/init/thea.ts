@@ -1,9 +1,11 @@
 import { Signer } from "@ethersproject/abstract-signer";
+import { Contract } from "@ethersproject/contracts";
 import { Provider, Web3Provider } from "@ethersproject/providers";
 import { Wallet } from "@ethersproject/wallet";
-import { Unwrap } from "../modules";
+import { Convert, Recover, Unwrap } from "../modules";
 import { TheaNetwork, ProviderOrSigner } from "../types";
-import { TheaError } from "../utils";
+import { castAbiInterface, REGISTRY_CONTRACT_ADDRESS, TheaError } from "../utils";
+import Registry_ABI from "../../src/abi/Registry_ABI.json";
 
 // SDK initialization options
 export type InitOptions = {
@@ -16,8 +18,13 @@ export type InitOptions = {
 
 export class TheaSDK {
 	readonly unwrap: Unwrap;
+	readonly convert: Convert;
+	readonly recover: Recover;
 	private constructor(readonly providerOrSigner: ProviderOrSigner, readonly network: TheaNetwork) {
 		this.unwrap = new Unwrap(this.providerOrSigner);
+		this.convert = new Convert(this.providerOrSigner);
+		const registry = new Contract(REGISTRY_CONTRACT_ADDRESS, castAbiInterface(Registry_ABI.abi), this.providerOrSigner);
+		this.recover = new Recover(this.providerOrSigner, registry);
 	}
 
 	/**
@@ -33,7 +40,7 @@ export class TheaSDK {
 	static init(options: InitOptions): TheaSDK {
 		let providerOrSigner: ProviderOrSigner;
 
-		if (options.web3Provider) providerOrSigner = options.web3Provider.getSigner();
+		if (options.web3Provider) providerOrSigner = options.web3Provider.getSigner() as Signer;
 		else if (options.signer) providerOrSigner = options.signer;
 		else if (options.privateKey) {
 			if (!options.provider) {

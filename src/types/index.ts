@@ -1,5 +1,5 @@
 import { Signer } from "@ethersproject/abstract-signer";
-import { BigNumber, BigNumberish } from "@ethersproject/bignumber";
+import { BigNumber } from "@ethersproject/bignumber";
 import { Overrides } from "@ethersproject/contracts";
 import { Provider } from "@ethersproject/providers";
 
@@ -34,16 +34,16 @@ export type ContractDetails = {
 export type TheaERC20Token = "SDG" | "Vintage" | "Rating";
 export type UnwrapRequestId = { requestId?: string };
 export type ConvertEvent = { id?: string; amount?: string };
-export type RecoverEvent = { id?: string; amount?: string; msgSender?: string };
+export type RecoverEvent = { id?: string; amount?: string };
 export * from "./IRegistryContract";
 export * from "./IBaseTokenManagerContract";
 export * from "./IERC1155Contract";
 export * from "./IERC20Contract";
 
 export type BaseTokenCharactaristics = {
-	vintage: BigNumberish;
-	sdgsCount: BigNumberish;
-	rating: BigNumberish;
+	vintage: BigNumber;
+	sdgsCount: BigNumber;
+	rating: BigNumber;
 };
 
 export type BaseTokenAmounts = {

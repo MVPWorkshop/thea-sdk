@@ -150,14 +150,12 @@ describe("Recover", () => {
 			const result = recover.extractInfoFromEvent();
 			expect(result.id).toBeUndefined();
 			expect(result.amount).toBeUndefined();
-			expect(result.msgSender).toBeUndefined();
 		});
 
 		it("should return undefined id, amount and msgSender if no Recover event passed", () => {
 			const result = recover.extractInfoFromEvent();
 			expect(result.id).toBeUndefined();
 			expect(result.amount).toBeUndefined();
-			expect(result.msgSender).toBeUndefined();
 		});
 
 		it("should return undefined id, amount and msgSender if no args in event", () => {
@@ -167,22 +165,19 @@ describe("Recover", () => {
 			const result = recover.extractInfoFromEvent([event as Event]);
 			expect(result.id).toBeUndefined();
 			expect(result.amount).toBeUndefined();
-			expect(result.msgSender).toBeUndefined();
 		});
 
 		/* eslint-disable  @typescript-eslint/no-explicit-any */
 		it("should extract id, amount and msgSender from event", () => {
-			const id = "1";
+			const tokenId = "1";
 			const amount = "1000";
-			const msgSender = "0x123";
 			const event: Partial<Event> = {
 				event: Events.recover,
-				args: { id, amount, msgSender } as any
+				args: { tokenId, amount } as any
 			};
 			const result = recover.extractInfoFromEvent([event as Event]);
 			expect(result.id).toBe("1");
 			expect(result.amount).toBe("1000");
-			expect(result.msgSender).toBe("0x123");
 		});
 	});
 });

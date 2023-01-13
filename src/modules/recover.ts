@@ -38,6 +38,7 @@ export class Recover extends ContractWrapper<IBaseTokenManagerContract> {
 		this.amountShouldBeGTZero(amount);
 
 		const baseTokenCharactaristics = await this.contract.baseCharacteristics();
+		console.log("baseTokenCharactaristics", baseTokenCharactaristics);
 		const btAmount = await this.calculateBaseTokensAmounts(tokenId, amount, baseTokenCharactaristics);
 
 		await this.checkBalancesForAllBaseTokens(btAmount, baseTokenCharactaristics);
@@ -122,7 +123,7 @@ export class Recover extends ContractWrapper<IBaseTokenManagerContract> {
 		baseTokenCharactaristics: BaseTokenCharactaristics
 	): Promise<{ btVintage: BigNumber; sdg: BigNumber; vintage: BigNumber; rating: BigNumber }> {
 		const unitAmount = BigNumber.from(amount).mul(RATE_VCC_TO_BT);
-
+		// console.log("unitAmount", unitAmount);
 		const { sdgValue, vintageValue, ratingValue } = await this.getFeatureValue(id);
 
 		const sdgAmount = BigNumber.from(unitAmount).mul(sdgValue.sub(baseTokenCharactaristics.sdgsCount));
@@ -136,19 +137,19 @@ export class Recover extends ContractWrapper<IBaseTokenManagerContract> {
 		id: BigNumberish
 	): Promise<{ vintageValue: BigNumber; sdgValue: BigNumber; ratingValue: BigNumber }> {
 		const keys = [formatBytes32String("vintage"), formatBytes32String("sdgs_count"), formatBytes32String("rating")];
-		const bytes = this.registry.getCharacteristicsBytes(id, keys);
+		const bytes = await this.registry.getCharacteristicsBytes(id, keys);
+		console.log("bytes", bytes);
 		const values = defaultAbiCoder.decode(["uint256", "uint256", "uint256"], bytes);
 		return { vintageValue: values[0], sdgValue: values[1], ratingValue: values[2] };
 	}
 
 	extractInfoFromEvent(events?: Event[]): RecoverEvent {
-		const response: RecoverEvent = { id: undefined, amount: undefined, msgSender: undefined };
+		const response: RecoverEvent = { id: undefined, amount: undefined };
 		if (events) {
 			const event = events.find((event) => event.event === Events.recover);
 			if (event) {
-				response.id = event.args?.id.toString();
+				response.id = event.args?.tokenId.toString();
 				response.amount = event.args?.amount.toString();
-				response.msgSender = event.args?.msgSender.toString();
 			}
 		}
 

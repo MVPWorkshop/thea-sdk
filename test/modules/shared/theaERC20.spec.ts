@@ -52,7 +52,7 @@ describe("TheaERC20", () => {
 	it("should approve token", async () => {
 		const details: ContractDetails & { contractFunction: string } = {
 			contractFunction: "approve",
-			address: VINTAGE_TOKEN_CONTRACT_ADDRESS,
+			address: "Vintage",
 			name: "TheaERC20"
 		};
 		const txPromise = Promise.resolve({} as ContractTransaction);

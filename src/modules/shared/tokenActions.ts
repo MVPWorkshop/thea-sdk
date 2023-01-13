@@ -1,8 +1,7 @@
 import { Signer } from "@ethersproject/abstract-signer";
 import { BigNumberish } from "@ethersproject/bignumber";
 import { TheaERC20Token } from "../../types";
-import { TheaError, getBaseTokenERC20ContractAddress } from "../../utils";
-import { BaseTokenERC20 } from "./baseTokenERC20";
+import { TheaError, getBaseTokenERC20ContractAddress, getERC20ContractAddress } from "../../utils";
 import { TheaERC1155 } from "./theaERC1155";
 import { TheaERC20 } from "./theaERC20";
 
@@ -32,13 +31,17 @@ export const approve = async (signer: Signer, options: ApproveOptions): Promise<
 	const owner = await signer.getAddress();
 	switch (options.token) {
 		case "BaseTokeneERC20":
-			return new BaseTokenERC20(signer, await getBaseTokenERC20ContractAddress(options.id, signer)).approveERC20(
+			return new TheaERC20(signer, await getBaseTokenERC20ContractAddress(options.id, signer)).approveERC20(
 				owner,
 				options.spender,
 				options.amount
 			);
 		case "ERC20":
-			return new TheaERC20(signer, options.tokenName).approveERC20(owner, options.spender, options.amount);
+			return new TheaERC20(signer, getERC20ContractAddress(options.tokenName)).approveERC20(
+				owner,
+				options.spender,
+				options.amount
+			);
 		case "ERC1155":
 			return new TheaERC1155(signer).approveERC1155(owner, options.spender);
 		default:
@@ -69,12 +72,12 @@ export const checkBalance = async (signer: Signer, options: BalanceOfOptions): P
 	const owner = await signer.getAddress();
 	switch (options.token) {
 		case "BaseTokeneERC20":
-			return new BaseTokenERC20(signer, await getBaseTokenERC20ContractAddress(options.id, signer)).checkERC20Balance(
+			return new TheaERC20(signer, await getBaseTokenERC20ContractAddress(options.id, signer)).checkERC20Balance(
 				owner,
 				options.amount
 			);
 		case "ERC20":
-			return new TheaERC20(signer, options.tokenName).checkERC20Balance(owner, options.amount);
+			return new TheaERC20(signer, getERC20ContractAddress(options.tokenName)).checkERC20Balance(owner, options.amount);
 		case "ERC1155":
 			return new TheaERC1155(signer).checkERC1155Balance(owner, options.tokenId, options.amount);
 		default:
