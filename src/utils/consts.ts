@@ -4,8 +4,10 @@ export const VINTAGE_TOKEN_CONTRACT_ADDRESS = "0x3621027715647B69D706636a8878E85
 export const SDG_TOKEN_CONTRACT_ADDRESS = "0xB48C895039c9F81C87eb97Ed54B69a769b291f28";
 export const RATING_TOKEN_CONTRACT_ADDRESS = "0xc95347BD5212148A09c34a7d890D061D73f50bb8";
 export const BASE_TOKEN_MANAGER_CONTRACT_ADDRESS = "0xc95347BD5212148A09c34a7d890D061D73f50bb8";
+export const RATE_VCC_TO_BT = 10;
 
 export enum Events {
 	unwrap = "UnwrapRequested",
-	convert = "Converted"
+	convert = "Converted",
+	recover = "Recovered"
 }

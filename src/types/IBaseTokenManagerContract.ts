@@ -1,5 +1,5 @@
 import { Contract, ContractTransaction } from "@ethersproject/contracts";
-import { PromiseOrValue, TransactionOptions } from ".";
+import { BaseTokenCharactaristics, PromiseOrValue, TransactionOptions } from ".";
 import { BigNumberish } from "@ethersproject/bignumber";
 
 export interface IBaseTokenManagerContract extends Contract {
@@ -8,4 +8,12 @@ export interface IBaseTokenManagerContract extends Contract {
 		amount: PromiseOrValue<BigNumberish>,
 		overrides?: TransactionOptions
 	): Promise<ContractTransaction>;
+
+	recover(
+		id: PromiseOrValue<BigNumberish>,
+		amount: PromiseOrValue<BigNumberish>,
+		overrides?: TransactionOptions
+	): Promise<ContractTransaction>;
+
+	baseCharacteristics(): Promise<BaseTokenCharactaristics>;
 }

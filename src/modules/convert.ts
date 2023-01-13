@@ -20,7 +20,6 @@ export class Convert extends ContractWrapper<IBaseTokenManagerContract> {
 	async convertNFT(tokenId: BigNumberish, amount: BigNumberish): Promise<ContractReceipt> {
 		signerRequired(this.providerOrSigner);
 		this.amountShouldBeGTZero(amount);
-		// TODO: add check for existance of token id
 
 		await checkBalance(this.providerOrSigner as Signer, { token: "ERC1155", tokenId, amount });
 

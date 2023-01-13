@@ -21,7 +21,8 @@ export default [
 					"@ethersproject/wallet": "wallet",
 					"@ethersproject/bignumber": "bignumber",
 					"@ethersproject/address": "address",
-					"@ethersproject/contracts": "contracts"
+					"@ethersproject/contracts": "contracts",
+					"@ethersproject/strings": "strings"
 				}
 			},
 			{ file: pkg.main, format: "cjs", sourcemap: true },
