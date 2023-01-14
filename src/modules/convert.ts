@@ -22,31 +22,12 @@ export class Convert extends ContractWrapper<IBaseTokenManagerContract> {
 		this.amountShouldBeGTZero(amount);
 
 		await checkBalance(this.providerOrSigner as Signer, { token: "ERC1155", tokenId, amount });
-		// console.log("balance checked");
+
 		await approve(this.providerOrSigner as Signer, {
 			token: "ERC1155",
 			spender: BASE_TOKEN_MANAGER_CONTRACT_ADDRESS
 		});
-		// console.log("balance approved");
-		// const baseTokenManagerDeployer = new Contract(
-		// 	BASE_TOKEN_MANAGER_DEPLOYER_CONTRACT_ADDRESS,
-		// 	castAbiInterface(BaseTokenManagerDeployer_ABI.abi),
-		// 	this.providerOrSigner
-		// );
-		// const events = await baseTokenManagerDeployer.queryFilter("*", "0x00", "0x9999999");
-		// console.log("events", events);
-		// const vintageToken = await baseTokenManagerDeployer.vintageToken();
-		// console.log("vintageToken", vintageToken);
-		// const sdgToken = await baseTokenManagerDeployer.sdgToken();
-		// console.log("sdgToken", sdgToken);
-		// const ratingToken = await baseTokenManagerDeployer.ratingToken();
-		// console.log("ratingToken", ratingToken);
-		// const registry = await baseTokenManagerDeployer.registry();
-		// console.log("registry", registry);
-		// const baseTokenManagerBeacon = await baseTokenManagerDeployer.baseTokenManagerBeacon();
-		// console.log("baseTokenManagerBeacon", baseTokenManagerBeacon);
-		// const baseTokenCharactaristics = await this.contract.baseCharacteristics();
-		// console.log("baseTokenCharactaristics", baseTokenCharactaristics);
+
 		return executeWithResponse<ConvertEvent>(
 			this.contract.convert(tokenId, amount),
 			{

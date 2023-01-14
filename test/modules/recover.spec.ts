@@ -1,5 +1,5 @@
 import { BigNumber } from "@ethersproject/bignumber";
-import { Contract, ContractTransaction, Event } from "@ethersproject/contracts";
+import { ContractTransaction, Event } from "@ethersproject/contracts";
 import { JsonRpcProvider } from "@ethersproject/providers";
 import { Wallet } from "@ethersproject/wallet";
 import {
@@ -8,14 +8,12 @@ import {
 	TheaError,
 	Recover,
 	IBaseTokenManagerContract,
-	REGISTRY_CONTRACT_ADDRESS,
-	castAbiInterface,
-	BaseTokenCharactaristics
+	BaseTokenCharactaristics,
+	GetCharacteristicsBytes
 } from "../../src";
 import { PRIVATE_KEY } from "../mocks";
 import * as shared from "../../src/modules/shared";
 import BaseTokenManager_ABI from "../../src/abi/BaseTokenManager_ABI.json";
-import Registry_ABI from "../../src/abi/Registry_ABI.json";
 
 jest.mock("../../src/modules/shared", () => {
 	return {
@@ -72,14 +70,14 @@ describe("Recover", () => {
 	};
 
 	beforeEach(() => {
-		const registry = new Contract(REGISTRY_CONTRACT_ADDRESS, castAbiInterface(Registry_ABI.abi), providerOrSigner);
+		const registry = new GetCharacteristicsBytes(providerOrSigner);
 		recover = new Recover(providerOrSigner, registry);
 		recover.contract = mockContract as IBaseTokenManagerContract;
 	});
 
 	describe("recoverNFT", () => {
 		it("should throw error that signer is required", async () => {
-			const registry = new Contract(REGISTRY_CONTRACT_ADDRESS, castAbiInterface(Registry_ABI.abi), providerOrSigner);
+			const registry = new GetCharacteristicsBytes(providerOrSigner);
 			recover = new Recover(new JsonRpcProvider(), registry);
 			await expect(recover.recoverNFT(tokenId, amount)).rejects.toThrow(
 				new TheaError({

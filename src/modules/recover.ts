@@ -15,14 +15,15 @@ import {
 } from "../utils";
 import BaseTokenManager_ABI from "../abi/BaseTokenManager_ABI.json";
 import { BigNumber, BigNumberish } from "@ethersproject/bignumber";
-import { Contract, ContractReceipt, Event } from "@ethersproject/contracts";
+import { ContractReceipt, Event } from "@ethersproject/contracts";
 import { approve, checkBalance, executeWithResponse } from "./shared";
 import { Signer } from "@ethersproject/abstract-signer";
 import { formatBytes32String } from "@ethersproject/strings";
 import { defaultAbiCoder } from "@ethersproject/abi";
+import { GetCharacteristicsBytes } from "./getCharacteristicsBytes";
 
 export class Recover extends ContractWrapper<IBaseTokenManagerContract> {
-	constructor(readonly providerOrSigner: ProviderOrSigner, readonly registry: Contract) {
+	constructor(readonly providerOrSigner: ProviderOrSigner, readonly registry: GetCharacteristicsBytes) {
 		super(providerOrSigner, BaseTokenManager_ABI, BASE_TOKEN_MANAGER_CONTRACT_ADDRESS);
 		this.registry = registry;
 	}
@@ -38,7 +39,6 @@ export class Recover extends ContractWrapper<IBaseTokenManagerContract> {
 		this.amountShouldBeGTZero(amount);
 
 		const baseTokenCharactaristics = await this.contract.baseCharacteristics();
-		console.log("baseTokenCharactaristics", baseTokenCharactaristics);
 		const btAmount = await this.calculateBaseTokensAmounts(tokenId, amount, baseTokenCharactaristics);
 
 		await this.checkBalancesForAllBaseTokens(btAmount, baseTokenCharactaristics);
@@ -123,7 +123,6 @@ export class Recover extends ContractWrapper<IBaseTokenManagerContract> {
 		baseTokenCharactaristics: BaseTokenCharactaristics
 	): Promise<{ btVintage: BigNumber; sdg: BigNumber; vintage: BigNumber; rating: BigNumber }> {
 		const unitAmount = BigNumber.from(amount).mul(RATE_VCC_TO_BT);
-		// console.log("unitAmount", unitAmount);
 		const { sdgValue, vintageValue, ratingValue } = await this.getFeatureValue(id);
 
 		const sdgAmount = BigNumber.from(unitAmount).mul(sdgValue.sub(baseTokenCharactaristics.sdgsCount));
@@ -138,7 +137,6 @@ export class Recover extends ContractWrapper<IBaseTokenManagerContract> {
 	): Promise<{ vintageValue: BigNumber; sdgValue: BigNumber; ratingValue: BigNumber }> {
 		const keys = [formatBytes32String("vintage"), formatBytes32String("sdgs_count"), formatBytes32String("rating")];
 		const bytes = await this.registry.getCharacteristicsBytes(id, keys);
-		console.log("bytes", bytes);
 		const values = defaultAbiCoder.decode(["uint256", "uint256", "uint256"], bytes);
 		return { vintageValue: values[0], sdgValue: values[1], ratingValue: values[2] };
 	}

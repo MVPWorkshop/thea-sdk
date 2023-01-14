@@ -12,6 +12,8 @@ export interface IRegistryContract extends Contract {
 		}
 	>;
 
+	getCharacteristicsBytes(id: BigNumberish, keys: string[]): Promise<string>;
+
 	unwrap(
 		id: PromiseOrValue<BigNumberish>,
 		amount: PromiseOrValue<BigNumberish>,

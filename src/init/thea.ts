@@ -1,11 +1,9 @@
 import { Signer } from "@ethersproject/abstract-signer";
-import { Contract } from "@ethersproject/contracts";
 import { Provider, Web3Provider } from "@ethersproject/providers";
 import { Wallet } from "@ethersproject/wallet";
-import { Convert, Recover, Unwrap } from "../modules";
+import { Convert, GetCharacteristicsBytes, Recover, Unwrap } from "../modules";
 import { TheaNetwork, ProviderOrSigner } from "../types";
-import { castAbiInterface, REGISTRY_CONTRACT_ADDRESS, TheaError } from "../utils";
-import Registry_ABI from "../../src/abi/Registry_ABI.json";
+import { TheaError } from "../utils";
 
 // SDK initialization options
 export type InitOptions = {
@@ -23,7 +21,7 @@ export class TheaSDK {
 	private constructor(readonly providerOrSigner: ProviderOrSigner, readonly network: TheaNetwork) {
 		this.unwrap = new Unwrap(this.providerOrSigner);
 		this.convert = new Convert(this.providerOrSigner);
-		const registry = new Contract(REGISTRY_CONTRACT_ADDRESS, castAbiInterface(Registry_ABI.abi), this.providerOrSigner);
+		const registry = new GetCharacteristicsBytes(this.providerOrSigner);
 		this.recover = new Recover(this.providerOrSigner, registry);
 	}
 
