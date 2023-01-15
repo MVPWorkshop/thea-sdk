@@ -14,18 +14,22 @@ export class HttpClient {
 	}
 
 	// TODO: Add error handling here or in API call implementation
-	async post<TRequest, TResponse>(path: string, payload: TRequest): Promise<TResponse> {
+	async post<TRequest, TResponse>(
+		path: string,
+		payload: TRequest,
+		params?: Record<string, string>
+	): Promise<TResponse> {
 		try {
-			const response = await this.client.post<TResponse>(path, payload);
+			const response = await this.client.post<TResponse>(path, payload, { params });
 			return response.data;
 		} catch (error) {
 			throw new TheaAPICallError(error.message, "POST", path);
 		}
 	}
 
-	async get<TResponse>(path: string): Promise<TResponse> {
+	async get<TResponse>(path: string, params?: Record<string, string>): Promise<TResponse> {
 		try {
-			const response = await this.client.get<TResponse>(path);
+			const response = await this.client.get<TResponse>(path, { params });
 			return response.data;
 		} catch (error) {
 			throw new TheaAPICallError(error.message, "GET", path);

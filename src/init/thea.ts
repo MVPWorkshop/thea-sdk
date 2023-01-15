@@ -1,7 +1,7 @@
 import { Signer } from "@ethersproject/abstract-signer";
 import { Provider, Web3Provider } from "@ethersproject/providers";
 import { Wallet } from "@ethersproject/wallet";
-import { Unwrap } from "../modules";
+import { Tokenization, Unwrap } from "../modules";
 import { TheaNetwork, ProviderOrSigner } from "../types";
 import { TheaError } from "../utils";
 
@@ -16,8 +16,10 @@ export type InitOptions = {
 
 export class TheaSDK {
 	readonly unwrap: Unwrap;
+	readonly tokenization: Tokenization;
 	private constructor(readonly providerOrSigner: ProviderOrSigner, readonly network: TheaNetwork) {
 		this.unwrap = new Unwrap(this.providerOrSigner);
+		this.tokenization = new Tokenization(this.network);
 	}
 
 	/**

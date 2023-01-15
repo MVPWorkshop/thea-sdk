@@ -4,7 +4,7 @@ import commonjs from "@rollup/plugin-commonjs";
 import pkg from "./package.json" assert { type: "json" };
 import { nodeResolve } from "@rollup/plugin-node-resolve";
 
-const external = [...Object.keys(pkg.peerDependencies)];
+const external = [...Object.keys(pkg.peerDependencies), ...Object.keys(pkg.dependencies)];
 
 export default [
 	{
@@ -21,7 +21,8 @@ export default [
 					"@ethersproject/wallet": "wallet",
 					"@ethersproject/bignumber": "bignumber",
 					"@ethersproject/address": "address",
-					"@ethersproject/contracts": "contracts"
+					"@ethersproject/contracts": "contracts",
+					axios: "axios"
 				}
 			},
 			{ file: pkg.main, format: "cjs", sourcemap: true },
