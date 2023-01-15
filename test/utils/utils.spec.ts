@@ -3,6 +3,7 @@ import { Wallet } from "@ethersproject/wallet";
 import {
 	castAbiInterface,
 	getERC20ContractAddress,
+	getBaseTokenERC20ContractAddress,
 	isSigner,
 	RATING_TOKEN_CONTRACT_ADDRESS,
 	SDG_TOKEN_CONTRACT_ADDRESS,
@@ -13,6 +14,15 @@ import {
 } from "../../src/utils";
 import { ABI, PRIVATE_KEY, WALLET_ADDRESS } from "../mocks";
 
+jest.mock("@ethersproject/contracts", () => {
+	return {
+		Contract: jest.fn().mockImplementation(() => {
+			return {
+				baseTokens: jest.fn().mockReturnValue("0x0001")
+			};
+		})
+	};
+});
 describe("Utils", () => {
 	it("should cast contract ABI as ContractInterface", () => {
 		const result = castAbiInterface(ABI);
@@ -80,6 +90,14 @@ describe("Utils", () => {
 		it("should return RATING_TOKEN_CONTRACT_ADDRESS if token is Rating", () => {
 			const result = getERC20ContractAddress("Rating");
 			expect(result).toBe(RATING_TOKEN_CONTRACT_ADDRESS);
+		});
+	});
+
+	describe("getBaseTokenERC20ContractAddress", () => {
+		it("should return base token address by id", async () => {
+			const providerOrSigner = new Wallet(PRIVATE_KEY);
+			const result = await getBaseTokenERC20ContractAddress(1, providerOrSigner);
+			expect(result).toBe("0x0001");
 		});
 	});
 });
