@@ -1,4 +1,4 @@
-import { TheaError, TheaTransactionError } from "../../src/utils";
+import { TheaAPICallError, TheaError, TheaTransactionError } from "../../src/utils";
 import { CONTRACT_ADDRESS } from "../mocks";
 
 describe("Thea errors", () => {
@@ -16,6 +16,15 @@ describe("Thea errors", () => {
 		);
 		expect(error.message).toBe("error message");
 		expect(error.type).toBe("TRANSACTION_FAILED");
+		expect(error instanceof TheaError).toBe(true);
+	});
+
+	it("should return the correct error message, type, method and endpoint path details for TheaAPICallError", () => {
+		const error = new TheaAPICallError("404 not found", "GET", "/api/v1/");
+		expect(error.message).toBe("404 not found");
+		expect(error.type).toBe("API_CALL_ERROR");
+		expect(error.endpoint).toBe("/api/v1/");
+		expect(error.method).toBe("GET");
 		expect(error instanceof TheaError).toBe(true);
 	});
 });
