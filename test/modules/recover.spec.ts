@@ -3,18 +3,21 @@ import { ContractTransaction, Event } from "@ethersproject/contracts";
 import { JsonRpcProvider } from "@ethersproject/providers";
 import { Wallet } from "@ethersproject/wallet";
 import {
-	BASE_TOKEN_MANAGER_CONTRACT_ADDRESS,
 	Events,
 	TheaError,
 	Recover,
 	IBaseTokenManagerContract,
 	BaseTokenCharactaristics,
-	GetCharacteristicsBytes
+	GetCharacteristicsBytes,
+	TheaNetwork,
+	consts
 } from "../../src";
 import { PRIVATE_KEY } from "../mocks";
 import * as shared from "../../src/modules/shared";
 import BaseTokenManager_ABI from "../../src/abi/BaseTokenManager_ABI.json";
 import { formatBytes32String } from "@ethersproject/strings";
+
+const baseTokenManagerContractAddress = consts[TheaNetwork.GANACHE].baseTokenManagerContract;
 
 jest.mock("../../src/modules/shared", () => {
 	return {
@@ -22,9 +25,9 @@ jest.mock("../../src/modules/shared", () => {
 		approve: jest.fn(),
 		executeWithResponse: jest.fn().mockImplementation(() => {
 			return {
-				to: BASE_TOKEN_MANAGER_CONTRACT_ADDRESS,
+				to: baseTokenManagerContractAddress,
 				from: "0x123",
-				contractAddress: BASE_TOKEN_MANAGER_CONTRACT_ADDRESS,
+				contractAddress: baseTokenManagerContractAddress,
 				id: "1",
 				amount: "1000",
 				msgSender: "0x123"
@@ -41,9 +44,9 @@ describe("Recover", () => {
 
 	const contractTransaction: Partial<ContractTransaction> = {
 		wait: jest.fn().mockResolvedValue({
-			to: BASE_TOKEN_MANAGER_CONTRACT_ADDRESS,
+			to: baseTokenManagerContractAddress,
 			from: "0x123",
-			contractAddress: BASE_TOKEN_MANAGER_CONTRACT_ADDRESS
+			contractAddress: baseTokenManagerContractAddress
 		})
 	};
 
@@ -79,16 +82,18 @@ describe("Recover", () => {
 		baseCharacteristics: jest.fn().mockResolvedValue(baseTokenCharacteristicsTransaction as ContractTransaction)
 	};
 
+	const network = TheaNetwork.GANACHE;
+
 	beforeEach(() => {
-		const registry = new GetCharacteristicsBytes(providerOrSigner);
-		recover = new Recover(providerOrSigner, registry);
+		const registry = new GetCharacteristicsBytes(providerOrSigner, network);
+		recover = new Recover(providerOrSigner, network, registry);
 		recover.contract = mockContract as IBaseTokenManagerContract;
 	});
 
 	describe("recoverNFT", () => {
 		it("should throw error that signer is required", async () => {
-			const registry = new GetCharacteristicsBytes(providerOrSigner);
-			recover = new Recover(new JsonRpcProvider(), registry);
+			const registry = new GetCharacteristicsBytes(providerOrSigner, network);
+			recover = new Recover(new JsonRpcProvider(), network, registry);
 			await expect(recover.recoverNFT(tokenId, amount)).rejects.toThrow(
 				new TheaError({
 					type: "SIGNER_REQUIRED",
@@ -139,16 +144,16 @@ describe("Recover", () => {
 				txPromise,
 				{
 					name: BaseTokenManager_ABI.contractName,
-					address: BASE_TOKEN_MANAGER_CONTRACT_ADDRESS,
+					address: baseTokenManagerContractAddress,
 					contractFunction: "recover"
 				},
 				recover.extractInfoFromEvent
 			);
 			expect(recoverSpy).toHaveBeenCalledWith(tokenId, amount);
 			expect(result).toMatchObject({
-				to: BASE_TOKEN_MANAGER_CONTRACT_ADDRESS,
+				to: baseTokenManagerContractAddress,
 				from: "0x123",
-				contractAddress: BASE_TOKEN_MANAGER_CONTRACT_ADDRESS
+				contractAddress: baseTokenManagerContractAddress
 			});
 		});
 	});

@@ -1,16 +1,11 @@
 import { Signer } from "@ethersproject/abstract-signer";
 import { isAddress } from "@ethersproject/address";
 import { Contract, ContractInterface } from "@ethersproject/contracts";
-import { ProviderOrSigner, TheaERC20Token } from "../types";
-import {
-	BASE_TOKEN_MANAGER_CONTRACT_ADDRESS,
-	RATING_TOKEN_CONTRACT_ADDRESS,
-	SDG_TOKEN_CONTRACT_ADDRESS,
-	VINTAGE_TOKEN_CONTRACT_ADDRESS
-} from "./consts";
+import { ProviderOrSigner, TheaERC20Token, TheaNetwork } from "../types";
+import { consts } from "./consts";
 import { TheaError } from "./theaError";
 import BaseTokenManager_ABI from "../abi/BaseTokenManager_ABI.json";
-import { BigNumberish } from "@ethersproject/bignumber";
+import { BigNumber, BigNumberish } from "@ethersproject/bignumber";
 
 /* eslint-disable  @typescript-eslint/no-explicit-any */
 export const castAbiInterface = (abi: any) => {
@@ -42,25 +37,36 @@ export const signerRequired = (providerOrSigner: ProviderOrSigner) => {
 	}
 };
 
-export const getERC20ContractAddress = (token: TheaERC20Token): string => {
+export const getERC20ContractAddress = (token: TheaERC20Token, network: TheaNetwork): string => {
 	switch (token) {
 		case "SDG":
-			return SDG_TOKEN_CONTRACT_ADDRESS;
+			return consts[`${network}`].sdgTokenContract;
 		case "Vintage":
-			return VINTAGE_TOKEN_CONTRACT_ADDRESS;
+			return consts[`${network}`].vintageTokenContract;
 		default:
-			return RATING_TOKEN_CONTRACT_ADDRESS;
+			return consts[`${network}`].ratingTokenContract;
 	}
 };
 
 export const getBaseTokenERC20ContractAddress = async (
 	id: BigNumberish,
-	providerOrSigner: ProviderOrSigner
+	providerOrSigner: ProviderOrSigner,
+	contractAddress: string
 ): Promise<string> => {
 	const basteTokenManagerContract = new Contract(
-		BASE_TOKEN_MANAGER_CONTRACT_ADDRESS,
+		contractAddress,
 		castAbiInterface(BaseTokenManager_ABI.abi),
 		providerOrSigner
 	);
 	return await basteTokenManagerContract.baseTokens(id);
+};
+
+export const amountShouldBeGTZero = (amount: BigNumberish): void => {
+	const amountBigNumber = BigNumber.from(amount);
+	if (amountBigNumber.lte(0)) {
+		throw new TheaError({
+			type: "INVALID_TOKEN_AMOUNT_VALUE",
+			message: "Amount should be greater than 0"
+		});
+	}
 };

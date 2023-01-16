@@ -3,16 +3,10 @@ import {
 	IBaseTokenManagerContract,
 	RecoverEvent,
 	BaseTokenCharactaristics,
-	BaseTokenAmounts
+	BaseTokenAmounts,
+	TheaNetwork
 } from "../types";
-import {
-	ContractWrapper,
-	BASE_TOKEN_MANAGER_CONTRACT_ADDRESS,
-	RATE_VCC_TO_BT,
-	signerRequired,
-	TheaError,
-	Events
-} from "../utils";
+import { ContractWrapper, RATE_VCC_TO_BT, signerRequired, Events, consts, amountShouldBeGTZero } from "../utils";
 import BaseTokenManager_ABI from "../abi/BaseTokenManager_ABI.json";
 import { BigNumber, BigNumberish } from "@ethersproject/bignumber";
 import { ContractReceipt, Event } from "@ethersproject/contracts";
@@ -23,8 +17,12 @@ import { defaultAbiCoder } from "@ethersproject/abi";
 import { GetCharacteristicsBytes } from "./getCharacteristicsBytes";
 
 export class Recover extends ContractWrapper<IBaseTokenManagerContract> {
-	constructor(readonly providerOrSigner: ProviderOrSigner, readonly registry: GetCharacteristicsBytes) {
-		super(providerOrSigner, BaseTokenManager_ABI, BASE_TOKEN_MANAGER_CONTRACT_ADDRESS);
+	constructor(
+		readonly providerOrSigner: ProviderOrSigner,
+		readonly network: TheaNetwork,
+		readonly registry: GetCharacteristicsBytes
+	) {
+		super(providerOrSigner, BaseTokenManager_ABI, consts[`${network}`].baseTokenManagerContract);
 		this.registry = registry;
 	}
 
@@ -36,7 +34,7 @@ export class Recover extends ContractWrapper<IBaseTokenManagerContract> {
 	 */
 	async recoverNFT(tokenId: BigNumberish, amount: BigNumberish): Promise<ContractReceipt> {
 		signerRequired(this.providerOrSigner);
-		this.amountShouldBeGTZero(amount);
+		amountShouldBeGTZero(amount);
 
 		const baseTokenCharactaristics = await this.contract.baseCharacteristics();
 		const btAmount = await this.calculateBaseTokensAmounts(tokenId, amount, baseTokenCharactaristics);
@@ -55,18 +53,22 @@ export class Recover extends ContractWrapper<IBaseTokenManagerContract> {
 	}
 
 	async checkBalancesForAllBaseTokens(btAmount: BaseTokenAmounts, baseTokenCharactaristics: BaseTokenCharactaristics) {
-		await checkBalance(this.providerOrSigner as Signer, {
+		await checkBalance(this.providerOrSigner as Signer, this.network, {
 			token: "BaseTokeneERC20",
 			amount: btAmount.btVintage,
 			id: baseTokenCharactaristics.vintage
 		});
-		await checkBalance(this.providerOrSigner as Signer, { token: "ERC20", amount: btAmount.sdg, tokenName: "SDG" });
-		await checkBalance(this.providerOrSigner as Signer, {
+		await checkBalance(this.providerOrSigner as Signer, this.network, {
+			token: "ERC20",
+			amount: btAmount.sdg,
+			tokenName: "SDG"
+		});
+		await checkBalance(this.providerOrSigner as Signer, this.network, {
 			token: "ERC20",
 			amount: btAmount.vintage,
 			tokenName: "Vintage"
 		});
-		await checkBalance(this.providerOrSigner as Signer, {
+		await checkBalance(this.providerOrSigner as Signer, this.network, {
 			token: "ERC20",
 			amount: btAmount.rating,
 			tokenName: "Rating"
@@ -74,48 +76,36 @@ export class Recover extends ContractWrapper<IBaseTokenManagerContract> {
 	}
 
 	async approveAllBaseTokens(btAmount: BaseTokenAmounts, baseTokenCharactaristics: BaseTokenCharactaristics) {
-		await approve(this.providerOrSigner as Signer, {
+		const spender = this.contractDetails.address;
+		await approve(this.providerOrSigner as Signer, this.network, {
 			token: "BaseTokeneERC20",
-			spender: BASE_TOKEN_MANAGER_CONTRACT_ADDRESS,
+			spender,
 			amount: btAmount.btVintage,
 			id: baseTokenCharactaristics.vintage
 		});
 
-		await approve(this.providerOrSigner as Signer, {
+		await approve(this.providerOrSigner as Signer, this.network, {
 			token: "ERC20",
-			spender: BASE_TOKEN_MANAGER_CONTRACT_ADDRESS,
+			spender,
 			amount: btAmount.sdg,
 			tokenName: "SDG"
 		});
 
-		await approve(this.providerOrSigner as Signer, {
+		await approve(this.providerOrSigner as Signer, this.network, {
 			token: "ERC20",
-			spender: BASE_TOKEN_MANAGER_CONTRACT_ADDRESS,
+			spender,
 			amount: btAmount.vintage,
 			tokenName: "Vintage"
 		});
 
-		await approve(this.providerOrSigner as Signer, {
+		await approve(this.providerOrSigner as Signer, this.network, {
 			token: "ERC20",
-			spender: BASE_TOKEN_MANAGER_CONTRACT_ADDRESS,
+			spender,
 			amount: btAmount.rating,
 			tokenName: "Rating"
 		});
 	}
 
-	/**
-	 * Validates value of `amount` is greater than 0
-	 * @param amount value to be checked
-	 */
-	private amountShouldBeGTZero(amount: BigNumberish): void {
-		const amountBigNumber = BigNumber.from(amount);
-		if (amountBigNumber.lte(0)) {
-			throw new TheaError({
-				type: "INVALID_TOKEN_AMOUNT_VALUE",
-				message: "Amount should be greater than 0"
-			});
-		}
-	}
 	//returns object with sdg, vintage and rating amounts
 	async calculateBaseTokensAmounts(
 		id: BigNumberish,

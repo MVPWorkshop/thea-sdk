@@ -21,10 +21,10 @@ export class TheaSDK {
 	readonly recover: Recover;
 
 	private constructor(readonly providerOrSigner: ProviderOrSigner, readonly network: TheaNetwork) {
-		this.unwrap = new Unwrap(this.providerOrSigner);
-		this.convert = new Convert(this.providerOrSigner);
-		const registry = new GetCharacteristicsBytes(this.providerOrSigner);
-		this.recover = new Recover(this.providerOrSigner, registry);
+		this.unwrap = new Unwrap(this.providerOrSigner, network);
+		this.convert = new Convert(this.providerOrSigner, network);
+		const registry = new GetCharacteristicsBytes(this.providerOrSigner, network);
+		this.recover = new Recover(this.providerOrSigner, network, registry);
 	}
 
 	/**
