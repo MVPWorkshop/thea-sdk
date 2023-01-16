@@ -1,5 +1,5 @@
 import { Wallet } from "@ethersproject/wallet";
-import { GetCharacteristicsBytes, IRegistryContract } from "../../src";
+import { GetCharacteristicsBytes, IRegistryContract, TheaNetwork } from "../../src";
 import { PRIVATE_KEY } from "../mocks";
 
 describe("GetCharacteristicsBytes.ts", () => {
@@ -13,7 +13,7 @@ describe("GetCharacteristicsBytes.ts", () => {
 	};
 
 	beforeEach(() => {
-		getCharacteristicsBytes = new GetCharacteristicsBytes(providerOrSigner);
+		getCharacteristicsBytes = new GetCharacteristicsBytes(providerOrSigner, TheaNetwork.GANACHE);
 		getCharacteristicsBytes.contract = mockContract as IRegistryContract;
 	});
 

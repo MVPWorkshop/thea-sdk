@@ -1,11 +1,11 @@
-import { ProviderOrSigner, IRegistryContract } from "../types";
-import { ContractWrapper, REGISTRY_CONTRACT_ADDRESS } from "../utils";
+import { ProviderOrSigner, IRegistryContract, TheaNetwork } from "../types";
+import { consts, ContractWrapper } from "../utils";
 import Registry_ABI from "../abi/Registry_ABI.json";
 import { BigNumberish } from "@ethersproject/bignumber";
 
 export class GetCharacteristicsBytes extends ContractWrapper<IRegistryContract> {
-	constructor(readonly providerOrSigner: ProviderOrSigner) {
-		super(providerOrSigner, Registry_ABI, REGISTRY_CONTRACT_ADDRESS);
+	constructor(readonly providerOrSigner: ProviderOrSigner, readonly network: TheaNetwork) {
+		super(providerOrSigner, Registry_ABI, consts[`${network}`].registryContract);
 	}
 
 	/**

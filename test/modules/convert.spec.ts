@@ -2,20 +2,21 @@ import { BigNumber } from "@ethersproject/bignumber";
 import { ContractTransaction, Event } from "@ethersproject/contracts";
 import { JsonRpcProvider } from "@ethersproject/providers";
 import { Wallet } from "@ethersproject/wallet";
-import { BASE_TOKEN_MANAGER_CONTRACT_ADDRESS, Events, TheaError, Convert, IBaseTokenManagerContract } from "../../src";
+import { Events, TheaError, Convert, IBaseTokenManagerContract, TheaNetwork, consts } from "../../src";
 import { PRIVATE_KEY } from "../mocks";
 import * as shared from "../../src/modules/shared";
 import BaseTokenManager_ABI from "../../src/abi/BaseTokenManager_ABI.json";
 
+const baseTokenManagerContractAddress = consts[TheaNetwork.GANACHE].baseTokenManagerContract;
 jest.mock("../../src/modules/shared", () => {
 	return {
 		checkBalance: jest.fn(),
 		approve: jest.fn(),
 		executeWithResponse: jest.fn().mockImplementation(() => {
 			return {
-				to: BASE_TOKEN_MANAGER_CONTRACT_ADDRESS,
+				to: baseTokenManagerContractAddress,
 				from: "0x123",
-				contractAddress: BASE_TOKEN_MANAGER_CONTRACT_ADDRESS,
+				contractAddress: baseTokenManagerContractAddress,
 				id: "1",
 				amount: "1000"
 			};
@@ -28,12 +29,12 @@ describe("Convert", () => {
 	let convert: Convert;
 	const tokenId = "1";
 	const amount = BigNumber.from(1000);
-
+	const network = TheaNetwork.GANACHE;
 	const contractTransaction: Partial<ContractTransaction> = {
 		wait: jest.fn().mockResolvedValue({
-			to: BASE_TOKEN_MANAGER_CONTRACT_ADDRESS,
+			to: baseTokenManagerContractAddress,
 			from: "0x123",
-			contractAddress: BASE_TOKEN_MANAGER_CONTRACT_ADDRESS
+			contractAddress: baseTokenManagerContractAddress
 		})
 	};
 
@@ -42,13 +43,13 @@ describe("Convert", () => {
 	};
 
 	beforeEach(() => {
-		convert = new Convert(providerOrSigner);
+		convert = new Convert(providerOrSigner, network);
 		convert.contract = mockContract as IBaseTokenManagerContract;
 	});
 
 	describe("convertNFT", () => {
 		it("should throw error that signer is required", async () => {
-			convert = new Convert(new JsonRpcProvider());
+			convert = new Convert(new JsonRpcProvider(), network);
 			await expect(convert.convertNFT(tokenId, amount)).rejects.toThrow(
 				new TheaError({
 					type: "SIGNER_REQUIRED",
@@ -74,25 +75,29 @@ describe("Convert", () => {
 			const executeSpy = jest.spyOn(shared, "executeWithResponse");
 
 			const result = await convert.convertNFT(tokenId, amount);
-			expect(checkBalanceSpy).toHaveBeenCalledWith(providerOrSigner, { token: "ERC1155", tokenId, amount });
-			expect(approveSpy).toHaveBeenCalledWith(providerOrSigner, {
+			expect(checkBalanceSpy).toHaveBeenCalledWith(providerOrSigner, network, {
 				token: "ERC1155",
-				spender: BASE_TOKEN_MANAGER_CONTRACT_ADDRESS
+				tokenId,
+				amount
+			});
+			expect(approveSpy).toHaveBeenCalledWith(providerOrSigner, network, {
+				token: "ERC1155",
+				spender: baseTokenManagerContractAddress
 			});
 			expect(executeSpy).toHaveBeenCalledWith(
 				txPromise,
 				{
 					name: BaseTokenManager_ABI.contractName,
-					address: BASE_TOKEN_MANAGER_CONTRACT_ADDRESS,
+					address: baseTokenManagerContractAddress,
 					contractFunction: "convert"
 				},
 				convert.extractIdAndAmountFromEvent
 			);
 			expect(convertSpy).toHaveBeenCalledWith(tokenId, amount);
 			expect(result).toMatchObject({
-				to: BASE_TOKEN_MANAGER_CONTRACT_ADDRESS,
+				to: baseTokenManagerContractAddress,
 				from: "0x123",
-				contractAddress: BASE_TOKEN_MANAGER_CONTRACT_ADDRESS
+				contractAddress: baseTokenManagerContractAddress
 			});
 		});
 	});

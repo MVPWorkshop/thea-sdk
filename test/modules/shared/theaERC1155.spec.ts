@@ -1,18 +1,19 @@
 import { Wallet } from "@ethersproject/wallet";
-import { ContractDetails, IERC1155Contract, TheaERC1155, TheaError, THEA_ERC1155_CONTRACT_ADDRESS } from "../../../src";
+import { consts, ContractDetails, IERC1155Contract, TheaERC1155, TheaError, TheaNetwork } from "../../../src";
 import { PRIVATE_KEY, WALLET_ADDRESS } from "../../mocks";
 import * as utils from "../../../src/utils/utils";
 import * as shared from "../../../src/modules/shared";
 import { ContractReceipt, ContractTransaction } from "@ethersproject/contracts";
 import { BigNumber } from "@ethersproject/bignumber";
 
+const theaERC1155ContractAddress = consts[TheaNetwork.GANACHE].theaERC1155Contract;
 jest.mock("../../../src/modules/shared/execute", () => {
 	return {
 		execute: jest.fn().mockImplementation(() => {
 			return {
-				to: THEA_ERC1155_CONTRACT_ADDRESS,
+				to: theaERC1155ContractAddress,
 				from: "0x123",
-				contractAddress: THEA_ERC1155_CONTRACT_ADDRESS
+				contractAddress: theaERC1155ContractAddress
 			};
 		})
 	};
@@ -20,7 +21,7 @@ jest.mock("../../../src/modules/shared/execute", () => {
 
 describe("TheaERC1155", () => {
 	const signer = new Wallet(PRIVATE_KEY);
-	const theaERC1155: TheaERC1155 = new TheaERC1155(signer);
+	const theaERC1155: TheaERC1155 = new TheaERC1155(signer, TheaNetwork.GANACHE);
 	const owner = WALLET_ADDRESS;
 	const spender = WALLET_ADDRESS;
 	const tokenId = "1";
@@ -31,9 +32,9 @@ describe("TheaERC1155", () => {
 	};
 
 	const contractReceipt: Partial<ContractReceipt> = {
-		to: THEA_ERC1155_CONTRACT_ADDRESS,
+		to: theaERC1155ContractAddress,
 		from: spender,
-		contractAddress: THEA_ERC1155_CONTRACT_ADDRESS
+		contractAddress: theaERC1155ContractAddress
 	};
 	const tx: Partial<ContractTransaction> = {
 		from: spender,
@@ -67,7 +68,7 @@ describe("TheaERC1155", () => {
 		const executeSpy = jest.spyOn(shared, "execute");
 		const details: ContractDetails & { contractFunction: string } = {
 			contractFunction: "setApprovalForAll",
-			address: THEA_ERC1155_CONTRACT_ADDRESS,
+			address: theaERC1155ContractAddress,
 			name: "TheaERC1155"
 		};
 

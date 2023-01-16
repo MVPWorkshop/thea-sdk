@@ -1,14 +1,14 @@
-import { ProviderOrSigner, IBaseTokenManagerContract, ConvertEvent } from "../types";
-import { ContractWrapper, BASE_TOKEN_MANAGER_CONTRACT_ADDRESS, signerRequired, TheaError, Events } from "../utils";
+import { ProviderOrSigner, IBaseTokenManagerContract, ConvertEvent, TheaNetwork } from "../types";
+import { ContractWrapper, signerRequired, Events, consts, amountShouldBeGTZero } from "../utils";
 import BaseTokenManager_ABI from "../abi/BaseTokenManager_ABI.json";
-import { BigNumber, BigNumberish } from "@ethersproject/bignumber";
+import { BigNumberish } from "@ethersproject/bignumber";
 import { ContractReceipt, Event } from "@ethersproject/contracts";
 import { approve, checkBalance, executeWithResponse } from "./shared";
 import { Signer } from "@ethersproject/abstract-signer";
 
 export class Convert extends ContractWrapper<IBaseTokenManagerContract> {
-	constructor(readonly providerOrSigner: ProviderOrSigner) {
-		super(providerOrSigner, BaseTokenManager_ABI, BASE_TOKEN_MANAGER_CONTRACT_ADDRESS);
+	constructor(readonly providerOrSigner: ProviderOrSigner, readonly network: TheaNetwork) {
+		super(providerOrSigner, BaseTokenManager_ABI, consts[`${network}`].baseTokenManagerContract);
 	}
 
 	/**
@@ -19,13 +19,13 @@ export class Convert extends ContractWrapper<IBaseTokenManagerContract> {
 	 */
 	async convertNFT(tokenId: BigNumberish, amount: BigNumberish): Promise<ContractReceipt> {
 		signerRequired(this.providerOrSigner);
-		this.amountShouldBeGTZero(amount);
+		amountShouldBeGTZero(amount);
 
-		await checkBalance(this.providerOrSigner as Signer, { token: "ERC1155", tokenId, amount });
+		await checkBalance(this.providerOrSigner as Signer, this.network, { token: "ERC1155", tokenId, amount });
 
-		await approve(this.providerOrSigner as Signer, {
+		await approve(this.providerOrSigner as Signer, this.network, {
 			token: "ERC1155",
-			spender: BASE_TOKEN_MANAGER_CONTRACT_ADDRESS
+			spender: this.contractDetails.address
 		});
 
 		return executeWithResponse<ConvertEvent>(
@@ -36,20 +36,6 @@ export class Convert extends ContractWrapper<IBaseTokenManagerContract> {
 			},
 			this.extractIdAndAmountFromEvent
 		);
-	}
-
-	/**
-	 * Validates value of `amount` is greater than 0
-	 * @param amount value to be checked
-	 */
-	private amountShouldBeGTZero(amount: BigNumberish): void {
-		const amountBigNumber = BigNumber.from(amount);
-		if (amountBigNumber.lte(0)) {
-			throw new TheaError({
-				type: "INVALID_TOKEN_AMOUNT_VALUE",
-				message: "Amount should be greater than 0"
-			});
-		}
 	}
 
 	extractIdAndAmountFromEvent(events?: Event[]): ConvertEvent {

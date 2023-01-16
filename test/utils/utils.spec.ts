@@ -1,16 +1,15 @@
 import { InfuraProvider } from "@ethersproject/providers";
 import { Wallet } from "@ethersproject/wallet";
+import { TheaNetwork } from "../../src";
 import {
 	castAbiInterface,
 	getERC20ContractAddress,
 	getBaseTokenERC20ContractAddress,
 	isSigner,
-	RATING_TOKEN_CONTRACT_ADDRESS,
-	SDG_TOKEN_CONTRACT_ADDRESS,
 	signerRequired,
 	TheaError,
 	validateAddress,
-	VINTAGE_TOKEN_CONTRACT_ADDRESS
+	consts
 } from "../../src/utils";
 import { ABI, PRIVATE_KEY, WALLET_ADDRESS } from "../mocks";
 
@@ -77,26 +76,31 @@ describe("Utils", () => {
 	});
 
 	describe("getERC20ContractAddress", () => {
-		it("should return SDG_TOKEN_CONTRACT_ADDRESS if token is SDG", () => {
-			const result = getERC20ContractAddress("SDG");
-			expect(result).toBe(SDG_TOKEN_CONTRACT_ADDRESS);
+		const network = TheaNetwork.GANACHE;
+		it("should return sdg token contract address if token is SDG", () => {
+			const result = getERC20ContractAddress("SDG", TheaNetwork.GANACHE);
+			expect(result).toBe(consts[`${network}`].sdgTokenContract);
 		});
 
-		it("should return VINTAGE_TOKEN_CONTRACT_ADDRESS if token is Vintage", () => {
-			const result = getERC20ContractAddress("Vintage");
-			expect(result).toBe(VINTAGE_TOKEN_CONTRACT_ADDRESS);
+		it("should return vintage token contract address if token is Vintage", () => {
+			const result = getERC20ContractAddress("Vintage", TheaNetwork.GANACHE);
+			expect(result).toBe(consts[`${network}`].vintageTokenContract);
 		});
 
-		it("should return RATING_TOKEN_CONTRACT_ADDRESS if token is Rating", () => {
-			const result = getERC20ContractAddress("Rating");
-			expect(result).toBe(RATING_TOKEN_CONTRACT_ADDRESS);
+		it("should return rating token contract address if token is Rating", () => {
+			const result = getERC20ContractAddress("Rating", TheaNetwork.GANACHE);
+			expect(result).toBe(consts[`${network}`].ratingTokenContract);
 		});
 	});
 
 	describe("getBaseTokenERC20ContractAddress", () => {
 		it("should return base token address by id", async () => {
 			const providerOrSigner = new Wallet(PRIVATE_KEY);
-			const result = await getBaseTokenERC20ContractAddress(1, providerOrSigner);
+			const result = await getBaseTokenERC20ContractAddress(
+				1,
+				providerOrSigner,
+				consts[TheaNetwork.GANACHE].baseTokenManagerContract
+			);
 			expect(result).toBe("0x0001");
 		});
 	});

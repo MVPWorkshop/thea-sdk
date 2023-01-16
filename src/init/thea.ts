@@ -1,7 +1,7 @@
 import { Signer } from "@ethersproject/abstract-signer";
 import { Provider, Web3Provider } from "@ethersproject/providers";
 import { Wallet } from "@ethersproject/wallet";
-import { Convert, GetCharacteristicsBytes, Recover, Unwrap } from "../modules";
+import { Convert, GetCharacteristicsBytes, Recover, Tokenization, Unwrap } from "../modules";
 import { TheaNetwork, ProviderOrSigner } from "../types";
 import { TheaError } from "../utils";
 
@@ -16,13 +16,15 @@ export type InitOptions = {
 
 export class TheaSDK {
 	readonly unwrap: Unwrap;
+	readonly tokenization: Tokenization;
 	readonly convert: Convert;
 	readonly recover: Recover;
+
 	private constructor(readonly providerOrSigner: ProviderOrSigner, readonly network: TheaNetwork) {
-		this.unwrap = new Unwrap(this.providerOrSigner);
-		this.convert = new Convert(this.providerOrSigner);
-		const registry = new GetCharacteristicsBytes(this.providerOrSigner);
-		this.recover = new Recover(this.providerOrSigner, registry);
+		this.unwrap = new Unwrap(this.providerOrSigner, network);
+		this.convert = new Convert(this.providerOrSigner, network);
+		const registry = new GetCharacteristicsBytes(this.providerOrSigner, network);
+		this.recover = new Recover(this.providerOrSigner, network, registry);
 	}
 
 	/**
