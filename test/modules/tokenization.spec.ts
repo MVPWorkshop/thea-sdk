@@ -34,7 +34,7 @@ describe("Tokenization", () => {
 				expect(error).toEqual(
 					new TheaError({
 						type: "INVALID_TOKENIZATION_ID_FORMAT",
-						message: "Tokenization ID must be 32 characters long"
+						message: "Tokenization ID must be 32 characters long and contain lowercase characters"
 					})
 				);
 			}
@@ -55,7 +55,7 @@ describe("Tokenization", () => {
 				expect(error).toEqual(
 					new TheaError({
 						type: "INVALID_TOKENIZATION_ID_FORMAT",
-						message: "Tokenization ID must be 32 characters long"
+						message: "Tokenization ID must be 32 characters long and contain lowercase characters"
 					})
 				);
 			}
@@ -81,7 +81,7 @@ describe("Tokenization", () => {
 			expect(result).toEqual(tokenizationState);
 			expect(httpPostSpy).toBeCalledWith("/tokenization/request", {
 				source: TokenizationSource.VERRA,
-				subaccountId: accountId,
+				subacconuntId: accountId,
 				fullName: client.fullName,
 				email: client.email,
 				ethAddr: client.ethAddr.toLowerCase(),

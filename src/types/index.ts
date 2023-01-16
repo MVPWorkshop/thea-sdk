@@ -110,7 +110,7 @@ export type ClientDetails = {
 
 export type TokenizationRequest = ClientDetails & {
 	source: TokenizationSource;
-	subaccountId: string;
+	subacconuntId: string;
 	batchId: string;
 };
 

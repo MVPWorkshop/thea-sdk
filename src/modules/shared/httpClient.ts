@@ -13,7 +13,6 @@ export class HttpClient {
 		});
 	}
 
-	// TODO: Add error handling here or in API call implementation
 	async post<TRequest, TResponse>(
 		path: string,
 		payload: TRequest,
