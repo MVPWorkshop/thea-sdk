@@ -22,6 +22,8 @@ export default [
 					"@ethersproject/bignumber": "bignumber",
 					"@ethersproject/address": "address",
 					"@ethersproject/contracts": "contracts",
+					"@ethersproject/strings": "strings",
+					"@ethersproject/abi": "abi",
 					axios: "axios"
 				}
 			},

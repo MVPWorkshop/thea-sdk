@@ -1,6 +1,6 @@
 {
 	"name": "@mcovilo/thea-sdk",
-	"version": "0.1.0",
+	"version": "0.2.1",
 	"description": "Thea SDK",
 	"main": "dist/index.js",
 	"module": "dist/index.es.js",
@@ -69,7 +69,9 @@
 		"@ethersproject/bignumber": "^5.7.0",
 		"@ethersproject/contracts": "^5.7.0",
 		"@ethersproject/providers": "^5.7.2",
-		"@ethersproject/wallet": "^5.7.0"
+		"@ethersproject/wallet": "^5.7.0",
+		"@ethersproject/abi": "^5.7.0",
+		"@ethersproject/strings": "^5.7.0"
 	},
 	"dependencies": {
 		"axios": "^1.2.2"

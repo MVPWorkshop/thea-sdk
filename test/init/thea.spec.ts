@@ -1,4 +1,4 @@
-import { TheaNetwork, TheaSDK, Unwrap } from "../../src";
+import { Convert, Recover, TheaNetwork, TheaSDK, Unwrap } from "../../src";
 import { TheaError } from "../../src/utils";
 import { ExternalProvider, InfuraProvider, Provider, Web3Provider } from "@ethersproject/providers";
 import { Wallet } from "@ethersproject/wallet";
@@ -59,6 +59,8 @@ describe("TheaSDK", () => {
 			expect(result.providerOrSigner).toBeDefined();
 			expect(getSignerSpy).toHaveBeenCalled();
 			expect(Unwrap).toBeCalled();
+			expect(Convert).toBeCalled();
+			expect(Recover).toBeCalled();
 		});
 
 		it("should return TheaSDK instance using signer", () => {

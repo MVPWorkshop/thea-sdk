@@ -1,7 +1,7 @@
 import { Signer } from "@ethersproject/abstract-signer";
 import { Provider, Web3Provider } from "@ethersproject/providers";
 import { Wallet } from "@ethersproject/wallet";
-import { Tokenization, Unwrap } from "../modules";
+import { Convert, GetCharacteristicsBytes, Recover, Tokenization, Unwrap } from "../modules";
 import { TheaNetwork, ProviderOrSigner } from "../types";
 import { TheaError } from "../utils";
 
@@ -17,9 +17,14 @@ export type InitOptions = {
 export class TheaSDK {
 	readonly unwrap: Unwrap;
 	readonly tokenization: Tokenization;
+	readonly convert: Convert;
+	readonly recover: Recover;
+
 	private constructor(readonly providerOrSigner: ProviderOrSigner, readonly network: TheaNetwork) {
 		this.unwrap = new Unwrap(this.providerOrSigner);
-		this.tokenization = new Tokenization(this.network);
+		this.convert = new Convert(this.providerOrSigner);
+		const registry = new GetCharacteristicsBytes(this.providerOrSigner);
+		this.recover = new Recover(this.providerOrSigner, registry);
 	}
 
 	/**
@@ -35,7 +40,7 @@ export class TheaSDK {
 	static init(options: InitOptions): TheaSDK {
 		let providerOrSigner: ProviderOrSigner;
 
-		if (options.web3Provider) providerOrSigner = options.web3Provider.getSigner();
+		if (options.web3Provider) providerOrSigner = options.web3Provider.getSigner() as Signer;
 		else if (options.signer) providerOrSigner = options.signer;
 		else if (options.privateKey) {
 			if (!options.provider) {

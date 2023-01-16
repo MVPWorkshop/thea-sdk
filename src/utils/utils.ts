@@ -1,9 +1,16 @@
 import { Signer } from "@ethersproject/abstract-signer";
 import { isAddress } from "@ethersproject/address";
-import { ContractInterface } from "@ethersproject/contracts";
+import { Contract, ContractInterface } from "@ethersproject/contracts";
 import { ProviderOrSigner, TheaERC20Token } from "../types";
-import { RATING_TOKEN_CONTRACT_ADDRESS, SDG_TOKEN_CONTRACT_ADDRESS, VINTAGE_TOKEN_CONTRACT_ADDRESS } from "./consts";
+import {
+	BASE_TOKEN_MANAGER_CONTRACT_ADDRESS,
+	RATING_TOKEN_CONTRACT_ADDRESS,
+	SDG_TOKEN_CONTRACT_ADDRESS,
+	VINTAGE_TOKEN_CONTRACT_ADDRESS
+} from "./consts";
 import { TheaError } from "./theaError";
+import BaseTokenManager_ABI from "../abi/BaseTokenManager_ABI.json";
+import { BigNumberish } from "@ethersproject/bignumber";
 
 /* eslint-disable  @typescript-eslint/no-explicit-any */
 export const castAbiInterface = (abi: any) => {
@@ -44,4 +51,16 @@ export const getERC20ContractAddress = (token: TheaERC20Token): string => {
 		default:
 			return RATING_TOKEN_CONTRACT_ADDRESS;
 	}
+};
+
+export const getBaseTokenERC20ContractAddress = async (
+	id: BigNumberish,
+	providerOrSigner: ProviderOrSigner
+): Promise<string> => {
+	const basteTokenManagerContract = new Contract(
+		BASE_TOKEN_MANAGER_CONTRACT_ADDRESS,
+		castAbiInterface(BaseTokenManager_ABI.abi),
+		providerOrSigner
+	);
+	return await basteTokenManagerContract.baseTokens(id);
 };

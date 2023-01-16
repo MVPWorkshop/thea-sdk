@@ -1,4 +1,5 @@
 import { Signer } from "@ethersproject/abstract-signer";
+import { BigNumber } from "@ethersproject/bignumber";
 import { Overrides } from "@ethersproject/contracts";
 import { Provider } from "@ethersproject/providers";
 
@@ -114,6 +115,23 @@ export type TokenizationRequest = ClientDetails & {
 	batchId: string;
 };
 
+export type ConvertEvent = { id?: string; amount?: string };
+export type RecoverEvent = { id?: string; amount?: string };
+
+export type BaseTokenCharactaristics = {
+	vintage: BigNumber;
+	sdgsCount: BigNumber;
+	rating: BigNumber;
+};
+
+export type BaseTokenAmounts = {
+	btVintage: BigNumber;
+	sdg: BigNumber;
+	vintage: BigNumber;
+	rating: BigNumber;
+};
+
 export * from "./IRegistryContract";
+export * from "./IBaseTokenManagerContract";
 export * from "./IERC1155Contract";
 export * from "./IERC20Contract";
