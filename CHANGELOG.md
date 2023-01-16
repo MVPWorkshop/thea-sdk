@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.0](https://github.com/MVPWorkshop/thea-sdk/compare/v0.2.1...v0.3.0) (2023-01-16)
+
+
+### Features
+
+* environment contsants update ([0e7fdb8](https://github.com/MVPWorkshop/thea-sdk/commit/0e7fdb8d92198e044badac351e742d2883c6cbda))
+
 ## [0.2.1](https://github.com/MVPWorkshop/thea-sdk/compare/v0.2.0...v0.2.1) (2023-01-15)
 
 
