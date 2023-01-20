@@ -1,11 +1,11 @@
 import { ClientDetails, TheaNetwork, TokenizationRequest, TokenizationSource, TokenizationState } from "../types";
-import { TheaError, validateAddress } from "../utils";
+import { consts, TheaError, validateAddress } from "../utils";
 import { HttpClient } from "./shared";
 
 export class Tokenization {
 	readonly httpClient: HttpClient;
 	constructor(network: TheaNetwork) {
-		this.httpClient = new HttpClient(network);
+		this.httpClient = new HttpClient(consts[`${network}`].theaApiBaseUrl);
 	}
 
 	/**
