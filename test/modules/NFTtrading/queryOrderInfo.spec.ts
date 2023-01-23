@@ -1,4 +1,4 @@
-import { TheaNetwork, QueryPriceListing, consts, SearchOrdersParams } from "../../../src";
+import { TheaNetwork, consts, SearchOrdersParams, QueryOrderInfo } from "../../../src";
 import { priceListingMock } from "../../mocks";
 
 jest.mock("../../../src/modules/shared/httpClient", () => {
@@ -11,22 +11,21 @@ jest.mock("../../../src/modules/shared/httpClient", () => {
 	};
 });
 
-describe("QueryPriceListing", () => {
-	const queryPriceListing: QueryPriceListing = new QueryPriceListing(TheaNetwork.GANACHE);
-	const httpGetSpy = jest.spyOn(queryPriceListing.orderBook, "get");
+describe("QueryOrderInfo", () => {
+	const queryOrderInfo: QueryOrderInfo = new QueryOrderInfo(TheaNetwork.GANACHE);
+	const httpGetSpy = jest.spyOn(queryOrderInfo.orderBook, "get");
 
-	describe("getPriceListing", () => {
-		it("should return a price listing for specific token ID", async () => {
+	describe("queryOrderInfo", () => {
+		it("should return info about orders for specific tokenID from specific owner", async () => {
 			const tokenId = priceListingMock.orders[0].nftTokenId;
-			const side = "buy";
-			const result = await queryPriceListing.queryPriceListing(tokenId, side);
-			expect(result).toEqual([10]);
+			const owner = priceListingMock.orders[0].order.maker;
+			const result = await queryOrderInfo.queryOrderInfo(tokenId, owner);
+			expect(result).toEqual(priceListingMock.orders);
 			expect(httpGetSpy).toBeCalledWith("/orders", {
 				nftToken: consts[TheaNetwork.GANACHE].theaERC1155Contract,
 				chainId: consts[TheaNetwork.GANACHE].chainID,
 				nftTokenId: tokenId,
-				sellOrBuyNft: side,
-				status: "open",
+				maker: owner,
 				erc20Token: consts[TheaNetwork.GANACHE].stableCoinContract
 			} as Partial<SearchOrdersParams>);
 		});

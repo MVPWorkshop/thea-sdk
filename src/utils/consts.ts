@@ -12,6 +12,7 @@ export enum Events {
 
 export type EnvConfig = {
 	networkName: string;
+	chainID: string;
 	registryContract: string;
 	theaERC1155Contract: string;
 	vintageTokenContract: string;
@@ -26,6 +27,7 @@ export type EnvConfig = {
 export const consts: { [key in TheaNetwork]: EnvConfig } = {
 	[TheaNetwork.GANACHE]: {
 		networkName: "GANACHE",
+		chainID: "1337",
 		registryContract: "0x88449Dd0a1b75BC607A1E971b13930617D535EC1",
 		theaERC1155Contract: "0x0CFB090683Ea58B740F583c348Ff8730A82f3F64",
 		vintageTokenContract: "0x3621027715647B69D706636a8878E85d725A2aed",
@@ -38,6 +40,7 @@ export const consts: { [key in TheaNetwork]: EnvConfig } = {
 	},
 	[TheaNetwork.GOERLI]: {
 		networkName: "GOERLI",
+		chainID: "5",
 		registryContract: "0x88449Dd0a1b75BC607A1E971b13930617D535EC1",
 		theaERC1155Contract: "0x0CFB090683Ea58B740F583c348Ff8730A82f3F64",
 		vintageTokenContract: "0x3621027715647B69D706636a8878E85d725A2aed",
@@ -50,6 +53,7 @@ export const consts: { [key in TheaNetwork]: EnvConfig } = {
 	},
 	[TheaNetwork.MAINNET]: {
 		networkName: "ETHEREUM",
+		chainID: "1",
 		registryContract: "0x88449Dd0a1b75BC607A1E971b13930617D535EC1",
 		theaERC1155Contract: "0x2953399124f0cbb46d2cbacd8a89cf0599974963",
 		vintageTokenContract: "0x3621027715647B69D706636a8878E85d725A2aed",
