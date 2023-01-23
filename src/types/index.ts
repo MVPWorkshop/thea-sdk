@@ -151,7 +151,7 @@ export type TokenListResponsePayload = {
 	continuation: string;
 	items: TokenResponseFromRaribleAPI[];
 };
-type TokenResponseFromRaribleAPI = {
+export type TokenResponseFromRaribleAPI = {
 	id: string;
 	blockchain: string;
 	collection: string;

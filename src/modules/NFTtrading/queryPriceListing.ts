@@ -1,5 +1,5 @@
 import { OrderSide, SearchOrdersParams, SearchOrdersResponsePayload, TheaNetwork } from "src/types";
-import { consts } from "src/utils/consts";
+import { consts, ORDERBOOK_URL } from "src/utils/consts";
 import { HttpClient } from "../shared/httpClient";
 
 export class QueryPriceListing {
@@ -8,7 +8,7 @@ export class QueryPriceListing {
 
 	constructor(network: TheaNetwork) {
 		this.network = network;
-		this.orderBook = new HttpClient("https://api.trader.xyz/orderbook");
+		this.orderBook = new HttpClient(ORDERBOOK_URL);
 	}
 
 	async queryPriceListing(tokenId: string, side: OrderSide) {
@@ -19,10 +19,9 @@ export class QueryPriceListing {
 			status: "open",
 			erc20Token: consts[`${this.network}`].stableCoinContract
 		} as Partial<SearchOrdersParams>);
-		const priceList: number[] = [];
-		response.orders.forEach((element) => {
-			priceList.push(parseInt(element.nftTokenAmount) / (parseInt(element.erc20TokenAmount) / 10 ** 18));
-		});
+		const priceList = response.orders.map(
+			(element) => parseInt(element.nftTokenAmount) / (parseInt(element.erc20TokenAmount) / 10 ** 18)
+		);
 		return priceList;
 	}
 }
