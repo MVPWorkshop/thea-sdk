@@ -1,5 +1,25 @@
 # Changelog
 
+## [0.4.0](https://github.com/MVPWorkshop/thea-sdk/compare/v0.3.0...v0.4.0) (2023-01-23)
+
+
+### Features
+
+* queryPriceListing and getTokenList features ([5b127a5](https://github.com/MVPWorkshop/thea-sdk/commit/5b127a563ace3044f829378dea481ad016091065))
+
+
+### Bug Fixes
+
+* orderbook and tokenList url moved to consts ([3252af4](https://github.com/MVPWorkshop/thea-sdk/commit/3252af447668538251542c40d5c4408ede7b30fc))
+* remove copy of quertPriceListing ([f46deaf](https://github.com/MVPWorkshop/thea-sdk/commit/f46deaf63c115bcd39aecff91fd6a77ddb7e6f12))
+
+## [0.3.0](https://github.com/MVPWorkshop/thea-sdk/compare/v0.2.1...v0.3.0) (2023-01-16)
+
+
+### Features
+
+* environment contsants update ([0e7fdb8](https://github.com/MVPWorkshop/thea-sdk/commit/0e7fdb8d92198e044badac351e742d2883c6cbda))
+
 ## [0.2.1](https://github.com/MVPWorkshop/thea-sdk/compare/v0.2.0...v0.2.1) (2023-01-15)
 
 
