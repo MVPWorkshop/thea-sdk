@@ -14,7 +14,7 @@ export class QueryOrderInfo {
 	async queryOrderInfo(tokenId: string, owner: string) {
 		const response = await this.orderBook.get<SearchOrdersResponsePayload>("/orders", {
 			nftToken: consts[`${this.network}`].theaERC1155Contract,
-			chainId: consts[`${this.network}`].chainID,
+			chainId: this.network.toString(),
 			nftTokenId: tokenId,
 			maker: owner,
 			erc20Token: consts[`${this.network}`].stableTokenContract

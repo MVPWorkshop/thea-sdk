@@ -23,7 +23,7 @@ describe("QueryOrderInfo", () => {
 			expect(result).toEqual(priceListingMock.orders);
 			expect(httpGetSpy).toBeCalledWith("/orders", {
 				nftToken: consts[TheaNetwork.GANACHE].theaERC1155Contract,
-				chainId: consts[TheaNetwork.GANACHE].chainID,
+				chainId: TheaNetwork.GANACHE.toString(),
 				nftTokenId: tokenId,
 				maker: owner,
 				erc20Token: consts[TheaNetwork.GANACHE].stableTokenContract

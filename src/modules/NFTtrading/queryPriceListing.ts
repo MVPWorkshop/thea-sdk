@@ -14,7 +14,7 @@ export class QueryPriceListing {
 	async queryPriceListing(tokenId: string, side: OrderSide) {
 		const response = await this.orderBook.get<SearchOrdersResponsePayload>("/orders", {
 			nftToken: consts[`${this.network}`].theaERC1155Contract,
-			chainId: consts[`${this.network}`].chainID,
+			chainId: this.network.toString(),
 			nftTokenId: tokenId,
 			sellOrBuyNft: side,
 			status: "open",
