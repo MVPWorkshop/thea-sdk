@@ -26,7 +26,7 @@ describe("QueryOrderInfo", () => {
 				chainId: consts[TheaNetwork.GANACHE].chainID,
 				nftTokenId: tokenId,
 				maker: owner,
-				erc20Token: consts[TheaNetwork.GANACHE].stableCoinContract
+				erc20Token: consts[TheaNetwork.GANACHE].stableTokenContract
 			} as Partial<SearchOrdersParams>);
 		});
 	});

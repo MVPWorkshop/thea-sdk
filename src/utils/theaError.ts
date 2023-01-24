@@ -31,12 +31,12 @@ export class TheaError extends Error {
 	}
 }
 
-export class TheaTransactionError extends TheaError {
+export class TheaContractCallError extends TheaError {
 	readonly contractDetails: ContractDetails & { contractFunction: string };
 	constructor(props: ErrorProps, details: ContractDetails & { contractFunction: string }) {
 		super(props);
 		this.contractDetails = details;
-		Object.setPrototypeOf(this, TheaTransactionError.prototype);
+		Object.setPrototypeOf(this, TheaContractCallError.prototype);
 	}
 }
 

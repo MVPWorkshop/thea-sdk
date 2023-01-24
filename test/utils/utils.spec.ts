@@ -91,6 +91,12 @@ describe("Utils", () => {
 			const result = getERC20ContractAddress("Rating", TheaNetwork.GANACHE);
 			expect(result).toBe(consts[`${network}`].ratingTokenContract);
 		});
+
+		// TODO: Only to support test cases. Remove this after test cases are updated
+		it("should return link token contract address if token is Rating", () => {
+			const result = getERC20ContractAddress("LINK", TheaNetwork.GANACHE);
+			expect(result).toBe(consts[`${network}`].linkTokenContract);
+		});
 	});
 
 	describe("getBaseTokenERC20ContractAddress", () => {

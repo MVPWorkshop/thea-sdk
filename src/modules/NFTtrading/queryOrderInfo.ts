@@ -17,7 +17,7 @@ export class QueryOrderInfo {
 			chainId: consts[`${this.network}`].chainID,
 			nftTokenId: tokenId,
 			maker: owner,
-			erc20Token: consts[`${this.network}`].stableCoinContract
+			erc20Token: consts[`${this.network}`].sdgTokenContract
 		} as Partial<SearchOrdersParams>);
 
 		return response.orders;

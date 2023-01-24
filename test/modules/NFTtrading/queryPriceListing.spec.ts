@@ -27,7 +27,7 @@ describe("QueryPriceListing", () => {
 				nftTokenId: tokenId,
 				sellOrBuyNft: side,
 				status: "open",
-				erc20Token: consts[TheaNetwork.GANACHE].stableCoinContract
+				erc20Token: consts[TheaNetwork.GANACHE].stableTokenContract
 			} as Partial<SearchOrdersParams>);
 		});
 	});

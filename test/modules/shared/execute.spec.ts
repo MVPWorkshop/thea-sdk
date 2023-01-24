@@ -1,5 +1,5 @@
 import { ContractReceipt, ContractTransaction, Event } from "@ethersproject/contracts";
-import { ContractDetails, execute, executeWithResponse, TheaTransactionError } from "../../../src";
+import { ContractDetails, execute, executeWithResponse, TheaContractCallError } from "../../../src";
 
 describe("Execute", () => {
 	const details: ContractDetails & { contractFunction: string } = {
@@ -21,7 +21,7 @@ describe("Execute", () => {
 		const txPromise = Promise.reject(new Error("Transaction failed"));
 
 		await expect(execute(txPromise, details)).rejects.toThrow(
-			new TheaTransactionError(
+			new TheaContractCallError(
 				{
 					type: "TRANSACTION_FAILED",
 					message: "Transaction failed"
