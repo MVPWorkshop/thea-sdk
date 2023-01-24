@@ -17,7 +17,7 @@ export class QueryPriceListing {
 			nftTokenId: tokenId,
 			sellOrBuyNft: side,
 			status: "open",
-			erc20Token: consts[`${this.network}`].stableCoinContract
+			erc20Token: consts[`${this.network}`].stableTokenContract
 		} as Partial<SearchOrdersParams>);
 		const priceList = response.orders.map(
 			(element) => parseInt(element.nftTokenAmount) / (parseInt(element.erc20TokenAmount) / 10 ** 18)

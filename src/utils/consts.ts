@@ -19,8 +19,10 @@ export type EnvConfig = {
 	ratingTokenContract: string;
 	baseTokenManagerContract: string;
 	baseTokenManagerDeployerContract: string;
+	stableTokenContract: string;
+	quoterContract: string;
+	linkTokenContract: string;
 	theaApiBaseUrl: string;
-	stableCoinContract: string;
 };
 
 export const consts: { [key in TheaNetwork]: EnvConfig } = {
@@ -33,7 +35,9 @@ export const consts: { [key in TheaNetwork]: EnvConfig } = {
 		ratingTokenContract: "0xc95347BD5212148A09c34a7d890D061D73f50bb8",
 		baseTokenManagerContract: "0xE100c4ffFF7c00253BA4A2a695F5ac909d756D76",
 		baseTokenManagerDeployerContract: "0x3ace09bba3b8507681146252d3dd33cd4e2d4f63",
-		stableCoinContract: "0x8f3Cf7ad23Cd3CaDbD9735AFf958023239c6A063", //DAI
+		stableTokenContract: "0x6B175474E89094C44Da98b954EedeAC495271d0F", //DAI
+		quoterContract: "0xb27308f9F90D607463bb33eA1BeBb41C27CE5AB6",
+		linkTokenContract: "0x514910771AF9Ca656af840dff83E8264EcF986CA", // TODO: Remove this later it's only for testing
 		theaApiBaseUrl: "http://127.0.0.1:8078/cli"
 	},
 	[TheaNetwork.GOERLI]: {
@@ -45,7 +49,9 @@ export const consts: { [key in TheaNetwork]: EnvConfig } = {
 		ratingTokenContract: "0xc95347BD5212148A09c34a7d890D061D73f50bb8",
 		baseTokenManagerContract: "0xE100c4ffFF7c00253BA4A2a695F5ac909d756D76",
 		baseTokenManagerDeployerContract: "0x3ace09bba3b8507681146252d3dd33cd4e2d4f63",
-		stableCoinContract: "0x8f3Cf7ad23Cd3CaDbD9735AFf958023239c6A063", //DAI
+		stableTokenContract: "0x8f3Cf7ad23Cd3CaDbD9735AFf958023239c6A063", //DAI
+		quoterContract: "0xb27308f9F90D607463bb33eA1BeBb41C27CE5AB6",
+		linkTokenContract: "0x326C977E6efc84E512bB9C30f76E30c160eD06FB", // TODO: Remove this later it's only for testing
 		theaApiBaseUrl: "http://127.0.0.1:8078/cli"
 	},
 	[TheaNetwork.MAINNET]: {
@@ -57,7 +63,9 @@ export const consts: { [key in TheaNetwork]: EnvConfig } = {
 		ratingTokenContract: "0xc95347BD5212148A09c34a7d890D061D73f50bb8",
 		baseTokenManagerContract: "0xE100c4ffFF7c00253BA4A2a695F5ac909d756D76",
 		baseTokenManagerDeployerContract: "0x3ace09bba3b8507681146252d3dd33cd4e2d4f63",
-		stableCoinContract: "0xa6fa4fb5f76172d178d61b04b0ecd319c5d1c0aa", //DAI
+		stableTokenContract: "0x6B175474E89094C44Da98b954EedeAC495271d0F", //DAI
+		quoterContract: "0xb27308f9F90D607463bb33eA1BeBb41C27CE5AB6",
+		linkTokenContract: "0x514910771AF9Ca656af840dff83E8264EcF986CA", // TODO: Remove this later it's only for testing
 		theaApiBaseUrl: "http://127.0.0.1:8078/cli"
 	}
 };
