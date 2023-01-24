@@ -150,6 +150,167 @@ export type BaseTokenAmounts = {
 	rating: BigNumber;
 };
 
+export interface PostOrderRequestPayload {
+	order: SignedERC1155OrderStructSerialized;
+	chainId: string;
+	metadata?: Record<string, string>;
+}
+
+export type PropertyStructSerialized = {
+	propertyValidator: string;
+	propertyData: string | Array<number>;
+};
+
+export type FeeStructSerialized = {
+	recipient: string;
+	amount: string;
+	feeData: string;
+};
+export type TokenListResponsePayload = {
+	continuation: string;
+	items: TokenResponseFromRaribleAPI[];
+};
+export type TokenResponseFromRaribleAPI = {
+	id: string;
+	blockchain: string;
+	collection: string;
+	contract: string;
+	tokenId: string;
+	creators: [{ account: string; value: number }];
+	lazySupply: string;
+	pending: [];
+	mintedAt: string;
+	lastUpdatedAt: string;
+	supply: string;
+	meta: {
+		name: string;
+		description: string;
+		tags: [];
+		genres: [];
+		attributes: [{ key: string; value: string }];
+		content: [
+			{
+				"@type": "IMAGE";
+				url: string;
+				representation: string;
+				mimeType: string;
+				size: number;
+				width: number;
+				height: number;
+			}
+		];
+		restrictions: [];
+	};
+	deleted: true;
+	originOrders: [];
+	ammOrders: { ids: [] };
+	auctions: [];
+	totalStock: string;
+	sellers: number;
+	suspicious: boolean;
+};
+export interface PostOrderResponsePayload {
+	erc20Token: string;
+	erc20TokenAmount: string;
+	nftToken: string;
+	nftTokenId: string;
+	nftTokenAmount: string;
+	nftType: string;
+	sellOrBuyNft: "buy" | "sell";
+	chainId: string;
+	order: SignedERC1155OrderStructSerialized;
+	orderStatus: OrderStatus;
+	metadata: Record<string, string> | null;
+}
+export type OrderStatus = {
+	status: null | string;
+	transactionHash: null | string;
+	blockNumber: null | string;
+};
+export type OrderSide = "buy" | "sell";
+export type ERC1155OrderStruct = {
+	direction: BigNumberish;
+	maker: string;
+	taker: string;
+	expiry: BigNumberish;
+	nonce: BigNumberish;
+	erc20Token: string;
+	erc20TokenAmount: BigNumberish;
+	fees: FeeStruct[];
+	erc1155Token: string;
+	erc1155TokenId: BigNumberish;
+	erc1155TokenProperties: PropertyStruct[];
+	erc1155TokenAmount: BigNumberish;
+};
+export type FeeStruct = {
+	recipient: string;
+	amount: BigNumberish;
+	feeData: string | Array<number>;
+};
+export type PropertyStruct = {
+	propertyValidator: string;
+	propertyData: string | Array<number>;
+};
+export interface SignedERC1155OrderStructSerialized extends ERC1155OrderStructSerialized {
+	signature: SignatureStructSerialized;
+}
+
+export interface SignedERC1155OrderStruct extends ERC1155OrderStruct {
+	signature: SignatureStruct;
+}
+
+export type SignatureStruct = {
+	signatureType: number; // 2 for EIP-712
+	v: number;
+	r: string;
+	s: string;
+};
+export type SignatureStructSerialized = {
+	signatureType: number; // 2 for EIP-712
+	v: number;
+	r: string;
+	s: string;
+};
+
+export type ERC1155OrderStructSerialized = {
+	direction: number;
+	maker: string;
+	taker: string;
+	expiry: string;
+	nonce: string;
+	erc20Token: string;
+	erc20TokenAmount: string;
+	fees: FeeStructSerialized[];
+	erc1155Token: string;
+	erc1155TokenId: string;
+	erc1155TokenProperties: PropertyStructSerialized[];
+	erc1155TokenAmount: string;
+};
+export interface SearchOrdersResponsePayload {
+	orders: Array<PostOrderResponsePayload>;
+}
+
+/**
+ * Available query parameters for searching the orderbook
+ */
+export interface SearchOrdersParams {
+	nftTokenId: string | string[];
+	erc20Token: string | string[];
+	nftToken: string | string[];
+	nftType: "ERC721" | "ERC1155";
+	chainId: string | number | string[] | number[];
+	maker: string;
+	taker: string;
+	nonce: string | string[];
+	offset: string | number;
+	limit: string | number;
+	sellOrBuyNft: "sell" | "buy";
+	direction: "0" | "1";
+	// Defaults to only 'open' orders
+	status: "open" | "filled" | "expired" | "cancelled" | "all";
+	visibility: "public" | "private";
+	valid: "valid" | "all";
+}
 export * from "./IRegistryContract";
 export * from "./IBaseTokenManagerContract";
 export * from "./IERC1155Contract";

@@ -1,7 +1,16 @@
 import { Signer } from "@ethersproject/abstract-signer";
 import { Provider, Web3Provider } from "@ethersproject/providers";
 import { Wallet } from "@ethersproject/wallet";
-import { Convert, FungibleTrading, GetCharacteristicsBytes, Recover, Tokenization, Unwrap } from "../modules";
+import {
+	Convert,
+	GetCharacteristicsBytes,
+	GetTokenList,
+	QueryPriceListing,
+	Recover,
+	Tokenization,
+	Unwrap,
+	FungibleTrading
+} from "../modules";
 import { TheaNetwork, ProviderOrSigner } from "../types";
 import { TheaError } from "../utils";
 
@@ -20,12 +29,17 @@ export class TheaSDK {
 	readonly convert: Convert;
 	readonly recover: Recover;
 	readonly fungibleTrading: FungibleTrading;
+	readonly nftTokenList: GetTokenList;
+	readonly nftQueryPriceListing: QueryPriceListing;
+
 	private constructor(readonly providerOrSigner: ProviderOrSigner, readonly network: TheaNetwork) {
 		this.unwrap = new Unwrap(this.providerOrSigner, network);
 		this.convert = new Convert(this.providerOrSigner, network);
 		const registry = new GetCharacteristicsBytes(this.providerOrSigner, network);
 		this.recover = new Recover(this.providerOrSigner, network, registry);
 		this.fungibleTrading = new FungibleTrading(this.providerOrSigner, network);
+		this.nftTokenList = new GetTokenList(network);
+		this.nftQueryPriceListing = new QueryPriceListing(network);
 	}
 
 	/**

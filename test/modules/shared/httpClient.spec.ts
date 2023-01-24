@@ -17,14 +17,15 @@ describe("httpClient", () => {
 
 	const httpResponse = new DummyResponseClass("Welcome to Thea API");
 	beforeEach(() => {
-		httpClient = new HttpClient(TheaNetwork.GANACHE);
+		httpClient = new HttpClient(consts[TheaNetwork.GANACHE].theaApiBaseUrl);
 	});
 
 	it("should create http client on class initialization", () => {
-		httpClient = new HttpClient(TheaNetwork.GANACHE);
+		const baseURL = "http://test.com";
+		httpClient = new HttpClient(baseURL);
 		const axiosCreateSpy = jest.spyOn(axios, "create");
 		expect(axiosCreateSpy).toBeCalledWith({
-			baseURL: consts[TheaNetwork.GANACHE].theaApiBaseUrl,
+			baseURL: baseURL,
 			headers: {
 				"Content-Type": "application/json"
 			}

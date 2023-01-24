@@ -1,6 +1,8 @@
 import { TheaNetwork } from "src/types";
 
 export const RATE_VCC_TO_BT = 10;
+export const TOKEN_LIST_FETCHING_URL = "https://api.rarible.org/v0.1";
+export const ORDERBOOK_URL = "https://api.trader.xyz/orderbook";
 
 export enum Events {
 	unwrap = "UnwrapRequested",
@@ -9,6 +11,7 @@ export enum Events {
 }
 
 export type EnvConfig = {
+	networkName: string;
 	registryContract: string;
 	theaERC1155Contract: string;
 	vintageTokenContract: string;
@@ -24,6 +27,7 @@ export type EnvConfig = {
 
 export const consts: { [key in TheaNetwork]: EnvConfig } = {
 	[TheaNetwork.GANACHE]: {
+		networkName: "GANACHE",
 		registryContract: "0x88449Dd0a1b75BC607A1E971b13930617D535EC1",
 		theaERC1155Contract: "0x0CFB090683Ea58B740F583c348Ff8730A82f3F64",
 		vintageTokenContract: "0x3621027715647B69D706636a8878E85d725A2aed",
@@ -37,6 +41,7 @@ export const consts: { [key in TheaNetwork]: EnvConfig } = {
 		theaApiBaseUrl: "http://127.0.0.1:8078/cli"
 	},
 	[TheaNetwork.GOERLI]: {
+		networkName: "GOERLI",
 		registryContract: "0x88449Dd0a1b75BC607A1E971b13930617D535EC1",
 		theaERC1155Contract: "0x0CFB090683Ea58B740F583c348Ff8730A82f3F64",
 		vintageTokenContract: "0x3621027715647B69D706636a8878E85d725A2aed",
@@ -50,8 +55,9 @@ export const consts: { [key in TheaNetwork]: EnvConfig } = {
 		theaApiBaseUrl: "http://127.0.0.1:8078/cli"
 	},
 	[TheaNetwork.MAINNET]: {
+		networkName: "ETHEREUM",
 		registryContract: "0x88449Dd0a1b75BC607A1E971b13930617D535EC1",
-		theaERC1155Contract: "0x0CFB090683Ea58B740F583c348Ff8730A82f3F64",
+		theaERC1155Contract: "0x2953399124f0cbb46d2cbacd8a89cf0599974963",
 		vintageTokenContract: "0x3621027715647B69D706636a8878E85d725A2aed",
 		sdgTokenContract: "0xB48C895039c9F81C87eb97Ed54B69a769b291f28",
 		ratingTokenContract: "0xc95347BD5212148A09c34a7d890D061D73f50bb8",
