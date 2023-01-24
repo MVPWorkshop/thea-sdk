@@ -1,6 +1,6 @@
 import { ContractReceipt, ContractTransaction, Event } from "@ethersproject/contracts";
 import { ContractDetails } from "../../types";
-import { TheaTransactionError } from "../../utils";
+import { TheaContractCallError } from "../../utils";
 
 export const execute = async (
 	txPromise: Promise<ContractTransaction>,
@@ -10,7 +10,7 @@ export const execute = async (
 		const tx = await txPromise;
 		return tx.wait();
 	} catch (error) {
-		throw new TheaTransactionError(
+		throw new TheaContractCallError(
 			{
 				type: "TRANSACTION_FAILED",
 				message: error.message

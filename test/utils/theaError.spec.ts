@@ -1,4 +1,4 @@
-import { TheaAPICallError, TheaError, TheaTransactionError } from "../../src/utils";
+import { TheaAPICallError, TheaError, TheaContractCallError } from "../../src/utils";
 import { CONTRACT_ADDRESS } from "../mocks";
 
 describe("Thea errors", () => {
@@ -9,8 +9,8 @@ describe("Thea errors", () => {
 		expect(error instanceof Error).toBe(true);
 	});
 
-	it("should return the correct error message, type and contract details for TheaTransactionError", () => {
-		const error = new TheaTransactionError(
+	it("should return the correct error message, type and contract details for TheaContractCallError", () => {
+		const error = new TheaContractCallError(
 			{ message: "error message", type: "TRANSACTION_FAILED" },
 			{ address: CONTRACT_ADDRESS, contractFunction: "unwrap", name: "Registry" }
 		);
