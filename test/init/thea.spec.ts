@@ -1,4 +1,15 @@
-import { Convert, FungibleTrading, Recover, TheaNetwork, TheaSDK, Unwrap } from "../../src";
+import {
+	Convert,
+	FungibleTrading,
+	GetCharacteristicsBytes,
+	GetTokenList,
+	QueryOrderInfo,
+	QueryPriceListing,
+	Recover,
+	TheaNetwork,
+	TheaSDK,
+	Unwrap
+} from "../../src";
 import { TheaError } from "../../src/utils";
 import { ExternalProvider, InfuraProvider, Provider, Web3Provider } from "@ethersproject/providers";
 import { Wallet } from "@ethersproject/wallet";
@@ -62,6 +73,10 @@ describe("TheaSDK", () => {
 			expect(Convert).toBeCalled();
 			expect(Recover).toBeCalled();
 			expect(FungibleTrading).toBeCalled();
+			expect(GetCharacteristicsBytes).toBeCalled();
+			expect(QueryPriceListing).toBeCalled();
+			expect(QueryOrderInfo).toBeCalled();
+			expect(GetTokenList).toBeCalled();
 		});
 
 		it("should return TheaSDK instance using signer", () => {

@@ -7,3 +7,4 @@ export * from "./getCharacteristicsBytes";
 export * from "./fungible-trading";
 export * from "./NFTtrading/getTokenList";
 export * from "./NFTtrading/queryPriceListing";
+export * from "./NFTtrading/queryOrderInfo";
