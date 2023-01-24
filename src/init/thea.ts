@@ -9,7 +9,8 @@ import {
 	Recover,
 	Tokenization,
 	Unwrap,
-	FungibleTrading
+	FungibleTrading,
+	QueryOrderInfo
 } from "../modules";
 import { TheaNetwork, ProviderOrSigner } from "../types";
 import { TheaError } from "../utils";
@@ -31,6 +32,7 @@ export class TheaSDK {
 	readonly fungibleTrading: FungibleTrading;
 	readonly nftTokenList: GetTokenList;
 	readonly nftQueryPriceListing: QueryPriceListing;
+	readonly nftOrderInfo: QueryOrderInfo;
 
 	private constructor(readonly providerOrSigner: ProviderOrSigner, readonly network: TheaNetwork) {
 		this.unwrap = new Unwrap(this.providerOrSigner, network);
@@ -40,6 +42,7 @@ export class TheaSDK {
 		this.fungibleTrading = new FungibleTrading(this.providerOrSigner, network);
 		this.nftTokenList = new GetTokenList(network);
 		this.nftQueryPriceListing = new QueryPriceListing(network);
+		this.nftOrderInfo = new QueryOrderInfo(network);
 	}
 
 	/**
