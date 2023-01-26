@@ -42,7 +42,8 @@ describe("Quoter", () => {
 		it("should return amountOut", async () => {
 			const quoteExactInputSingleSpy = jest.spyOn(quoter.contract.callStatic, "quoteExactInputSingle");
 			const result = await quoter.quoteBestPrice(tokenIn, tokenOut, amountIn);
-			expect(result).toBe(amountOutMedium);
+			expect(result.amountOut).toBe(amountOutMedium);
+			expect(result.fee).toBe(UniswapPoolFee.MEDIUM);
 			expect(quoteExactInputSingleSpy).toBeCalledTimes(4);
 		});
 
@@ -55,9 +56,9 @@ describe("Quoter", () => {
 			);
 		});
 
-		it("should return 0 if non of pools were not found or something went wrong", async () => {
+		it("should return 0 for amountOut if non of pools were not found or something went wrong", async () => {
 			const result = await quoter.quoteBestPrice(unknownTokenPool, tokenOut, amountIn);
-			expect(result).toBe(0);
+			expect(result.amountOut).toBe(0);
 		});
 	});
 });

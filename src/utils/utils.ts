@@ -37,6 +37,11 @@ export const signerRequired = (providerOrSigner: ProviderOrSigner) => {
 	}
 };
 
+export const getAddress = async (signer: Signer) => signer.getAddress();
+
+// TODO: Remove LINK after testing
+// TODO: Add Current NBT token
+// TODO: Check is DAI stable coin
 export const getERC20ContractAddress = (token: TheaERC20Token, network: TheaNetwork): string => {
 	switch (token) {
 		case "SDG":
@@ -45,6 +50,8 @@ export const getERC20ContractAddress = (token: TheaERC20Token, network: TheaNetw
 			return consts[`${network}`].vintageTokenContract;
 		case "LINK":
 			return consts[`${network}`].linkTokenContract;
+		case "DAI":
+			return consts[`${network}`].stableTokenContract;
 		default:
 			return consts[`${network}`].ratingTokenContract;
 	}

@@ -3,13 +3,13 @@ module.exports = {
 		browser: true,
 		es6: true,
 		node: true,
-		jest: true,
+		jest: true
 	},
 	parser: "@typescript-eslint/parser",
 	parserOptions: {
 		project: "tsconfig.json",
 		tsconfigRootDir: __dirname,
-		sourceType: "module",
+		sourceType: "module"
 	},
 	extends: [
 		"plugin:@typescript-eslint/recommended",
@@ -18,17 +18,17 @@ module.exports = {
 		"eslint:recommended",
 		"plugin:import/errors",
 		"plugin:import/warnings",
-		"plugin:security/recommended",
+		"plugin:security/recommended"
 	],
 	plugins: ["@typescript-eslint/eslint-plugin", "import"],
 	ignorePatterns: [".eslintrc.js"],
 	settings: {
 		"import/resolver": {
-			typescript: {},
-		},
+			typescript: {}
+		}
 	},
 	rules: {
 		"@typescript-eslint/no-unused-vars": "error",
-		"@typescript-eslint/no-explicit-any": "error",
-	},
+		"@typescript-eslint/no-explicit-any": "error"
+	}
 };

@@ -1,3 +1,4 @@
+import { Signer } from "@ethersproject/abstract-signer";
 import { InfuraProvider } from "@ethersproject/providers";
 import { Wallet } from "@ethersproject/wallet";
 import { TheaNetwork } from "../../src";
@@ -9,7 +10,8 @@ import {
 	signerRequired,
 	TheaError,
 	validateAddress,
-	consts
+	consts,
+	getAddress
 } from "../../src/utils";
 import { ABI, PRIVATE_KEY, WALLET_ADDRESS } from "../mocks";
 
@@ -97,6 +99,12 @@ describe("Utils", () => {
 			const result = getERC20ContractAddress("LINK", TheaNetwork.GANACHE);
 			expect(result).toBe(consts[`${network}`].linkTokenContract);
 		});
+
+		// TODO: Only to support test cases. Remove this after test cases are updated
+		it("should return dai token contract address if token is DAI", () => {
+			const result = getERC20ContractAddress("DAI", TheaNetwork.GANACHE);
+			expect(result).toBe(consts[`${network}`].stableTokenContract);
+		});
 	});
 
 	describe("getBaseTokenERC20ContractAddress", () => {
@@ -108,6 +116,14 @@ describe("Utils", () => {
 				consts[TheaNetwork.GANACHE].baseTokenManagerContract
 			);
 			expect(result).toBe("0x0001");
+		});
+	});
+
+	describe("getAddress", () => {
+		it("should return address of signer", async () => {
+			const signer = new Wallet(PRIVATE_KEY);
+			const result = await getAddress(signer as Signer);
+			expect(result).toBe("0xE63CCe5bEBF27CFa751de8A1550692d3B12b7B7a");
 		});
 	});
 });
