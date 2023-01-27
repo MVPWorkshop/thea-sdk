@@ -24,7 +24,8 @@ export default [
 					"@ethersproject/contracts": "contracts",
 					"@ethersproject/strings": "strings",
 					"@ethersproject/abi": "abi",
-					axios: "axios"
+					axios: "axios",
+					uuid: "uuid"
 				}
 			},
 			{ file: pkg.main, format: "cjs", sourcemap: true },
