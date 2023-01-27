@@ -3,6 +3,7 @@
 		"target": "es6",
 		"module": "esnext",
 		"declaration": true,
+		"declarationDir": "dist/types",
 		"noImplicitAny": true,
 		"outDir": "dist",
 		"esModuleInterop": true,

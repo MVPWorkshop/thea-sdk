@@ -7,7 +7,7 @@ export enum TheaNetwork {
 	MAINNET = 1,
 	GOERLI = 5,
 	GÖRLI = 5,
-	GANACHE = 1337
+	GANACHE = 31337
 }
 
 export type ProviderOrSigner = Provider | Signer;
@@ -28,26 +28,48 @@ export type ContractDetails = {
 	name: string;
 	address: string;
 };
-export type TheaERC20Token = "SDG" | "Vintage" | "Rating" | "LINK"; // TODO: Remove link from list after testing
-export type SwapTokens = "SDG" | "Vintage" | "LINK"; // TODO: Remove link from list after testing
+// TODO: Remove link from list after testing
+// TODO: Check is DAI stable coin
+// TODO: Add Current NBT token
+export type TheaERC20Token = "SDG" | "Vintage" | "Rating" | "LINK" | "DAI";
+
+// TODO: Remove link from list after testing
+// TODO: Add Current NBT token
+export type SwapTokens = "SDG" | "Vintage" | "LINK" | "DAI";
+
 export const UniswapPoolFee = {
 	LOWEST: 100, // 0.01%
 	LOW: 500, // 0.05%
 	MEDIUM: 3000, // 0.3%
 	HIGH: 10000 // 1%
 };
-type QueryForERC20 = {
+
+type FungibleERC20Options = {
 	tokenIn: SwapTokens;
-	amount: BigNumberish;
+	amountIn: BigNumberish;
+	recipient: string;
 };
 // TODO: Should we use one hardcoded stable coin or support multiple stable coins?
-type QueryForStable = {
+export type FungibleStableOptions = {
 	tokenIn: "DAI";
-	amount: BigNumberish;
+	amountIn: BigNumberish;
 	tokenOut: SwapTokens;
+	recipient: string;
 };
 
-export type QueryOptions = QueryForERC20 | QueryForStable;
+export type SwapOptions = {
+	slippageTolerance?: number;
+	deadline?: number; // Unix timestamp
+	recipient?: string;
+};
+
+export type FungibleOptions = FungibleERC20Options | FungibleStableOptions;
+
+export enum TradeType {
+	EXACT_INPUT = 0,
+	EXACT_OUTPUT = 1
+}
+
 export type UnwrapRequestId = { requestId?: string };
 
 export enum TokenizationStatus {

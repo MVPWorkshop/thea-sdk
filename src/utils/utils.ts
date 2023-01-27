@@ -6,6 +6,9 @@ import { consts } from "./consts";
 import { TheaError } from "./theaError";
 import BaseTokenManager_ABI from "../abi/BaseTokenManager_ABI.json";
 import { BigNumber, BigNumberish } from "@ethersproject/bignumber";
+import { ChainId } from "@uniswap/smart-order-router";
+import { Token } from "@uniswap/sdk-core";
+import { parseEther } from "@ethersproject/units";
 
 /* eslint-disable  @typescript-eslint/no-explicit-any */
 export const castAbiInterface = (abi: any) => {
@@ -72,3 +75,61 @@ export const amountShouldBeGTZero = (amount: BigNumberish): void => {
 		});
 	}
 };
+
+export const theaNetworkToChainId = (network: TheaNetwork): ChainId => {
+	switch (network) {
+		case 1:
+			return ChainId.MAINNET;
+		case 5:
+			return ChainId.GÖRLI;
+		default:
+			return ChainId.POLYGON;
+	}
+};
+
+export const getToken = (network: TheaNetwork, token: TheaERC20Token): Token => {
+	switch (token) {
+		case "SDG":
+			return new Token(
+				theaNetworkToChainId(network),
+				consts[`${network}`].sdgTokenContract,
+				4,
+				"SDG",
+				"Thea SDG Token"
+			);
+		case "Vintage":
+			return new Token(
+				theaNetworkToChainId(network),
+				consts[`${network}`].vintageTokenContract,
+				4,
+				"VNT",
+				"Thea Vintage Token"
+			);
+		case "LINK":
+			return new Token(
+				theaNetworkToChainId(network),
+				consts[`${network}`].linkTokenContract,
+				18,
+				"LINK",
+				"Chainlink Token"
+			);
+		case "Rating":
+			return new Token(
+				theaNetworkToChainId(network),
+				consts[`${network}`].ratingTokenContract,
+				4,
+				"RTG",
+				"Thea Rating Token"
+			);
+		default:
+			return new Token(
+				theaNetworkToChainId(network),
+				consts[`${network}`].stableTokenContract,
+				18,
+				"DAI",
+				"Dai Stablecoin"
+			);
+	}
+};
+
+export const ethToWei = (amount: string): string => parseEther(amount).toString();

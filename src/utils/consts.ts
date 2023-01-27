@@ -1,5 +1,4 @@
-import { TheaNetwork } from "src/types";
-
+import { TheaNetwork } from "../types";
 export const RATE_VCC_TO_BT = 10;
 export const TOKEN_LIST_FETCHING_URL = "https://api.rarible.org/v0.1";
 export const ORDERBOOK_URL = "https://api.trader.xyz/orderbook";
