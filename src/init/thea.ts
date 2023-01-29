@@ -74,8 +74,4 @@ export class TheaSDK {
 
 		return new TheaSDK(providerOrSigner, options.network);
 	}
-
-	private testFunc(): string {
-		return "123";
-	}
 }

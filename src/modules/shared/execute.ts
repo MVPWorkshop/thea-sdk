@@ -1,11 +1,12 @@
 import { ContractReceipt, ContractTransaction, Event } from "@ethersproject/contracts";
+import { TransactionReceipt, TransactionResponse } from "@ethersproject/providers";
 import { ContractDetails } from "../../types";
 import { TheaContractCallError } from "../../utils";
 
 export const execute = async (
-	txPromise: Promise<ContractTransaction>,
+	txPromise: Promise<ContractTransaction | TransactionResponse>,
 	details: ContractDetails & { contractFunction: string }
-): Promise<ContractReceipt> => {
+): Promise<ContractReceipt | TransactionReceipt> => {
 	try {
 		const tx = await txPromise;
 		return tx.wait();
@@ -25,6 +26,6 @@ export const executeWithResponse = async <T>(
 	details: ContractDetails & { contractFunction: string },
 	responseExtractCb: (events?: Event[]) => T
 ): Promise<T & ContractReceipt> => {
-	const reciept = await execute(txPromise, details);
+	const reciept: ContractReceipt = await execute(txPromise, details);
 	return { ...responseExtractCb(reciept.events), ...reciept };
 };

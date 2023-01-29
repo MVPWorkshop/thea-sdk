@@ -46,13 +46,13 @@ export const UniswapPoolFee = {
 
 type FungibleERC20Options = {
 	tokenIn: SwapTokens;
-	amountIn: BigNumberish;
+	amountIn: BigNumber;
 	recipient: string;
 };
 // TODO: Should we use one hardcoded stable coin or support multiple stable coins?
 export type FungibleStableOptions = {
 	tokenIn: "DAI";
-	amountIn: BigNumberish;
+	amountIn: BigNumber;
 	tokenOut: SwapTokens;
 	recipient: string;
 };
@@ -60,7 +60,6 @@ export type FungibleStableOptions = {
 export type SwapOptions = {
 	slippageTolerance?: number;
 	deadline?: number; // Unix timestamp
-	recipient?: string;
 };
 
 export type FungibleOptions = FungibleERC20Options | FungibleStableOptions;

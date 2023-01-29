@@ -22,6 +22,7 @@ export type EnvConfig = {
 	quoterContract: string;
 	linkTokenContract: string;
 	theaApiBaseUrl: string;
+	swapRouterContract: string;
 };
 
 export const consts: { [key in TheaNetwork]: EnvConfig } = {
@@ -37,7 +38,8 @@ export const consts: { [key in TheaNetwork]: EnvConfig } = {
 		stableTokenContract: "0x6B175474E89094C44Da98b954EedeAC495271d0F", //DAI
 		quoterContract: "0xb27308f9F90D607463bb33eA1BeBb41C27CE5AB6",
 		linkTokenContract: "0x514910771AF9Ca656af840dff83E8264EcF986CA", // TODO: Remove this later it's only for testing
-		theaApiBaseUrl: "http://127.0.0.1:8078/cli"
+		theaApiBaseUrl: "http://127.0.0.1:8078/cli",
+		swapRouterContract: "0x68b3465833fb72A70ecDF485E0e4C7bD8665Fc45"
 	},
 	[TheaNetwork.GOERLI]: {
 		networkName: "GOERLI",
@@ -51,7 +53,8 @@ export const consts: { [key in TheaNetwork]: EnvConfig } = {
 		stableTokenContract: "0x8f3Cf7ad23Cd3CaDbD9735AFf958023239c6A063", //DAI
 		quoterContract: "0xb27308f9F90D607463bb33eA1BeBb41C27CE5AB6",
 		linkTokenContract: "0x326C977E6efc84E512bB9C30f76E30c160eD06FB", // TODO: Remove this later it's only for testing
-		theaApiBaseUrl: "http://127.0.0.1:8078/cli"
+		theaApiBaseUrl: "http://127.0.0.1:8078/cli",
+		swapRouterContract: "0x68b3465833fb72A70ecDF485E0e4C7bD8665Fc45"
 	},
 	[TheaNetwork.MAINNET]: {
 		networkName: "ETHEREUM",
@@ -65,6 +68,7 @@ export const consts: { [key in TheaNetwork]: EnvConfig } = {
 		stableTokenContract: "0x6B175474E89094C44Da98b954EedeAC495271d0F", //DAI
 		quoterContract: "0xb27308f9F90D607463bb33eA1BeBb41C27CE5AB6",
 		linkTokenContract: "0x514910771AF9Ca656af840dff83E8264EcF986CA", // TODO: Remove this later it's only for testing
-		theaApiBaseUrl: "http://127.0.0.1:8078/cli"
+		theaApiBaseUrl: "http://127.0.0.1:8078/cli",
+		swapRouterContract: "0x68b3465833fb72A70ecDF485E0e4C7bD8665Fc45"
 	}
 };
