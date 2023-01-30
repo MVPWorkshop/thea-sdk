@@ -11,7 +11,9 @@ import {
 	TheaError,
 	validateAddress,
 	consts,
-	getCurrentNBTTokenAddress
+	getCurrentNBTTokenAddress,
+	isTypedDataSigner,
+	typedDataSignerRequired
 } from "../../src/utils";
 import { ABI, CONTRACT_ADDRESS, PRIVATE_KEY, WALLET_ADDRESS } from "../mocks";
 
@@ -72,6 +74,35 @@ describe("Utils", () => {
 		it("should execute void function without error if providerOrSigner is Signer", () => {
 			expect(() => {
 				signerRequired(new Wallet(PRIVATE_KEY));
+			}).not.toThrow();
+		});
+	});
+	describe("isTypedDataSigner", () => {
+		it("should return true if providerOrSigner is TypedDataSigner", () => {
+			const signer = new Wallet(PRIVATE_KEY);
+			expect(isTypedDataSigner(signer)).toBe(true);
+		});
+
+		it("should return false if providerOrSigner is not TypedDataSigner", () => {
+			const provider = new InfuraProvider();
+			expect(isTypedDataSigner(provider)).toBe(false);
+		});
+	});
+
+	describe("typedDataSignerRequired", () => {
+		it("should throw error if providerOrSigner is not TypedDataSigner", () => {
+			expect(() => typedDataSignerRequired(new InfuraProvider())).toThrow(
+				new TheaError({
+					type: "TYPED_DATA_SIGNER_REQUIRED",
+					message:
+						"TypedDataSigner is required for this operation. You must pass in a TypedDataSigner(Wallet) on SDK initialization"
+				})
+			);
+		});
+
+		it("should execute void function without error if providerOrSigner is TypedDataSigner", () => {
+			expect(() => {
+				typedDataSignerRequired(new Wallet(PRIVATE_KEY));
 			}).not.toThrow();
 		});
 	});

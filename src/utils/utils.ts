@@ -37,6 +37,21 @@ export const signerRequired = (providerOrSigner: ProviderOrSigner) => {
 	}
 };
 
+/* eslint-disable  @typescript-eslint/no-explicit-any */
+export function isTypedDataSigner(providerOrSigner: any): providerOrSigner is Signer {
+	return !!providerOrSigner._signTypedData;
+}
+
+export const typedDataSignerRequired = (providerOrSigner: ProviderOrSigner) => {
+	if (!isTypedDataSigner(providerOrSigner) && !isSigner(providerOrSigner)) {
+		throw new TheaError({
+			type: "TYPED_DATA_SIGNER_REQUIRED",
+			message:
+				"TypedDataSigner is required for this operation. You must pass in a TypedDataSigner(Wallet) on SDK initialization"
+		});
+	}
+};
+
 export const getERC20ContractAddress = (token: TheaERC20Token, network: TheaNetwork): string => {
 	switch (token) {
 		case "SDG":

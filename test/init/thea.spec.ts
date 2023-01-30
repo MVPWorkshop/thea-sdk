@@ -3,8 +3,8 @@ import {
 	FungibleTrading,
 	GetCharacteristicsBytes,
 	GetTokenList,
-	QueryOrderInfo,
-	QueryPriceListing,
+	NFTTrading,
+	Orderbook,
 	Recover,
 	TheaNetwork,
 	TheaSDK,
@@ -40,13 +40,13 @@ jest.mock("@ethersproject/providers", () => {
 describe("TheaSDK", () => {
 	describe("Invalid params", () => {
 		it("should throw error if non of optional parameters were passed", async () => {
-			await expect(TheaSDK.init({ network: TheaNetwork.GOERLI })).rejects.toThrow(
+			await expect(TheaSDK.init({ network: TheaNetwork.MUMBAI })).rejects.toThrow(
 				new TheaError({ type: "EMPTY_OPTIONS", message: "Non of optional parameters were provided" })
 			);
 		});
 
 		it("should throw error if provider is not passed with private key", async () => {
-			await expect(TheaSDK.init({ network: TheaNetwork.GOERLI, privateKey: "0x123" })).rejects.toThrow(
+			await expect(TheaSDK.init({ network: TheaNetwork.MUMBAI, privateKey: "0x123" })).rejects.toThrow(
 				new TheaError({ type: "MISSING_PROVIDER", message: "You must pass in a provider together with private key" })
 			);
 		});
@@ -55,7 +55,7 @@ describe("TheaSDK", () => {
 	describe("Valid Params", () => {
 		it("should instantiate TheaSDK class dependencies", async () => {
 			await TheaSDK.init({
-				network: TheaNetwork.MAINNET,
+				network: TheaNetwork.MUMBAI,
 				privateKey: PRIVATE_KEY,
 				provider: new InfuraProvider()
 			});
@@ -67,12 +67,12 @@ describe("TheaSDK", () => {
 			const getSignerSpy = jest.spyOn(web3Provider, "getSigner");
 			const currentNbtSpy = jest.spyOn(utils, "getCurrentNBTTokenAddress");
 			const result = await TheaSDK.init({
-				network: TheaNetwork.GOERLI,
+				network: TheaNetwork.MUMBAI,
 				web3Provider
 			});
 
 			expect(result).toBeInstanceOf(TheaSDK);
-			expect(result.network).toBe(TheaNetwork.GOERLI);
+			expect(result.network).toBe(TheaNetwork.GANACHE);
 			expect(result.providerOrSigner).toBeDefined();
 			expect(getSignerSpy).toHaveBeenCalled();
 			expect(Unwrap).toBeCalled();
@@ -80,45 +80,45 @@ describe("TheaSDK", () => {
 			expect(Recover).toBeCalled();
 			expect(FungibleTrading).toBeCalled();
 			expect(GetCharacteristicsBytes).toBeCalled();
-			expect(QueryPriceListing).toBeCalled();
-			expect(QueryOrderInfo).toBeCalled();
+			expect(Orderbook).toBeCalled();
+			expect(NFTTrading).toBeCalled();
 			expect(GetTokenList).toBeCalled();
 			expect(currentNbtSpy).toBeCalled();
-			expect(consts[TheaNetwork.GOERLI].currentNbtTokenContract).toBe("0x5FbDB2315678afecb367f032d93F642f64180aa3");
+			expect(consts[TheaNetwork.MUMBAI].currentNbtTokenContract).toBe("0x5FbDB2315678afecb367f032d93F642f64180aa3");
 		});
 
 		it("should return TheaSDK instance using signer", async () => {
 			const signer = new Wallet(PRIVATE_KEY);
 			const result = await TheaSDK.init({
-				network: TheaNetwork.MAINNET,
+				network: TheaNetwork.MUMBAI,
 				signer
 			});
 
 			expect(result).toBeInstanceOf(TheaSDK);
-			expect(result.network).toBe(TheaNetwork.MAINNET);
+			expect(result.network).toBe(TheaNetwork.MUMBAI);
 			expect(result.providerOrSigner).toBeInstanceOf(Wallet);
 		});
 
 		it("should return TheaSDK instance using private key", async () => {
 			const result = await TheaSDK.init({
-				network: TheaNetwork.MAINNET,
+				network: TheaNetwork.MUMBAI,
 				privateKey: PRIVATE_KEY,
 				provider: new InfuraProvider()
 			});
 
 			expect(result).toBeInstanceOf(TheaSDK);
-			expect(result.network).toBe(TheaNetwork.MAINNET);
+			expect(result.network).toBe(TheaNetwork.MUMBAI);
 			expect(result.providerOrSigner).toBeInstanceOf(Wallet);
 		});
 
 		it("should return TheaSDK instance using provider", async () => {
 			const result = await TheaSDK.init({
-				network: TheaNetwork.MAINNET,
+				network: TheaNetwork.MUMBAI,
 				provider: new InfuraProvider()
 			});
 
 			expect(result).toBeInstanceOf(TheaSDK);
-			expect(result.network).toBe(TheaNetwork.MAINNET);
+			expect(result.network).toBe(TheaNetwork.MUMBAI);
 			expect(result.providerOrSigner).toBeDefined();
 		});
 	});
