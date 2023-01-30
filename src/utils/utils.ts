@@ -55,6 +55,8 @@ export const typedDataSignerRequired = (providerOrSigner: ProviderOrSigner) => {
 	}
 };
 
+// TODO: Remove LINK after testing
+// TODO: Check is DAI stable coin
 export const getERC20ContractAddress = (token: TheaERC20Token, network: TheaNetwork): string => {
 	switch (token) {
 		case "SDG":
@@ -63,6 +65,8 @@ export const getERC20ContractAddress = (token: TheaERC20Token, network: TheaNetw
 			return consts[`${network}`].vintageTokenContract;
 		case "LINK":
 			return consts[`${network}`].linkTokenContract;
+		case "Stable":
+			return consts[`${network}`].stableTokenContract;
 		case "CurrentNBT":
 			return consts[`${network}`].currentNbtTokenContract;
 		default:
@@ -92,7 +96,7 @@ export const amountShouldBeGTZero = (amount: BigNumberish): void => {
 
 export const theaNetworkToChainId = (network: TheaNetwork): ChainId => {
 	switch (network) {
-		case 1337:
+		case 5:
 			return ChainId.GÖRLI;
 		case 80001:
 			return ChainId.POLYGON_MUMBAI;
@@ -101,40 +105,21 @@ export const theaNetworkToChainId = (network: TheaNetwork): ChainId => {
 	}
 };
 
+// TODO: Remove LINK after testing
+// TODO: Check is DAI stable coin
 export const getToken = (network: TheaNetwork, token: TheaERC20Token): Token => {
+	const networkId = theaNetworkToChainId(network);
 	switch (token) {
 		case "SDG":
-			return new Token(
-				theaNetworkToChainId(network),
-				consts[`${network}`].sdgTokenContract,
-				4,
-				"SDG",
-				"Thea SDG Token"
-			);
+			return new Token(networkId, consts[`${network}`].sdgTokenContract, 4, "SDG", "Thea SDG Token");
 		case "Vintage":
-			return new Token(
-				theaNetworkToChainId(network),
-				consts[`${network}`].vintageTokenContract,
-				4,
-				"VNT",
-				"Thea Vintage Token"
-			);
+			return new Token(networkId, consts[`${network}`].vintageTokenContract, 4, "VNT", "Thea Vintage Token");
 		case "LINK":
-			return new Token(
-				theaNetworkToChainId(network),
-				consts[`${network}`].linkTokenContract,
-				18,
-				"LINK",
-				"Chainlink Token"
-			);
+			return new Token(networkId, consts[`${network}`].linkTokenContract, 18, "LINK", "Chainlink Token");
 		case "Rating":
-			return new Token(
-				theaNetworkToChainId(network),
-				consts[`${network}`].ratingTokenContract,
-				4,
-				"RTG",
-				"Thea Rating Token"
-			);
+			return new Token(networkId, consts[`${network}`].ratingTokenContract, 4, "RTG", "Thea Rating Token");
+		case "CurrentNBT":
+			return new Token(networkId, consts[`${network}`].currentNbtTokenContract, 4, "NBT", "Thea Current NBT");
 		default:
 			return new Token(
 				theaNetworkToChainId(network),

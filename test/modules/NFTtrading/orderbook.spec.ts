@@ -13,7 +13,7 @@ jest.mock("../../../src/modules/shared/httpClient", () => {
 });
 
 describe("Orderbook", () => {
-	const orderbook: Orderbook = new Orderbook(TheaNetwork.GANACHE);
+	const orderbook: Orderbook = new Orderbook(TheaNetwork.GOERLI);
 	const httpGetSpy = jest.spyOn(orderbook.httpClient, "get");
 	const httpPostSpy = jest.spyOn(orderbook.httpClient, "post");
 
@@ -24,12 +24,12 @@ describe("Orderbook", () => {
 			const result = await orderbook.queryOrdersInfo(tokenId, owner);
 			expect(result).toEqual(priceListingMock.orders);
 			expect(httpGetSpy).toBeCalledWith("/orders", {
-				nftToken: consts[TheaNetwork.GANACHE].theaERC1155Contract,
-				chainId: TheaNetwork.GANACHE.toString(),
+				nftToken: consts[TheaNetwork.GOERLI].theaERC1155Contract,
+				chainId: TheaNetwork.GOERLI.toString(),
 				nftTokenId: tokenId,
 				maker: owner,
 				status: "all",
-				erc20Token: consts[TheaNetwork.GANACHE].stableTokenContract
+				erc20Token: consts[TheaNetwork.GOERLI].stableTokenContract
 			} as Partial<SearchOrdersParams>);
 		});
 	});
@@ -40,11 +40,11 @@ describe("Orderbook", () => {
 			const result = await orderbook.queryOrderByNonce(nonce);
 			expect(result).toEqual(priceListingMock.orders[0]);
 			expect(httpGetSpy).toBeCalledWith("/orders", {
-				nftToken: consts[TheaNetwork.GANACHE].theaERC1155Contract,
-				chainId: TheaNetwork.GANACHE.toString(),
+				nftToken: consts[TheaNetwork.GOERLI].theaERC1155Contract,
+				chainId: TheaNetwork.GOERLI.toString(),
 				nonce: nonce,
 				status: "all",
-				erc20Token: consts[TheaNetwork.GANACHE].stableTokenContract
+				erc20Token: consts[TheaNetwork.GOERLI].stableTokenContract
 			} as Partial<SearchOrdersParams>);
 		});
 	});
@@ -95,7 +95,7 @@ describe("Orderbook", () => {
 			expect(result).toEqual(postOrderResponseMock);
 			expect(httpPostSpy).toBeCalledWith("/order", {
 				order: serializedNftOrder,
-				chainId: TheaNetwork.GANACHE.toString()
+				chainId: TheaNetwork.GOERLI.toString()
 			} as Partial<PostOrderRequestPayload>);
 		});
 	});
@@ -118,12 +118,12 @@ describe("Orderbook", () => {
 				}
 			]);
 			expect(httpGetSpy).toBeCalledWith("/orders", {
-				nftToken: consts[TheaNetwork.GANACHE].theaERC1155Contract,
-				chainId: TheaNetwork.GANACHE.toString(),
+				nftToken: consts[TheaNetwork.GOERLI].theaERC1155Contract,
+				chainId: TheaNetwork.GOERLI.toString(),
 				nftTokenId: tokenId,
 				sellOrBuyNft: side,
 				status: "open",
-				erc20Token: consts[TheaNetwork.GANACHE].stableTokenContract
+				erc20Token: consts[TheaNetwork.GOERLI].stableTokenContract
 			} as Partial<SearchOrdersParams>);
 		});
 	});
@@ -144,12 +144,12 @@ describe("Orderbook", () => {
 			}
 		]);
 		expect(httpGetSpy).toBeCalledWith("/orders", {
-			nftToken: consts[TheaNetwork.GANACHE].theaERC1155Contract,
-			chainId: TheaNetwork.GANACHE.toString(),
+			nftToken: consts[TheaNetwork.GOERLI].theaERC1155Contract,
+			chainId: TheaNetwork.GOERLI.toString(),
 			nftTokenId: tokenId,
 			sellOrBuyNft: side,
 			status: "open",
-			erc20Token: consts[TheaNetwork.GANACHE].stableTokenContract
+			erc20Token: consts[TheaNetwork.GOERLI].stableTokenContract
 		} as Partial<SearchOrdersParams>);
 	});
 });

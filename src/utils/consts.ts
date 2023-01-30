@@ -67,8 +67,8 @@ export type EnvConfig = {
 };
 
 export const consts: { [key in TheaNetwork]: EnvConfig } = {
-	[TheaNetwork.GANACHE]: {
-		networkName: "GANACHE",
+	[TheaNetwork.GOERLI]: {
+		networkName: "GOERLI",
 		registryContract: "0x88449Dd0a1b75BC607A1E971b13930617D535EC1",
 		theaERC1155Contract: "0x0CFB090683Ea58B740F583c348Ff8730A82f3F64",
 		vintageTokenContract: "0x3621027715647B69D706636a8878E85d725A2aed",
@@ -79,7 +79,7 @@ export const consts: { [key in TheaNetwork]: EnvConfig } = {
 		baseTokenManagerDeployerContract: "0x3ace09bba3b8507681146252d3dd33cd4e2d4f63",
 		stableTokenContract: "0x6B175474E89094C44Da98b954EedeAC495271d0F", //DAI
 		quoterContract: "0xb27308f9F90D607463bb33eA1BeBb41C27CE5AB6",
-		linkTokenContract: "0x514910771AF9Ca656af840dff83E8264EcF986CA", // TODO: Remove this later it's only for testing
+		linkTokenContract: "0x326C977E6efc84E512bB9C30f76E30c160eD06FB", // TODO: Remove this later it's only for testing
 		theaApiBaseUrl: "http://127.0.0.1:8078/cli",
 		swapRouterContract: "0x68b3465833fb72A70ecDF485E0e4C7bD8665Fc45",
 		exchangeProxyAddress: "0xf91bb752490473b8342a3e964e855b9f9a2a668e"

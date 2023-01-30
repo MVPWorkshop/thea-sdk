@@ -1,14 +1,14 @@
 import { Signer, TypedDataSigner } from "@ethersproject/abstract-signer";
-import { BigNumber } from "@ethersproject/bignumber";
-import { Provider } from "@ethersproject/providers";
+import { BigNumber, BigNumberish } from "@ethersproject/bignumber";
+import { BaseProvider } from "@ethersproject/providers";
 
 export enum TheaNetwork {
-	GANACHE = 1337,
+	GOERLI = 5,
 	MUMBAI = 80001,
 	POLYGON = 137
 }
 
-export type ProviderOrSigner = Provider | Signer | (Signer & TypedDataSigner);
+export type ProviderOrSigner = BaseProvider | Signer | (Signer & TypedDataSigner);
 export enum TokenStatus {
 	PENDING,
 	ACCEPTED,
@@ -39,13 +39,13 @@ export const UniswapPoolFee = {
 
 type FungibleERC20Options = {
 	tokenIn: SwapTokens;
-	amountIn: BigNumber;
+	amountIn: BigNumberish;
 	recipient: string;
 };
 // TODO: Should we use one hardcoded stable coin or support multiple stable coins?
 export type FungibleStableOptions = {
 	tokenIn: "Stable";
-	amountIn: BigNumber;
+	amountIn: BigNumberish;
 	tokenOut: SwapTokens;
 	recipient: string;
 };

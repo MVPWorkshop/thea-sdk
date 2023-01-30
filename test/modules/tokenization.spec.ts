@@ -13,7 +13,7 @@ jest.mock("../../src/modules/shared/httpClient", () => {
 });
 
 describe("Tokenization", () => {
-	const tokenization: Tokenization = new Tokenization(TheaNetwork.GANACHE);
+	const tokenization: Tokenization = new Tokenization(TheaNetwork.GOERLI);
 	const tokenizationId = "00000185b7153c46c4dca62b4ebcd490";
 	const accountId = "12274";
 	const batchId = "11158-289118799-289118805-VCS-VCU-263-VER-KH-14-1748-01012019-31122019-1";

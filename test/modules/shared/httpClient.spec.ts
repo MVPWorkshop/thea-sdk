@@ -17,7 +17,7 @@ describe("httpClient", () => {
 
 	const httpResponse = new DummyResponseClass("Welcome to Thea API");
 	beforeEach(() => {
-		httpClient = new HttpClient(consts[TheaNetwork.GANACHE].theaApiBaseUrl);
+		httpClient = new HttpClient(consts[TheaNetwork.GOERLI].theaApiBaseUrl);
 	});
 
 	it("should create http client on class initialization", () => {

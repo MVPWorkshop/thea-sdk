@@ -17,7 +17,7 @@ import * as shared from "../../src/modules/shared";
 import BaseTokenManager_ABI from "../../src/abi/BaseTokenManager_ABI.json";
 import { formatBytes32String } from "@ethersproject/strings";
 
-const baseTokenManagerContractAddress = consts[TheaNetwork.GANACHE].baseTokenManagerContract;
+const baseTokenManagerContractAddress = consts[TheaNetwork.GOERLI].baseTokenManagerContract;
 
 jest.mock("../../src/modules/shared", () => {
 	return {
@@ -82,7 +82,7 @@ describe("Recover", () => {
 		baseCharacteristics: jest.fn().mockResolvedValue(baseTokenCharacteristicsTransaction as ContractTransaction)
 	};
 
-	const network = TheaNetwork.GANACHE;
+	const network = TheaNetwork.GOERLI;
 
 	beforeEach(() => {
 		const registry = new GetCharacteristicsBytes(providerOrSigner, network);

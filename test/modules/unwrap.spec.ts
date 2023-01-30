@@ -7,7 +7,7 @@ import { PRIVATE_KEY } from "../mocks";
 import * as shared from "../../src/modules/shared";
 import Registry_ABI from "../../src/abi/Registry_ABI.json";
 
-const registryContractAddress = consts[TheaNetwork.GANACHE].registryContract;
+const registryContractAddress = consts[TheaNetwork.GOERLI].registryContract;
 jest.mock("../../src/modules/shared", () => {
 	return {
 		checkBalance: jest.fn(),
@@ -42,7 +42,7 @@ describe("Unwrap", () => {
 		unwrap: jest.fn().mockResolvedValue(contractTransaction as ContractTransaction),
 		requests: jest.fn().mockResolvedValue({ status: 0, maker: "0x123", tokenId, amount })
 	};
-	const network = TheaNetwork.GANACHE;
+	const network = TheaNetwork.GOERLI;
 	beforeEach(() => {
 		unwrap = new Unwrap(providerOrSigner, network);
 		unwrap.contract = mockContract as IRegistryContract;

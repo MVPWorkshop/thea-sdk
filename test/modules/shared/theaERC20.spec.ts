@@ -7,7 +7,7 @@ import { Wallet } from "@ethersproject/wallet";
 import { PRIVATE_KEY, WALLET_ADDRESS } from "../../mocks";
 import { JsonRpcProvider } from "@ethersproject/providers";
 
-const vintageTokenContractAddress = consts[TheaNetwork.GANACHE].vintageTokenContract;
+const vintageTokenContractAddress = consts[TheaNetwork.GOERLI].vintageTokenContract;
 jest.mock("../../../src/modules/shared/execute", () => {
 	return {
 		execute: jest.fn().mockImplementation(() => {

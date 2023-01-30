@@ -51,11 +51,6 @@ export class Unwrap extends ContractWrapper<IRegistryContract> {
 	 */
 	async getUnwrapTokenState(requestId: BigNumberish): Promise<UnwrapTokenState> {
 		this.requestIdShouldBeGTZero(requestId);
-		await checkBalance(this.providerOrSigner as Signer, this.network, {
-			token: "ERC20",
-			tokenName: "LINK",
-			amount: "100000000"
-		});
 		const { status, maker, tokenId, amount } = await this.contract.requests(requestId);
 
 		return {

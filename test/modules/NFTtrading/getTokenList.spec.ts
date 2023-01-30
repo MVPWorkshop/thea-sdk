@@ -12,7 +12,7 @@ jest.mock("../../../src/modules/shared/httpClient", () => {
 });
 
 describe("GetTokenList", () => {
-	const getTokenList: GetTokenList = new GetTokenList(TheaNetwork.GANACHE);
+	const getTokenList: GetTokenList = new GetTokenList(TheaNetwork.GOERLI);
 	const httpGetSpy = jest.spyOn(getTokenList.httpClient, "get");
 
 	describe("getTokenList", () => {
@@ -20,7 +20,7 @@ describe("GetTokenList", () => {
 			const result = await getTokenList.getTokenList();
 			expect(result).toEqual([itemsByCollection.items[0].tokenId]);
 			expect(httpGetSpy).toBeCalledWith("/items/byCollection", {
-				collection: consts[TheaNetwork.GANACHE].networkName + ":" + consts[TheaNetwork.GANACHE].theaERC1155Contract
+				collection: consts[TheaNetwork.GOERLI].networkName + ":" + consts[TheaNetwork.GOERLI].theaERC1155Contract
 			});
 		});
 	});

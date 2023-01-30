@@ -16,7 +16,7 @@ import * as shared from "../../../src/modules/shared";
 import * as uuid from "uuid";
 import { postOrderResponseMock, PRIVATE_KEY } from "../../mocks";
 
-const exchangeProxyContractAddress = consts[TheaNetwork.GANACHE].exchangeProxyAddress;
+const exchangeProxyContractAddress = consts[TheaNetwork.GOERLI].exchangeProxyAddress;
 
 jest.mock("../../../src/modules/shared", () => {
 	return {
@@ -120,7 +120,7 @@ describe("NFTTrading", () => {
 		cancelERC1155Order: jest.fn().mockResolvedValue(contractTransaction as ContractTransaction)
 	};
 
-	const network = TheaNetwork.GANACHE;
+	const network = TheaNetwork.GOERLI;
 
 	beforeEach(() => {
 		const orderBook = new Orderbook(network);
@@ -278,8 +278,8 @@ describe("NFTTrading", () => {
 				taker: "0x0000000000000000000000000000000000000000",
 				signature: {
 					signatureType: 2,
-					r: "0xd14c49db63b412d28efe3a4c39b282eaa3736e6c5cefb2c7e032feafb91dddf8",
-					s: "0x6c5e3c6a14bde3d45bca94d0b7311d47162b2c62918b1b23f63c5eb34d9aa27f",
+					r: "0xe2221b9e0e055e0eebdde03ed183dad4cea1652c0e86e968a800fd7be9655c20",
+					s: "0x69d5bf87a8105eb15db24fe43c40b99ab92b04a4c66bd6934afc93d38e2bd3dc",
 					v: 28
 				}
 			});

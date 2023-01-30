@@ -1,5 +1,5 @@
 import { Signer, TypedDataSigner } from "@ethersproject/abstract-signer";
-import { Provider, Web3Provider } from "@ethersproject/providers";
+import { BaseProvider, Web3Provider } from "@ethersproject/providers";
 import { Wallet } from "@ethersproject/wallet";
 import {
 	Convert,
@@ -18,7 +18,7 @@ import { consts, getCurrentNBTTokenAddress, TheaError } from "../utils";
 // SDK initialization options
 export type InitOptions = {
 	network: TheaNetwork;
-	provider?: Provider;
+	provider?: BaseProvider;
 	privateKey?: string;
 	signer?: Signer;
 	web3Provider?: Web3Provider;
@@ -72,7 +72,6 @@ export class TheaSDK {
 			providerOrSigner = new Wallet(options.privateKey, options.provider);
 		} else if (options.provider) providerOrSigner = options.provider;
 		else throw new TheaError({ type: "EMPTY_OPTIONS", message: "Non of optional parameters were provided" });
-
 		consts[`${options.network}`].currentNbtTokenContract = await getCurrentNBTTokenAddress(
 			options.network,
 			providerOrSigner

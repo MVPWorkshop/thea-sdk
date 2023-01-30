@@ -2,6 +2,8 @@ import { BigNumber } from "@ethersproject/bignumber";
 import { Contract } from "@ethersproject/contracts";
 import { InfuraProvider } from "@ethersproject/providers";
 import { Wallet } from "@ethersproject/wallet";
+import { Token } from "@uniswap/sdk-core";
+import { ChainId } from "@uniswap/smart-order-router";
 import { TheaNetwork } from "../../src";
 import {
 	castAbiInterface,
@@ -13,9 +15,22 @@ import {
 	consts,
 	getCurrentNBTTokenAddress,
 	isTypedDataSigner,
-	typedDataSignerRequired
+	typedDataSignerRequired,
+	theaNetworkToChainId,
+	getToken,
+	ethToWei
 } from "../../src/utils";
 import { ABI, CONTRACT_ADDRESS, PRIVATE_KEY, WALLET_ADDRESS } from "../mocks";
+
+jest.mock("@uniswap/smart-order-router", () => {
+	return {
+		ChainId: {
+			GÖRLI: 5,
+			POLYGON: 137,
+			POLYGON_MUMBAI: 80001
+		}
+	};
+});
 
 jest.mock("@ethersproject/contracts", () => {
 	return {
@@ -108,30 +123,17 @@ describe("Utils", () => {
 	});
 
 	describe("getERC20ContractAddress", () => {
-		const network = TheaNetwork.GANACHE;
-		it("should return sdg token contract address if token is SDG", () => {
-			const result = getERC20ContractAddress("SDG", TheaNetwork.GANACHE);
-			expect(result).toBe(consts[`${network}`].sdgTokenContract);
-		});
+		const network = TheaNetwork.GOERLI;
+		consts[`${network}`].currentNbtTokenContract = CONTRACT_ADDRESS;
 
-		it("should return vintage token contract address if token is Vintage", () => {
-			const result = getERC20ContractAddress("Vintage", TheaNetwork.GANACHE);
-			expect(result).toBe(consts[`${network}`].vintageTokenContract);
-		});
-
-		it("should return rating token contract address if token is Rating", () => {
-			const result = getERC20ContractAddress("Rating", TheaNetwork.GANACHE);
-			expect(result).toBe(consts[`${network}`].ratingTokenContract);
-		});
-
-		it("should return current nbt token contract address if token is CurrentNBT", () => {
-			const result = getERC20ContractAddress("CurrentNBT", TheaNetwork.GANACHE);
-			expect(result).toBe(consts[`${network}`].currentNbtTokenContract);
-		});
-		// TODO: Only to support test cases. Remove this after test cases are updated
-		it("should return link token contract address if token is Rating", () => {
-			const result = getERC20ContractAddress("LINK", TheaNetwork.GANACHE);
-			expect(result).toBe(consts[`${network}`].linkTokenContract);
+		it("should return contract address for token name", () => {
+			expect(getERC20ContractAddress("SDG", network)).toBe(consts[`${network}`].sdgTokenContract);
+			expect(getERC20ContractAddress("Vintage", network)).toBe(consts[`${network}`].vintageTokenContract);
+			expect(getERC20ContractAddress("Rating", network)).toBe(consts[`${network}`].ratingTokenContract);
+			expect(getERC20ContractAddress("CurrentNBT", network)).toBe(consts[`${network}`].currentNbtTokenContract);
+			// TODO: Only to support test cases. Remove this after test cases are updated
+			expect(getERC20ContractAddress("LINK", network)).toBe(consts[`${network}`].linkTokenContract);
+			expect(getERC20ContractAddress("Stable", network)).toBe(consts[`${network}`].stableTokenContract);
 		});
 	});
 
@@ -141,10 +143,48 @@ describe("Utils", () => {
 			const contract = new Contract(CONTRACT_ADDRESS, ABI, providerOrSigner);
 			const baseTokensSpy = jest.spyOn(contract, "baseTokens");
 			const baseCharacteristicsSpy = jest.spyOn(contract, "baseCharacteristics");
-			const result = await getCurrentNBTTokenAddress(TheaNetwork.GANACHE, providerOrSigner);
+			const result = await getCurrentNBTTokenAddress(TheaNetwork.GOERLI, providerOrSigner);
 			expect(result).toBe("0x0001");
 			expect(baseCharacteristicsSpy).toBeCalled();
 			expect(baseTokensSpy).toBeCalledWith(BigNumber.from(1));
+		});
+	});
+	describe("theaNetworkToChainId", () => {
+		it("should return chain id for given network", () => {
+			expect(theaNetworkToChainId(TheaNetwork.GOERLI)).toBe(ChainId.GÖRLI);
+			expect(theaNetworkToChainId(TheaNetwork.POLYGON)).toBe(ChainId.POLYGON);
+			expect(theaNetworkToChainId(TheaNetwork.MUMBAI)).toBe(ChainId.POLYGON_MUMBAI);
+		});
+	});
+
+	describe("getToken", () => {
+		const network = TheaNetwork.GOERLI;
+		consts[`${network}`].currentNbtTokenContract = CONTRACT_ADDRESS;
+		it("should return token class for TheaERC20Token", () => {
+			expect(getToken(network, "SDG")).toEqual(
+				new Token(5, consts[`${network}`].sdgTokenContract, 4, "SDG", "Thea SDG Token")
+			);
+			expect(getToken(network, "Vintage")).toEqual(
+				new Token(5, consts[`${network}`].vintageTokenContract, 4, "VNT", "Thea Vintage Token")
+			);
+			expect(getToken(network, "LINK")).toEqual(
+				new Token(5, consts[`${network}`].linkTokenContract, 18, "LINK", "Chainlink Token")
+			);
+			expect(getToken(network, "Rating")).toEqual(
+				new Token(5, consts[`${network}`].ratingTokenContract, 4, "RTG", "Thea Rating Token")
+			);
+			expect(getToken(network, "CurrentNBT")).toEqual(
+				new Token(5, consts[`${network}`].currentNbtTokenContract, 4, "NBT", "Thea Current NBT")
+			);
+			expect(getToken(network, "Stable")).toEqual(
+				new Token(5, consts[`${network}`].stableTokenContract, 18, "DAI", "Dai Stablecoin")
+			);
+		});
+	});
+
+	describe("ethToWei", () => {
+		it("should convert eth to wei", () => {
+			expect(ethToWei("1")).toBe("1000000000000000000");
 		});
 	});
 });

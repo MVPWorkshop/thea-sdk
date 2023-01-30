@@ -9,8 +9,17 @@ import {
 import { AlphaRouter, CurrencyAmount, SwapType, SwapRoute } from "@uniswap/smart-order-router";
 import { Percent, Token } from "@uniswap/sdk-core";
 import { BaseProvider, TransactionReceipt } from "@ethersproject/providers";
-import { consts, ethToWei, getToken, signerRequired, TheaError, theaNetworkToChainId } from "../utils";
-import { BigNumber } from "@ethersproject/bignumber";
+import {
+	consts,
+	ethToWei,
+	getToken,
+	isSigner,
+	signerRequired,
+	TheaError,
+	theaNetworkToChainId,
+	amountShouldBeGTZero
+} from "../utils";
+import { BigNumber, BigNumberish } from "@ethersproject/bignumber";
 import { approve, checkBalance, execute } from "./shared";
 import { Signer } from "@ethersproject/abstract-signer";
 
@@ -19,7 +28,7 @@ export class FungibleTrading {
 	constructor(readonly providerOrSigner: ProviderOrSigner, readonly network: TheaNetwork) {
 		this.router = new AlphaRouter({
 			chainId: theaNetworkToChainId(network),
-			provider: providerOrSigner as BaseProvider
+			provider: this.extractProvider(providerOrSigner)
 		});
 	}
 
@@ -47,9 +56,10 @@ export class FungibleTrading {
 			deadline
 		});
 
+		const amountIn = ethToWei(options.amountIn.toString());
 		await checkBalance(this.providerOrSigner as Signer, this.network, {
 			token: "ERC20",
-			amount: options.amountIn,
+			amount: amountIn,
 			tokenName: options.tokenIn
 		});
 
@@ -58,36 +68,44 @@ export class FungibleTrading {
 		await approve(this.providerOrSigner as Signer, this.network, {
 			token: "ERC20",
 			tokenName: options.tokenIn,
-			amount: options.amountIn,
+			amount: amountIn,
 			spender
 		});
 
-		if (route?.methodParameters?.calldata) {
-			const signer = this.providerOrSigner as Signer;
-			return execute(signer.sendTransaction(this.buildSwapTransaction(await signer.getAddress(), spender, route)), {
-				address: spender,
-				contractFunction: "exactInputSingle",
-				name: "SwapRouter"
+		if (!route || !route.methodParameters)
+			throw new TheaError({
+				type: "ERROR_FINDING_SWAP_ROUTE",
+				message: "Could not find a swap route"
 			});
-		}
+		const methodParameters = route.methodParameters;
 
-		throw new TheaError({
-			type: "ERROR_FINDING_SWAP_ROUTE",
-			message: "Could not find a swap route"
-		});
+		const signer = this.providerOrSigner as Signer;
+		return execute(
+			signer.sendTransaction(
+				this.buildSwapTransaction(await signer.getAddress(), spender, methodParameters.calldata, methodParameters.value)
+			),
+			{
+				address: spender,
+				contractFunction: "tokenSwap",
+				name: "SwapRouter"
+			}
+		);
 	}
 
 	async findBestRoute(
 		tokenIn: Token,
 		tokenOut: Token,
-		options: { amountIn: BigNumber; recipient: string; slippageTolerance: Percent; deadline: number }
+		options: { amountIn: BigNumberish; recipient: string; slippageTolerance: Percent; deadline: number }
 	): Promise<SwapRoute | null> {
+		amountShouldBeGTZero(options.amountIn);
 		const route = await this.router.route(
-			CurrencyAmount.fromRawAmount(tokenIn, options.amountIn.toString()),
+			CurrencyAmount.fromRawAmount(tokenIn, ethToWei(options.amountIn.toString())),
 			tokenOut,
 			TradeType.EXACT_INPUT,
 			{
-				...options,
+				recipient: options.recipient,
+				slippageTolerance: options.slippageTolerance,
+				deadline: options.deadline,
 				type: SwapType.SWAP_ROUTER_02
 			}
 		);
@@ -95,26 +113,20 @@ export class FungibleTrading {
 		return route;
 	}
 
-	private buildSwapTransaction = (sender: string, routerAddress: string, route: SwapRoute) => {
+	private buildSwapTransaction = (sender: string, routerAddress: string, calldata: string, value: string) => {
 		return {
-			data: route.methodParameters?.calldata,
+			data: calldata,
 			to: routerAddress,
-			value: BigNumber.from(route?.methodParameters?.value),
-			from: sender,
-			gasPrice: BigNumber.from(route.gasPriceWei),
-			gasLimit: BigNumber.from(route.estimatedGasUsed).div(100).mul(115) // Add a 15% buffer on top.
+			value: BigNumber.from(value),
+			from: sender
 		};
 	};
 	private getTokens(options: FungibleOptions): { tokenIn: Token; tokenOut: Token } {
-		let tokenIn: Token;
-		let tokenOut: Token;
-		if (options.tokenIn === "Stable") {
-			tokenIn = getToken(this.network, "Stable");
-			tokenOut = getToken(this.network, (options as FungibleStableOptions).tokenOut);
-		} else {
-			tokenIn = getToken(this.network, options.tokenIn);
-			tokenOut = getToken(this.network, "Stable");
-		}
+		const tokenIn = getToken(this.network, options.tokenIn === "Stable" ? "Stable" : options.tokenIn);
+		const tokenOut = getToken(
+			this.network,
+			options.tokenIn === "Stable" ? (options as FungibleStableOptions).tokenOut : "Stable"
+		);
 
 		return { tokenIn, tokenOut };
 	}
@@ -124,13 +136,17 @@ export class FungibleTrading {
 			slippageTolerance: options?.slippageTolerance
 				? this.getSlippageTolerance(options.slippageTolerance)
 				: this.getSlippageTolerance(),
-			deadline: options?.deadline ?? this.getDeadline()
+			deadline: this.getDeadline(options?.deadline)
 		};
 	}
 
 	// Unix timestamp after which the transaction will revert.
-	private getDeadline(): number {
-		return Math.floor(Date.now() / 1000 + 1800); // 30min
+	private getDeadline(deadline?: number): number {
+		const defaultDeadLine = Math.floor(Date.now() / 1000 + 1800); // 30min
+		if (deadline && deadline < defaultDeadLine) {
+			throw new TheaError({ type: "INVALID_DEADLINE", message: "Deadline can't be in past" });
+		}
+		return deadline ? deadline : defaultDeadLine;
 	}
 
 	// Default slippage tolerance is 0.5%
@@ -148,5 +164,19 @@ export class FungibleTrading {
 		}
 
 		return Number(slippageTolerance.toString().substring(0, 4));
+	}
+
+	private extractProvider(providerOrSigner: ProviderOrSigner): BaseProvider {
+		let provider: BaseProvider;
+		if (isSigner(providerOrSigner)) {
+			if (providerOrSigner.provider) provider = providerOrSigner.provider as BaseProvider;
+			else
+				throw new TheaError({
+					type: "BASE_PROVIDER_REQUIRED",
+					message: "Base provider required for getting best swap route"
+				});
+		} else provider = providerOrSigner as BaseProvider;
+
+		return provider;
 	}
 }

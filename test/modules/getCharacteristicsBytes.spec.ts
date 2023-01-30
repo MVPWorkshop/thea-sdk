@@ -13,7 +13,7 @@ describe("GetCharacteristicsBytes.ts", () => {
 	};
 
 	beforeEach(() => {
-		getCharacteristicsBytes = new GetCharacteristicsBytes(providerOrSigner, TheaNetwork.GANACHE);
+		getCharacteristicsBytes = new GetCharacteristicsBytes(providerOrSigner, TheaNetwork.GOERLI);
 		getCharacteristicsBytes.contract = mockContract as IRegistryContract;
 	});
 

@@ -7,7 +7,7 @@ import { PRIVATE_KEY } from "../mocks";
 import * as shared from "../../src/modules/shared";
 import BaseTokenManager_ABI from "../../src/abi/BaseTokenManager_ABI.json";
 
-const baseTokenManagerContractAddress = consts[TheaNetwork.GANACHE].baseTokenManagerContract;
+const baseTokenManagerContractAddress = consts[TheaNetwork.GOERLI].baseTokenManagerContract;
 jest.mock("../../src/modules/shared", () => {
 	return {
 		checkBalance: jest.fn(),
@@ -29,7 +29,7 @@ describe("Convert", () => {
 	let convert: Convert;
 	const tokenId = "1";
 	const amount = BigNumber.from(1000);
-	const network = TheaNetwork.GANACHE;
+	const network = TheaNetwork.GOERLI;
 	const contractTransaction: Partial<ContractTransaction> = {
 		wait: jest.fn().mockResolvedValue({
 			to: baseTokenManagerContractAddress,

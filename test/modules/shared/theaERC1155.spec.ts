@@ -6,7 +6,7 @@ import * as shared from "../../../src/modules/shared";
 import { ContractReceipt, ContractTransaction } from "@ethersproject/contracts";
 import { BigNumber } from "@ethersproject/bignumber";
 
-const theaERC1155ContractAddress = consts[TheaNetwork.GANACHE].theaERC1155Contract;
+const theaERC1155ContractAddress = consts[TheaNetwork.GOERLI].theaERC1155Contract;
 jest.mock("../../../src/modules/shared/execute", () => {
 	return {
 		execute: jest.fn().mockImplementation(() => {
@@ -21,7 +21,7 @@ jest.mock("../../../src/modules/shared/execute", () => {
 
 describe("TheaERC1155", () => {
 	const signer = new Wallet(PRIVATE_KEY);
-	const theaERC1155: TheaERC1155 = new TheaERC1155(signer, TheaNetwork.GANACHE);
+	const theaERC1155: TheaERC1155 = new TheaERC1155(signer, TheaNetwork.GOERLI);
 	const owner = WALLET_ADDRESS;
 	const spender = WALLET_ADDRESS;
 	const tokenId = "1";
