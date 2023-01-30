@@ -130,7 +130,7 @@ export class FungibleTrading {
 	}
 
 	// Unix timestamp after which the transaction will revert.
-	private getDeadline(deadline: number | undefined): number {
+	private getDeadline(deadline?: number): number {
 		const defaultDeadLine = Math.floor(Date.now() / 1000 + 1800); // 30min
 		if (deadline && deadline < defaultDeadLine) {
 			throw new TheaError({ type: "INVALID_DEADLINE", message: "Deadline can't be in past" });
