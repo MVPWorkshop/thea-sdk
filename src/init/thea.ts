@@ -39,6 +39,7 @@ export class TheaSDK {
 		this.convert = new Convert(this.providerOrSigner, network);
 		const registry = new GetCharacteristicsBytes(this.providerOrSigner, network);
 		this.recover = new Recover(this.providerOrSigner, network, registry);
+		// TODO: In case of local network, don't instantiate fungible trading
 		this.fungibleTrading = new FungibleTrading(this.providerOrSigner, network);
 		this.nftTokenList = new GetTokenList(network);
 		this.nftQueryPriceListing = new QueryPriceListing(network);
