@@ -31,7 +31,7 @@ export class FungibleTrading {
 		const stableTokenAddress = consts[`${this.network}`].stableTokenContract;
 		let tokenInAddress = "";
 		let tokenOutAddress = "";
-		if (options.tokenIn === "DAI") {
+		if (options.tokenIn === "Stable") {
 			tokenInAddress = stableTokenAddress;
 			tokenOutAddress = getERC20ContractAddress(options.tokenOut, this.network);
 		} else {

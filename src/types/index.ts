@@ -24,7 +24,7 @@ export type ContractDetails = {
 	name: string;
 	address: string;
 };
-export type TheaERC20Token = "SDG" | "Vintage" | "Rating" | "CurrentNBT" | "LINK"; // TODO: Remove link from list after testing
+export type TheaERC20Token = "SDG" | "Vintage" | "Rating" | "CurrentNBT" | "Stable" | "LINK"; // TODO: Remove link from list after testing
 export type SwapTokens = "SDG" | "Vintage" | "LINK"; // TODO: Remove link from list after testing
 export const UniswapPoolFee = {
 	LOWEST: 100, // 0.01%
@@ -38,7 +38,7 @@ type QueryForERC20 = {
 };
 // TODO: Should we use one hardcoded stable coin or support multiple stable coins?
 type QueryForStable = {
-	tokenIn: "DAI";
+	tokenIn: "Stable";
 	amount: BigNumberish;
 	tokenOut: SwapTokens;
 };

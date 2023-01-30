@@ -72,7 +72,7 @@ describe("TheaSDK", () => {
 			});
 
 			expect(result).toBeInstanceOf(TheaSDK);
-			expect(result.network).toBe(TheaNetwork.GANACHE);
+			expect(result.network).toBe(TheaNetwork.MUMBAI);
 			expect(result.providerOrSigner).toBeDefined();
 			expect(getSignerSpy).toHaveBeenCalled();
 			expect(Unwrap).toBeCalled();

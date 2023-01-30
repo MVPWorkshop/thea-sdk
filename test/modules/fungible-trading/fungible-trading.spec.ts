@@ -25,7 +25,7 @@ describe("Fungible Trading", () => {
 		it("should return token price from stable coin to token", async () => {
 			const queryTokenPriceSpy = jest.spyOn(fungibleTrading.quoter, "quoteBestPrice");
 			const result = await fungibleTrading.queryTokenPrice({
-				tokenIn: "DAI",
+				tokenIn: "Stable",
 				tokenOut: "SDG",
 				amount
 			});
