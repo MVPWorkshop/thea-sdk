@@ -1,7 +1,7 @@
 import { Signer } from "@ethersproject/abstract-signer";
 import { isAddress } from "@ethersproject/address";
 import { Contract, ContractInterface } from "@ethersproject/contracts";
-import { ProviderOrSigner, TheaERC20Token, TheaNetwork } from "../types";
+import { IBaseTokenManagerContract, ProviderOrSigner, TheaERC20Token, TheaNetwork } from "../types";
 import { consts } from "./consts";
 import { TheaError } from "./theaError";
 import BaseTokenManager_ABI from "../abi/BaseTokenManager_ABI.json";
@@ -60,22 +60,21 @@ export const getERC20ContractAddress = (token: TheaERC20Token, network: TheaNetw
 			return consts[`${network}`].vintageTokenContract;
 		case "LINK":
 			return consts[`${network}`].linkTokenContract;
+		case "CurrentNBT":
+			return consts[`${network}`].currentNbtTokenContract;
 		default:
 			return consts[`${network}`].ratingTokenContract;
 	}
 };
 
-export const getBaseTokenERC20ContractAddress = async (
-	id: BigNumberish,
-	providerOrSigner: ProviderOrSigner,
-	contractAddress: string
-): Promise<string> => {
-	const basteTokenManagerContract = new Contract(
-		contractAddress,
+export const getCurrentNBTTokenAddress = async (network: TheaNetwork, providerOrSigner: ProviderOrSigner) => {
+	const baseTokenManagerContract = new Contract(
+		consts[`${network}`].baseTokenManagerContract,
 		castAbiInterface(BaseTokenManager_ABI.abi),
 		providerOrSigner
-	);
-	return await basteTokenManagerContract.baseTokens(id);
+	) as IBaseTokenManagerContract;
+	const { vintage } = await baseTokenManagerContract.baseCharacteristics();
+	return baseTokenManagerContract.baseTokens(vintage);
 };
 
 export const amountShouldBeGTZero = (amount: BigNumberish): void => {
