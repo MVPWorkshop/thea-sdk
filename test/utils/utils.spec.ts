@@ -9,6 +9,7 @@ import {
 	isSigner,
 	signerRequired,
 	TheaError,
+	tokenAmountShouldBeTon,
 	validateAddress,
 	consts,
 	getCurrentNBTTokenAddress,
@@ -145,6 +146,25 @@ describe("Utils", () => {
 			expect(result).toBe("0x0001");
 			expect(baseCharacteristicsSpy).toBeCalled();
 			expect(baseTokensSpy).toBeCalledWith(BigNumber.from(1));
+		});
+	});
+
+	describe("tokenAmountShouldBeTon", () => {
+		it("should throw error if amount is not ton", () => {
+			expect(() => {
+				tokenAmountShouldBeTon(100);
+			}).toThrow(
+				new TheaError({
+					type: "INVALID_TOKEN_AMOUNT_VALUE",
+					message: "Amount should be a ton. Value must be greater than 0 and divisible by 1000"
+				})
+			);
+		});
+
+		it("should not throw error if amount is ton", () => {
+			expect(() => {
+				tokenAmountShouldBeTon(1000);
+			}).not.toThrow();
 		});
 	});
 });
