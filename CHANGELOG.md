@@ -1,5 +1,20 @@
 # Changelog
 
+## [0.5.0](https://github.com/MVPWorkshop/thea-sdk/compare/v0.4.0...v0.5.0) (2023-01-30)
+
+
+### Features
+
+* nft trading module (without market order) ([e2957b6](https://github.com/MVPWorkshop/thea-sdk/commit/e2957b6d30fab9e707e6e8bc559f48b1e95cf365))
+* quering token price from uniswap pools ([0b7f1dd](https://github.com/MVPWorkshop/thea-sdk/commit/0b7f1dd433a307ffd9eb680155dfe52d8a1a1bee))
+* query order info ([e1a3579](https://github.com/MVPWorkshop/thea-sdk/commit/e1a357959d7bc4dc2f30672d3fd3c31f356ba71e))
+
+
+### Bug Fixes
+
+* chainID removed from env configs ([99bf60c](https://github.com/MVPWorkshop/thea-sdk/commit/99bf60c010dffcfd9e6735f0e63944404f03d2f4))
+* tests updated ([cdc092e](https://github.com/MVPWorkshop/thea-sdk/commit/cdc092e2a500d4093c8e2359ab0bd108fdc0ddab))
+
 ## [0.4.0](https://github.com/MVPWorkshop/thea-sdk/compare/v0.3.0...v0.4.0) (2023-01-23)
 
 
