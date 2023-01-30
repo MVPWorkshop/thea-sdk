@@ -1,5 +1,5 @@
 import { IQuoterContract, ProviderOrSigner, TheaNetwork, UniswapPoolFee } from "../../types";
-import { consts, ContractWrapper, validateAddress } from "../../utils";
+import { amountShouldBeGTZero, consts, ContractWrapper, validateAddress } from "../../utils";
 import Quoter_ABI from "../../abi/Quoter_ABI.json";
 import { BigNumber, BigNumberish } from "@ethersproject/bignumber";
 
@@ -22,6 +22,7 @@ export class Quoter extends ContractWrapper<IQuoterContract> {
 	): Promise<{ amountOut: BigNumber | 0; fee: number }> {
 		validateAddress(tokenIn);
 		validateAddress(tokenOut);
+		amountShouldBeGTZero(amount);
 
 		const fees = Object.values(UniswapPoolFee);
 

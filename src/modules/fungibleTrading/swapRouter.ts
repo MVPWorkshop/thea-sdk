@@ -1,5 +1,5 @@
 import { ExactInputSingleParams, ProviderOrSigner, ISwapRouterContract, SwapTokens, TheaNetwork } from "../../types";
-import { consts, ContractWrapper, signerRequired, validateAddress } from "../../utils";
+import { amountShouldBeGTZero, consts, ContractWrapper, signerRequired, validateAddress } from "../../utils";
 import SwapRouter_ABI from "../../abi/SwapRouter_ABI.json";
 import { ContractReceipt } from "@ethersproject/contracts";
 import { approve, checkBalance, execute } from "../shared";
@@ -24,6 +24,7 @@ export class SwapRouter extends ContractWrapper<ISwapRouterContract> {
 	 */
 	async swap(params: ExactInputSingleParams, tokenIn: SwapTokens): Promise<ContractReceipt> {
 		signerRequired(this.providerOrSigner);
+		amountShouldBeGTZero(params.amountIn);
 		[params.tokenIn, params.tokenOut, params.recipient].forEach((address) => validateAddress(address));
 
 		// Check balance of token in
