@@ -39,8 +39,8 @@ export class Recover extends ContractWrapper<IBaseTokenManagerContract> {
 		const baseTokenCharactaristics = await this.contract.baseCharacteristics();
 		const btAmount = await this.calculateBaseTokensAmounts(tokenId, amount, baseTokenCharactaristics);
 
-		await this.checkBalancesForAllBaseTokens(btAmount, baseTokenCharactaristics);
-		await this.approveAllBaseTokens(btAmount, baseTokenCharactaristics);
+		await this.checkBalancesForAllBaseTokens(btAmount);
+		await this.approveAllBaseTokens(btAmount);
 
 		return executeWithResponse<RecoverEvent>(
 			this.contract.recover(tokenId, amount),
@@ -52,11 +52,11 @@ export class Recover extends ContractWrapper<IBaseTokenManagerContract> {
 		);
 	}
 
-	async checkBalancesForAllBaseTokens(btAmount: BaseTokenAmounts, baseTokenCharactaristics: BaseTokenCharactaristics) {
+	async checkBalancesForAllBaseTokens(btAmount: BaseTokenAmounts) {
 		await checkBalance(this.providerOrSigner as Signer, this.network, {
-			token: "BaseTokeneERC20",
+			token: "ERC20",
 			amount: btAmount.btVintage,
-			id: baseTokenCharactaristics.vintage
+			tokenName: "CurrentNBT"
 		});
 		await checkBalance(this.providerOrSigner as Signer, this.network, {
 			token: "ERC20",
@@ -75,13 +75,13 @@ export class Recover extends ContractWrapper<IBaseTokenManagerContract> {
 		});
 	}
 
-	async approveAllBaseTokens(btAmount: BaseTokenAmounts, baseTokenCharactaristics: BaseTokenCharactaristics) {
+	async approveAllBaseTokens(btAmount: BaseTokenAmounts) {
 		const spender = this.contractDetails.address;
 		await approve(this.providerOrSigner as Signer, this.network, {
-			token: "BaseTokeneERC20",
+			token: "ERC20",
 			spender,
 			amount: btAmount.btVintage,
-			id: baseTokenCharactaristics.vintage
+			tokenName: "CurrentNBT"
 		});
 
 		await approve(this.providerOrSigner as Signer, this.network, {

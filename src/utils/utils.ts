@@ -1,7 +1,7 @@
 import { Signer } from "@ethersproject/abstract-signer";
 import { isAddress } from "@ethersproject/address";
 import { Contract, ContractInterface } from "@ethersproject/contracts";
-import { ProviderOrSigner, TheaERC20Token, TheaNetwork } from "../types";
+import { IBaseTokenManagerContract, ProviderOrSigner, TheaERC20Token, TheaNetwork } from "../types";
 import { consts } from "./consts";
 import { TheaError } from "./theaError";
 import BaseTokenManager_ABI from "../abi/BaseTokenManager_ABI.json";
@@ -39,8 +39,22 @@ export const signerRequired = (providerOrSigner: ProviderOrSigner) => {
 
 export const getAddress = async (signer: Signer) => signer.getAddress();
 
+/* eslint-disable  @typescript-eslint/no-explicit-any */
+export function isTypedDataSigner(providerOrSigner: any): providerOrSigner is Signer {
+	return !!providerOrSigner._signTypedData;
+}
+
+export const typedDataSignerRequired = (providerOrSigner: ProviderOrSigner) => {
+	if (!isTypedDataSigner(providerOrSigner) && !isSigner(providerOrSigner)) {
+		throw new TheaError({
+			type: "TYPED_DATA_SIGNER_REQUIRED",
+			message:
+				"TypedDataSigner is required for this operation. You must pass in a TypedDataSigner(Wallet) on SDK initialization"
+		});
+	}
+};
+
 // TODO: Remove LINK after testing
-// TODO: Add Current NBT token
 // TODO: Check is DAI stable coin
 export const getERC20ContractAddress = (token: TheaERC20Token, network: TheaNetwork): string => {
 	switch (token) {
@@ -50,24 +64,23 @@ export const getERC20ContractAddress = (token: TheaERC20Token, network: TheaNetw
 			return consts[`${network}`].vintageTokenContract;
 		case "LINK":
 			return consts[`${network}`].linkTokenContract;
-		case "DAI":
+		case "Stable":
 			return consts[`${network}`].stableTokenContract;
+		case "CurrentNBT":
+			return consts[`${network}`].currentNbtTokenContract;
 		default:
 			return consts[`${network}`].ratingTokenContract;
 	}
 };
 
-export const getBaseTokenERC20ContractAddress = async (
-	id: BigNumberish,
-	providerOrSigner: ProviderOrSigner,
-	contractAddress: string
-): Promise<string> => {
-	const basteTokenManagerContract = new Contract(
-		contractAddress,
+export const getCurrentNBTTokenAddress = async (network: TheaNetwork, providerOrSigner: ProviderOrSigner) => {
+	const baseTokenManagerContract = new Contract(
+		consts[`${network}`].baseTokenManagerContract,
 		castAbiInterface(BaseTokenManager_ABI.abi),
 		providerOrSigner
-	);
-	return await basteTokenManagerContract.baseTokens(id);
+	) as IBaseTokenManagerContract;
+	const { vintage } = await baseTokenManagerContract.baseCharacteristics();
+	return baseTokenManagerContract.baseTokens(vintage);
 };
 
 export const amountShouldBeGTZero = (amount: BigNumberish): void => {

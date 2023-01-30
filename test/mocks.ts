@@ -96,7 +96,38 @@ export const itemsByCollection: TokenListResponsePayload = {
 		}
 	]
 };
-
+export const postOrderResponseMock = {
+	erc20Token: "0xd393b1e02da9831ff419e22ea105aae4c47e1253",
+	erc20TokenAmount: "12000000000000000000",
+	nftToken: "0x2953399124f0cbb46d2cbacd8a89cf0599974963",
+	nftTokenId: "113604032257357238510303590891918450986076622282835488971632849699550347132938",
+	nftTokenAmount: "1",
+	nftType: "ERC1155",
+	sellOrBuyNft: "sell",
+	chainId: "80001",
+	order: {
+		direction: 0,
+		erc20Token: "0xd393b1e02da9831ff419e22ea105aae4c47e1253",
+		erc20TokenAmount: "12000000000000000000",
+		erc1155Token: "0x2953399124f0cbb46d2cbacd8a89cf0599974963",
+		erc1155TokenId: "113604032257357238510303590891918450986076622282835488971632849699550347132938",
+		erc1155TokenAmount: "1",
+		erc1155TokenProperties: [],
+		expiry: "2524604400",
+		fees: [],
+		maker: "0xca1edbea332fe36a4164bfc85bc58de12f07f941",
+		nonce: "100133271337000000000000000000000000000206548818982333778442832641797464560524",
+		signature: {
+			r: "0x396f2d0a0328e9d96e41fe9c58b61d8d19c1051569796135a1d44ab55aa5d57c",
+			s: "0x220f98a893146109b2a2a9b4832c9cdf39d9b5e353a274e1829360840080638c",
+			v: 27,
+			signatureType: 2
+		},
+		taker: "0x0000000000000000000000000000000000000000"
+	},
+	orderStatus: { status: null, transactionHash: null, blockNumber: null },
+	metadata: {}
+};
 export const priceListingMock: SearchOrdersResponsePayload = {
 	orders: [
 		{
@@ -115,6 +146,42 @@ export const priceListingMock: SearchOrdersResponsePayload = {
 				erc1155Token: "0xb47e3cd837ddf8e4c57f05d70ab865de6e193bbb",
 				erc1155TokenId: "69",
 				erc1155TokenAmount: "100",
+				erc1155TokenProperties: [],
+				expiry: "2524604400",
+				fees: [],
+				maker: "0x9342a65736a2e9c6a84a2adaba55ad1dc1f3a418",
+				nonce: "100131415900000000000000000000000000000096685863241593142117280893798097702934",
+				signature: {
+					r: "0x39728a3bef397db69c6c6e1409ae6756c567a989894ad0787f9561113c9a80e9",
+					s: "0x5f8a25be83efa2326e6405c68e8bdf5c0e83894dbef7e31de39d8c073302a1f6",
+					v: 28,
+					signatureType: 2
+				},
+				taker: "0x0000000000000000000000000000000000000000"
+			},
+			orderStatus: {
+				status: null,
+				transactionHash: null,
+				blockNumber: null
+			},
+			metadata: {}
+		},
+		{
+			erc20Token: "0x5d29011d843b0b1760c43e10d66f302174bccd1a",
+			erc20TokenAmount: "100000000000000000",
+			nftToken: "0xb47e3cd837ddf8e4c57f05d70ab865de6e193bbb",
+			nftTokenId: "69",
+			nftTokenAmount: "10",
+			nftType: "ERC721",
+			sellOrBuyNft: "buy",
+			chainId: "1337",
+			order: {
+				direction: 1,
+				erc20Token: "0x5d29011d843b0b1760c43e10d66f302174bccd1a",
+				erc20TokenAmount: "100000000000000000",
+				erc1155Token: "0xb47e3cd837ddf8e4c57f05d70ab865de6e193bbb",
+				erc1155TokenId: "69",
+				erc1155TokenAmount: "10",
 				erc1155TokenProperties: [],
 				expiry: "2524604400",
 				fees: [],

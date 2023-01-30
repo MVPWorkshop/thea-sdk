@@ -1,26 +1,30 @@
 import { Signer } from "@ethersproject/abstract-signer";
+import { BigNumber } from "@ethersproject/bignumber";
+import { Contract } from "@ethersproject/contracts";
 import { InfuraProvider } from "@ethersproject/providers";
 import { Wallet } from "@ethersproject/wallet";
-import { TheaNetwork } from "../../src";
 import {
 	castAbiInterface,
+	consts,
+	getAddress,
+	getCurrentNBTTokenAddress,
 	getERC20ContractAddress,
-	getBaseTokenERC20ContractAddress,
 	isSigner,
+	isTypedDataSigner,
 	signerRequired,
 	TheaError,
-	validateAddress,
-	consts,
-	getAddress
-} from "../../src/utils";
-import { ABI, PRIVATE_KEY, WALLET_ADDRESS } from "../mocks";
+	TheaNetwork,
+	typedDataSignerRequired,
+	validateAddress
+} from "../../src";
+
+import { ABI, CONTRACT_ADDRESS, PRIVATE_KEY, WALLET_ADDRESS } from "../mocks";
 
 jest.mock("@ethersproject/contracts", () => {
 	return {
-		Contract: jest.fn().mockImplementation(() => {
-			return {
-				baseTokens: jest.fn().mockReturnValue("0x0001")
-			};
+		Contract: jest.fn().mockReturnValue({
+			baseCharacteristics: jest.fn().mockReturnValue({ vintage: BigNumber.from(1) }),
+			baseTokens: jest.fn().mockReturnValue("0x0001")
 		})
 	};
 });
@@ -76,6 +80,35 @@ describe("Utils", () => {
 			}).not.toThrow();
 		});
 	});
+	describe("isTypedDataSigner", () => {
+		it("should return true if providerOrSigner is TypedDataSigner", () => {
+			const signer = new Wallet(PRIVATE_KEY);
+			expect(isTypedDataSigner(signer)).toBe(true);
+		});
+
+		it("should return false if providerOrSigner is not TypedDataSigner", () => {
+			const provider = new InfuraProvider();
+			expect(isTypedDataSigner(provider)).toBe(false);
+		});
+	});
+
+	describe("typedDataSignerRequired", () => {
+		it("should throw error if providerOrSigner is not TypedDataSigner", () => {
+			expect(() => typedDataSignerRequired(new InfuraProvider())).toThrow(
+				new TheaError({
+					type: "TYPED_DATA_SIGNER_REQUIRED",
+					message:
+						"TypedDataSigner is required for this operation. You must pass in a TypedDataSigner(Wallet) on SDK initialization"
+				})
+			);
+		});
+
+		it("should execute void function without error if providerOrSigner is TypedDataSigner", () => {
+			expect(() => {
+				typedDataSignerRequired(new Wallet(PRIVATE_KEY));
+			}).not.toThrow();
+		});
+	});
 
 	describe("getERC20ContractAddress", () => {
 		const network = TheaNetwork.GANACHE;
@@ -94,6 +127,10 @@ describe("Utils", () => {
 			expect(result).toBe(consts[`${network}`].ratingTokenContract);
 		});
 
+		it("should return current nbt token contract address if token is CurrentNBT", () => {
+			const result = getERC20ContractAddress("CurrentNBT", TheaNetwork.GANACHE);
+			expect(result).toBe(consts[`${network}`].currentNbtTokenContract);
+		});
 		// TODO: Only to support test cases. Remove this after test cases are updated
 		it("should return link token contract address if token is Rating", () => {
 			const result = getERC20ContractAddress("LINK", TheaNetwork.GANACHE);
@@ -101,21 +138,22 @@ describe("Utils", () => {
 		});
 
 		// TODO: Only to support test cases. Remove this after test cases are updated
-		it("should return dai token contract address if token is DAI", () => {
-			const result = getERC20ContractAddress("DAI", TheaNetwork.GANACHE);
+		it("should return stable token contract address if token is Stable", () => {
+			const result = getERC20ContractAddress("Stable", TheaNetwork.GANACHE);
 			expect(result).toBe(consts[`${network}`].stableTokenContract);
 		});
 	});
 
-	describe("getBaseTokenERC20ContractAddress", () => {
-		it("should return base token address by id", async () => {
+	describe("getCurrentNBTTokenAddress", () => {
+		it("should return current NBT token address", async () => {
 			const providerOrSigner = new Wallet(PRIVATE_KEY);
-			const result = await getBaseTokenERC20ContractAddress(
-				1,
-				providerOrSigner,
-				consts[TheaNetwork.GANACHE].baseTokenManagerContract
-			);
+			const contract = new Contract(CONTRACT_ADDRESS, ABI, providerOrSigner);
+			const baseTokensSpy = jest.spyOn(contract, "baseTokens");
+			const baseCharacteristicsSpy = jest.spyOn(contract, "baseCharacteristics");
+			const result = await getCurrentNBTTokenAddress(TheaNetwork.GANACHE, providerOrSigner);
 			expect(result).toBe("0x0001");
+			expect(baseCharacteristicsSpy).toBeCalled();
+			expect(baseTokensSpy).toBeCalledWith(BigNumber.from(1));
 		});
 	});
 

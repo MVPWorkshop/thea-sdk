@@ -24,10 +24,7 @@ jest.mock("../../../src/modules/shared/theaERC20", () => {
 
 jest.mock("../../../src/utils/utils", () => {
 	return {
-		getERC20ContractAddress: jest.fn(),
-		getBaseTokenERC20ContractAddress: jest.fn().mockImplementation(() => {
-			return "0x123";
-		})
+		getERC20ContractAddress: jest.fn()
 	};
 });
 
@@ -67,10 +64,10 @@ describe("tokenActions", () => {
 		it("should approve BaseERC20 token", async () => {
 			const approveERC20Spy = jest.spyOn(theaERC20, "approveERC20");
 			await approve(signer, network, {
-				token: "BaseTokeneERC20",
+				token: "ERC20",
 				spender,
 				amount,
-				id: 1
+				tokenName: "CurrentNBT"
 			});
 			expect(getAddressSpy).toBeCalledTimes(1);
 			expect(approveERC20Spy).toHaveBeenCalledWith(WALLET_ADDRESS, spender, BigNumber.from(100));
@@ -100,9 +97,9 @@ describe("tokenActions", () => {
 		it("should check balance of ERC20 token", async () => {
 			const checkERC20BalanceSpy = jest.spyOn(theaERC20, "checkERC20Balance");
 			await checkBalance(signer, network, {
-				token: "BaseTokeneERC20",
+				token: "ERC20",
 				amount,
-				id: 1
+				tokenName: "CurrentNBT"
 			});
 			expect(getAddressSpy).toBeCalledTimes(1);
 			expect(checkERC20BalanceSpy).toHaveBeenCalledWith(WALLET_ADDRESS, amount);
