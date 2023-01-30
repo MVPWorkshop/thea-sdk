@@ -132,7 +132,7 @@ describe("Fungible Trading", () => {
 		});
 
 		it("should extract swap options", async () => {
-			const swapOptions = { slippageTolerance: 1, deadline: 1000, recipient: "0x123" };
+			const swapOptions = { slippageTolerance: 1, deadline: Date.now() + 100000, recipient: "0x123" };
 			const swapSpy = jest.spyOn(fungibleTrading.swapRouter, "swap");
 			await fungibleTrading.swapTokens({ amountIn: amount, tokenIn: "SDG" }, swapOptions);
 
@@ -148,6 +148,13 @@ describe("Fungible Trading", () => {
 					sqrtPriceLimitX96: 0
 				},
 				"SDG"
+			);
+		});
+
+		it("should throw error if deadline is in past", async () => {
+			const swapOptions = { slippageTolerance: 1, deadline: 1000, recipient: "0x123" };
+			await expect(fungibleTrading.swapTokens({ amountIn: amount, tokenIn: "SDG" }, swapOptions)).rejects.toThrow(
+				new TheaError({ type: "INVALID_DEADLINE", message: "Deadline can't be in past" })
 			);
 		});
 	});

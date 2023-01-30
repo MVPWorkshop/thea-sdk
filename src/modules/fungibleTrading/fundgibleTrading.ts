@@ -103,7 +103,7 @@ export class FungibleTrading {
 	private extractSwapOptions(recipient: string, options?: SwapOptions): Required<SwapOptions> {
 		return {
 			slippageTolerance: options?.slippageTolerance ?? DEFAULT_SLIPPAGE_TOLERANCE,
-			deadline: options?.deadline ?? this.getDeadline(),
+			deadline: this.getDeadline(options?.deadline),
 			recipient: options?.recipient ?? recipient
 		};
 	}
@@ -130,7 +130,11 @@ export class FungibleTrading {
 	}
 
 	// Unix timestamp after which the transaction will revert.
-	private getDeadline(): number {
-		return Math.floor(Date.now() / 1000 + 1800); // 30min
+	private getDeadline(deadline: number | undefined): number {
+		const defaultDeadLine = Math.floor(Date.now() / 1000 + 1800); // 30min
+		if (deadline && deadline < defaultDeadLine) {
+			throw new TheaError({ type: "INVALID_DEADLINE", message: "Deadline can't be in past" });
+		}
+		return deadline ? deadline : defaultDeadLine;
 	}
 }

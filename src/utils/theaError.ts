@@ -23,7 +23,8 @@ export type ErrorType =
 	| "INVALID_APP_ID"
 	| "INVALID_SIGNATURE_SIZE"
 	| "INVALID_SIGNATURE_LAYOUT"
-	| "INVALID_NONCE";
+	| "INVALID_NONCE"
+	| "INVALID_DEADLINE";
 
 export type ErrorProps = {
 	type: ErrorType;
