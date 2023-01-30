@@ -1,13 +1,13 @@
-import { IERC1155Contract, ProviderOrSigner } from "../../types";
-import { ContractWrapper, TheaError, THEA_ERC1155_CONTRACT_ADDRESS, validateAddress } from "../../utils";
+import { IERC1155Contract, ProviderOrSigner, TheaNetwork } from "../../types";
+import { consts, ContractWrapper, TheaError, validateAddress } from "../../utils";
 import TheaERC1155_ABI from "../../abi/TheaERC1155_ABI.json";
 import { execute } from "./execute";
 import { BigNumberish } from "@ethersproject/bignumber";
 import { ContractReceipt } from "@ethersproject/contracts";
 
 export class TheaERC1155 extends ContractWrapper<IERC1155Contract> {
-	constructor(readonly providerOrSigner: ProviderOrSigner) {
-		super(providerOrSigner, TheaERC1155_ABI, THEA_ERC1155_CONTRACT_ADDRESS);
+	constructor(readonly providerOrSigner: ProviderOrSigner, readonly network: TheaNetwork) {
+		super(providerOrSigner, TheaERC1155_ABI, consts[`${network}`].theaERC1155Contract);
 	}
 
 	async checkERC1155Balance(owner: string, tokenId: BigNumberish, amount: BigNumberish): Promise<void> {

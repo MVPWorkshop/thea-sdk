@@ -1,12 +1,5 @@
-import { ProviderOrSigner, IRegistryContract, UnwrapTokenState, UnwrapRequestId } from "../types";
-import {
-	ContractWrapper,
-	Events,
-	REGISTRY_CONTRACT_ADDRESS,
-	signerRequired,
-	TheaError,
-	tokenAmountShouldBeTon
-} from "../utils";
+import { ProviderOrSigner, IRegistryContract, UnwrapTokenState, UnwrapRequestId, TheaNetwork } from "../types";
+import { consts, ContractWrapper, Events, signerRequired, TheaError, tokenAmountShouldBeTon } from "../utils";
 import Registry_ABI from "../abi/Registry_ABI.json";
 import { BigNumber, BigNumberish } from "@ethersproject/bignumber";
 import { ContractReceipt, Event } from "@ethersproject/contracts";
@@ -14,8 +7,8 @@ import { approve, checkBalance, executeWithResponse } from "./shared";
 import { Signer } from "@ethersproject/abstract-signer";
 
 export class Unwrap extends ContractWrapper<IRegistryContract> {
-	constructor(readonly providerOrSigner: ProviderOrSigner) {
-		super(providerOrSigner, Registry_ABI, REGISTRY_CONTRACT_ADDRESS);
+	constructor(readonly providerOrSigner: ProviderOrSigner, readonly network: TheaNetwork) {
+		super(providerOrSigner, Registry_ABI, consts[`${network}`].registryContract);
 	}
 
 	/**
@@ -34,11 +27,11 @@ export class Unwrap extends ContractWrapper<IRegistryContract> {
 		signerRequired(this.providerOrSigner);
 		tokenAmountShouldBeTon(amount);
 
-		await checkBalance(this.providerOrSigner as Signer, { token: "ERC1155", tokenId, amount });
+		await checkBalance(this.providerOrSigner as Signer, this.network, { token: "ERC1155", tokenId, amount });
 
-		await approve(this.providerOrSigner as Signer, {
+		await approve(this.providerOrSigner as Signer, this.network, {
 			token: "ERC1155",
-			spender: REGISTRY_CONTRACT_ADDRESS
+			spender: this.contractDetails.address
 		});
 
 		return executeWithResponse<UnwrapRequestId>(

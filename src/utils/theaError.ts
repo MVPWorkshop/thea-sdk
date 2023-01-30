@@ -7,14 +7,24 @@ export type ErrorType =
 	| "INVALID_TOKEN_AMOUNT_VALUE"
 	| "INVALID_REQUEST_ID_VALUE"
 	| "INVALID_ADDRESS"
+	| "INVALID_TOKEN_ID"
 	| "SIGNER_REQUIRED"
+	| "TYPED_DATA_SIGNER_REQUIRED"
 	| "TRANSACTION_FAILED"
 	| "INSUFFICIENT_FUNDS"
-	| "NOT_SUPPORED_TOKEN_TYPE";
+	| "NOT_SUPPORED_TOKEN_TYPE"
+	| "API_CALL_ERROR"
+	| "INVALID_TOKENIZATION_ID_FORMAT"
+	| "INVALID_BATCH_ID_FORMAT"
+	| "NFT_ORDER_SERILIZATION_ERROR"
+	| "INVALID_EMAIL_FORMAT"
+	| "INVALID_APP_ID"
+	| "INVALID_SIGNATURE_SIZE"
+	| "INVALID_SIGNATURE_LAYOUT"
+	| "INVALID_NONCE";
 
 export type ErrorProps = {
 	type: ErrorType;
-	contractFunction?: string;
 	message: string;
 };
 export class TheaError extends Error {
@@ -26,11 +36,18 @@ export class TheaError extends Error {
 	}
 }
 
-export class TheaTransactionError extends TheaError {
+export class TheaContractCallError extends TheaError {
 	readonly contractDetails: ContractDetails & { contractFunction: string };
 	constructor(props: ErrorProps, details: ContractDetails & { contractFunction: string }) {
 		super(props);
 		this.contractDetails = details;
-		Object.setPrototypeOf(this, TheaTransactionError.prototype);
+		Object.setPrototypeOf(this, TheaContractCallError.prototype);
+	}
+}
+
+export class TheaAPICallError extends TheaError {
+	constructor(readonly message: string, readonly method: "GET" | "POST", readonly endpoint: string) {
+		super({ type: "API_CALL_ERROR", message });
+		Object.setPrototypeOf(this, TheaAPICallError.prototype);
 	}
 }

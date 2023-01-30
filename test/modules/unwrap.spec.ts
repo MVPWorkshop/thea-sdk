@@ -2,21 +2,22 @@ import { BigNumber } from "@ethersproject/bignumber";
 import { ContractTransaction, Event } from "@ethersproject/contracts";
 import { JsonRpcProvider } from "@ethersproject/providers";
 import { Wallet } from "@ethersproject/wallet";
-import { Events, IRegistryContract, REGISTRY_CONTRACT_ADDRESS, TheaError, Unwrap } from "../../src";
+import { consts, Events, IRegistryContract, TheaError, TheaNetwork, Unwrap } from "../../src";
 import { PRIVATE_KEY } from "../mocks";
 import * as shared from "../../src/modules/shared";
 import * as utils from "../../src/utils/utils";
 import Registry_ABI from "../../src/abi/Registry_ABI.json";
 
+const registryContractAddress = consts[TheaNetwork.GANACHE].registryContract;
 jest.mock("../../src/modules/shared", () => {
 	return {
 		checkBalance: jest.fn(),
 		approve: jest.fn(),
 		executeWithResponse: jest.fn().mockImplementation(() => {
 			return {
-				to: REGISTRY_CONTRACT_ADDRESS,
+				to: registryContractAddress,
 				from: "0x123",
-				contractAddress: REGISTRY_CONTRACT_ADDRESS,
+				contractAddress: registryContractAddress,
 				requestId: "1"
 			};
 		})
@@ -32,9 +33,9 @@ describe("Unwrap", () => {
 
 	const contractTransaction: Partial<ContractTransaction> = {
 		wait: jest.fn().mockResolvedValue({
-			to: REGISTRY_CONTRACT_ADDRESS,
+			to: registryContractAddress,
 			from: "0x123",
-			contractAddress: REGISTRY_CONTRACT_ADDRESS
+			contractAddress: registryContractAddress
 		})
 	};
 
@@ -42,15 +43,15 @@ describe("Unwrap", () => {
 		unwrap: jest.fn().mockResolvedValue(contractTransaction as ContractTransaction),
 		requests: jest.fn().mockResolvedValue({ status: 0, maker: "0x123", tokenId, amount })
 	};
-
+	const network = TheaNetwork.GANACHE;
 	beforeEach(() => {
-		unwrap = new Unwrap(providerOrSigner);
+		unwrap = new Unwrap(providerOrSigner, network);
 		unwrap.contract = mockContract as IRegistryContract;
 	});
 
 	describe("unwrapToken", () => {
 		it("should throw error that signer is required", async () => {
-			unwrap = new Unwrap(new JsonRpcProvider());
+			unwrap = new Unwrap(new JsonRpcProvider(), network);
 			await expect(unwrap.unwrapToken(tokenId, amount, offchainAccount)).rejects.toThrow(
 				new TheaError({
 					type: "SIGNER_REQUIRED",
@@ -78,25 +79,25 @@ describe("Unwrap", () => {
 			const result = await unwrap.unwrapToken(tokenId, amount, offchainAccount);
 
 			expect(result.requestId).toBe("1");
-			expect(checkBalanceSpy).toHaveBeenCalledWith(providerOrSigner, { token: "ERC1155", tokenId, amount });
-			expect(approveSpy).toHaveBeenCalledWith(providerOrSigner, {
+			expect(checkBalanceSpy).toHaveBeenCalledWith(providerOrSigner, network, { token: "ERC1155", tokenId, amount });
+			expect(approveSpy).toHaveBeenCalledWith(providerOrSigner, network, {
 				token: "ERC1155",
-				spender: REGISTRY_CONTRACT_ADDRESS
+				spender: registryContractAddress
 			});
 			expect(executeSpy).toHaveBeenCalledWith(
 				txPromise,
 				{
 					name: Registry_ABI.contractName,
-					address: REGISTRY_CONTRACT_ADDRESS,
+					address: registryContractAddress,
 					contractFunction: "unwrap"
 				},
 				unwrap.extractRequestIdFromEvent
 			);
 			expect(unwrapSpy).toHaveBeenCalledWith(tokenId, amount, offchainAccount);
 			expect(result).toMatchObject({
-				to: REGISTRY_CONTRACT_ADDRESS,
+				to: registryContractAddress,
 				from: "0x123",
-				contractAddress: REGISTRY_CONTRACT_ADDRESS
+				contractAddress: registryContractAddress
 			});
 			expect(tokenAmountShouldBeTonSpy).toHaveBeenCalledWith(amount);
 		});

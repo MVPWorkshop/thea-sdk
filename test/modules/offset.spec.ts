@@ -1,7 +1,7 @@
-import { ContractReceipt, ContractTransaction } from "@ethersproject/contracts";
+import { ContractTransaction } from "@ethersproject/contracts";
 import { Wallet } from "@ethersproject/wallet";
-import { IRegistryContract, Offset, REGISTRY_CONTRACT_ADDRESS } from "../../src";
-import { PRIVATE_KEY, transaction } from "../mocks";
+import { consts, IRegistryContract, Offset, TheaNetwork } from "../../src";
+import { PRIVATE_KEY } from "../mocks";
 import * as utils from "../../src/utils/utils";
 import * as shared from "../../src/modules/shared";
 import { JsonRpcProvider } from "@ethersproject/providers";
@@ -12,16 +12,27 @@ jest.mock("../../src/modules/shared", () => {
 		checkBalance: jest.fn(),
 		approve: jest.fn(),
 		execute: jest.fn().mockImplementation(() => {
-			return transaction(REGISTRY_CONTRACT_ADDRESS) as ContractReceipt;
+			return {
+				to: "0x88449Dd0a1b75BC607A1E971b13930617D535EC1",
+				from: "0x123",
+				contractAddress: "0x88449Dd0a1b75BC607A1E971b13930617D535EC1"
+			};
 		})
 	};
 });
 
 describe("Offset", () => {
 	const signer = new Wallet(PRIVATE_KEY, new JsonRpcProvider());
-	const tx = transaction(REGISTRY_CONTRACT_ADDRESS);
+	const network = TheaNetwork.GANACHE;
+	const contractAddress = consts[`${network}`].registryContract;
 	const contractTransaction: Partial<ContractTransaction> = {
-		wait: () => Promise.resolve(tx as ContractReceipt)
+		wait: jest.fn().mockResolvedValue(() => {
+			return {
+				to: contractAddress,
+				from: "0x123",
+				contractAddress: contractAddress
+			};
+		})
 	};
 	const txPromise = Promise.resolve(contractTransaction as ContractTransaction);
 
@@ -34,7 +45,7 @@ describe("Offset", () => {
 	};
 
 	beforeEach(() => {
-		offSet = new Offset(signer);
+		offSet = new Offset(signer, network);
 		offSet.contract = mockContract as IRegistryContract;
 	});
 
@@ -49,15 +60,15 @@ describe("Offset", () => {
 			await offSet.offsetNFT(tokenId, amount);
 
 			expect(signerRequiredSpy).toHaveBeenCalledWith(signer);
-			expect(checkBalance).toHaveBeenCalledWith(signer, { token: "ERC1155", tokenId, amount });
-			expect(approveSpy).toHaveBeenCalledWith(signer, {
+			expect(checkBalance).toHaveBeenCalledWith(signer, network, { token: "ERC1155", tokenId, amount });
+			expect(approveSpy).toHaveBeenCalledWith(signer, network, {
 				token: "ERC1155",
-				spender: REGISTRY_CONTRACT_ADDRESS
+				spender: contractAddress
 			});
 			expect(retireSpy).toHaveBeenCalledWith(tokenId, amount);
 			expect(executeSpy).toHaveBeenCalledWith(txPromise, {
 				name: Registry_ABI.contractName,
-				address: REGISTRY_CONTRACT_ADDRESS,
+				address: contractAddress,
 				contractFunction: "retire"
 			});
 		});

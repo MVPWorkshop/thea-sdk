@@ -2,18 +2,19 @@ import * as utils from "../../../src/utils/utils";
 import * as shared from "../../../src/modules/shared";
 import { ContractReceipt, ContractTransaction } from "@ethersproject/contracts";
 import { BigNumber } from "@ethersproject/bignumber";
-import { VINTAGE_TOKEN_CONTRACT_ADDRESS, TheaERC20, IERC20Contract, ContractDetails, TheaError } from "../../../src";
+import { TheaERC20, IERC20Contract, ContractDetails, TheaError, consts, TheaNetwork } from "../../../src";
 import { Wallet } from "@ethersproject/wallet";
 import { PRIVATE_KEY, WALLET_ADDRESS } from "../../mocks";
 import { JsonRpcProvider } from "@ethersproject/providers";
 
+const vintageTokenContractAddress = consts[TheaNetwork.GANACHE].vintageTokenContract;
 jest.mock("../../../src/modules/shared/execute", () => {
 	return {
 		execute: jest.fn().mockImplementation(() => {
 			return {
-				to: VINTAGE_TOKEN_CONTRACT_ADDRESS,
+				to: vintageTokenContractAddress,
 				from: "0x123",
-				contractAddress: VINTAGE_TOKEN_CONTRACT_ADDRESS
+				contractAddress: vintageTokenContractAddress
 			};
 		})
 	};
@@ -52,7 +53,7 @@ describe("TheaERC20", () => {
 	it("should approve token", async () => {
 		const details: ContractDetails & { contractFunction: string } = {
 			contractFunction: "approve",
-			address: VINTAGE_TOKEN_CONTRACT_ADDRESS,
+			address: "Vintage",
 			name: "TheaERC20"
 		};
 		const txPromise = Promise.resolve({} as ContractTransaction);
