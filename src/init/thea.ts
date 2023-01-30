@@ -1,19 +1,19 @@
-import { Signer } from "@ethersproject/abstract-signer";
+import { Signer, TypedDataSigner } from "@ethersproject/abstract-signer";
 import { Provider, Web3Provider } from "@ethersproject/providers";
 import { Wallet } from "@ethersproject/wallet";
 import {
 	Convert,
 	GetCharacteristicsBytes,
 	GetTokenList,
-	QueryPriceListing,
 	Recover,
 	Tokenization,
 	Unwrap,
 	FungibleTrading,
-	QueryOrderInfo
+	Orderbook,
+	NFTTrading
 } from "../modules";
 import { TheaNetwork, ProviderOrSigner } from "../types";
-import { TheaError } from "../utils";
+import { consts, getCurrentNBTTokenAddress, TheaError } from "../utils";
 
 // SDK initialization options
 export type InitOptions = {
@@ -31,8 +31,8 @@ export class TheaSDK {
 	readonly recover: Recover;
 	readonly fungibleTrading: FungibleTrading;
 	readonly nftTokenList: GetTokenList;
-	readonly nftQueryPriceListing: QueryPriceListing;
-	readonly nftOrderInfo: QueryOrderInfo;
+	readonly nftOrderbook: Orderbook;
+	readonly nftTrading: NFTTrading;
 
 	private constructor(readonly providerOrSigner: ProviderOrSigner, readonly network: TheaNetwork) {
 		this.unwrap = new Unwrap(this.providerOrSigner, network);
@@ -42,8 +42,8 @@ export class TheaSDK {
 		// TODO: In case of local network, don't instantiate fungible trading
 		this.fungibleTrading = new FungibleTrading(this.providerOrSigner, network);
 		this.nftTokenList = new GetTokenList(network);
-		this.nftQueryPriceListing = new QueryPriceListing(network);
-		this.nftOrderInfo = new QueryOrderInfo(network);
+		this.nftOrderbook = new Orderbook(network);
+		this.nftTrading = new NFTTrading(this.providerOrSigner, network, this.nftOrderbook);
 	}
 
 	/**
@@ -56,10 +56,10 @@ export class TheaSDK {
 	 * @param options.web3Provider Web3 provider
 	 * @returns Initialized TheaSDK instance
 	 */
-	static init(options: InitOptions): TheaSDK {
+	static async init(options: InitOptions): Promise<TheaSDK> {
 		let providerOrSigner: ProviderOrSigner;
 
-		if (options.web3Provider) providerOrSigner = options.web3Provider.getSigner() as Signer;
+		if (options.web3Provider) providerOrSigner = options.web3Provider.getSigner() as Signer & TypedDataSigner;
 		else if (options.signer) providerOrSigner = options.signer;
 		else if (options.privateKey) {
 			if (!options.provider) {
@@ -73,6 +73,10 @@ export class TheaSDK {
 		} else if (options.provider) providerOrSigner = options.provider;
 		else throw new TheaError({ type: "EMPTY_OPTIONS", message: "Non of optional parameters were provided" });
 
+		consts[`${options.network}`].currentNbtTokenContract = await getCurrentNBTTokenAddress(
+			options.network,
+			providerOrSigner
+		);
 		return new TheaSDK(providerOrSigner, options.network);
 	}
 }

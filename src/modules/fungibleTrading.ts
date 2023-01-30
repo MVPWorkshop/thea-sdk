@@ -108,12 +108,12 @@ export class FungibleTrading {
 	private getTokens(options: FungibleOptions): { tokenIn: Token; tokenOut: Token } {
 		let tokenIn: Token;
 		let tokenOut: Token;
-		if (options.tokenIn === "DAI") {
-			tokenIn = getToken(this.network, "DAI");
+		if (options.tokenIn === "Stable") {
+			tokenIn = getToken(this.network, "Stable");
 			tokenOut = getToken(this.network, (options as FungibleStableOptions).tokenOut);
 		} else {
 			tokenIn = getToken(this.network, options.tokenIn);
-			tokenOut = getToken(this.network, "DAI");
+			tokenOut = getToken(this.network, "Stable");
 		}
 
 		return { tokenIn, tokenOut };
