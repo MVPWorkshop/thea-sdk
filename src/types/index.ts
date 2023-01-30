@@ -28,7 +28,7 @@ export type ContractDetails = {
 	name: string;
 	address: string;
 };
-export type TheaERC20Token = "SDG" | "Vintage" | "Rating" | "LINK"; // TODO: Remove link from list after testing
+export type TheaERC20Token = "SDG" | "Vintage" | "Rating" | "CurrentNBT" | "LINK"; // TODO: Remove link from list after testing
 export type SwapTokens = "SDG" | "Vintage" | "LINK"; // TODO: Remove link from list after testing
 export const UniswapPoolFee = {
 	LOWEST: 100, // 0.01%
