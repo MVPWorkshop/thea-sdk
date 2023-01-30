@@ -65,19 +65,6 @@ describe("Fungible Trading", () => {
 		});
 	});
 
-	// async queryTokenPrice(options: FungibleOptions): Promise<string | null> {
-	// 	const { tokenIn, tokenOut } = this.getTokens(options);
-	// 	const route = await this.findBestRoute(tokenIn, tokenOut, {
-	// 		amountIn: options.amountIn,
-	// 		recipient: options.recipient,
-	// 		slippageTolerance: this.getSlippageTolerance(),
-	// 		deadline: this.getDeadline()
-	// 	});
-
-	// 	if (route) return ethToWei(route.quote.toExact());
-	// 	else return null;
-	// }
-
 	describe("queryTokenPrice", () => {
 		it("should return price of token", async () => {
 			const findBestRouteSpy = jest.spyOn(fungibleTrading, "findBestRoute").mockResolvedValueOnce(route as SwapRoute);
