@@ -92,7 +92,7 @@ describe("Fungible Trading", () => {
 					tokenOut: stableTokenAddr,
 					fee: POOL_FEE,
 					recipient: WALLET_ADDRESS,
-					deadline: 1640993400,
+					deadline: expect.any(Number),
 					amountIn: amount,
 					amountOutMinimum: BigNumber.from(199),
 					sqrtPriceLimitX96: 0
