@@ -1,14 +1,14 @@
 import { BigNumber } from "@ethersproject/bignumber";
 import { JsonRpcProvider } from "@ethersproject/providers";
 import { Wallet } from "@ethersproject/wallet";
-import { consts, FungibleTrading, TheaError, TheaNetwork, UniswapPoolFee } from "../../../src";
+import { consts, FungibleTrading, POOL_FEE, TheaError, TheaNetwork } from "../../../src";
 import { PRIVATE_KEY, WALLET_ADDRESS } from "../../mocks";
 
 jest.mock("../../../src/modules/fungibleTrading/quoter", () => {
 	return {
 		Quoter: jest.fn().mockImplementation(() => {
 			return {
-				quoteBestPrice: jest.fn().mockResolvedValue({ amountOut: BigNumber.from(200), fee: UniswapPoolFee.MEDIUM })
+				quoteBestPrice: jest.fn().mockResolvedValue(BigNumber.from(200))
 			};
 		})
 	};
@@ -90,7 +90,7 @@ describe("Fungible Trading", () => {
 				{
 					tokenIn: tokenInAddr,
 					tokenOut: stableTokenAddr,
-					fee: UniswapPoolFee.MEDIUM,
+					fee: POOL_FEE,
 					recipient: WALLET_ADDRESS,
 					deadline: 1640993400,
 					amountIn: amount,
@@ -114,7 +114,7 @@ describe("Fungible Trading", () => {
 		});
 
 		it("should fail if quoter returns 0 amountOut", async () => {
-			jest.spyOn(fungibleTrading.quoter, "quoteBestPrice").mockResolvedValue({ amountOut: 0, fee: 500 });
+			jest.spyOn(fungibleTrading.quoter, "quoteBestPrice").mockResolvedValue(BigNumber.from(0));
 			await expect(fungibleTrading.swapTokens({ amountIn: amount, tokenIn: "SDG" })).rejects.toThrow(
 				new TheaError({ type: "INVALID_TOKEN_PRICE", message: "Coudn't fetch best token price from pair pools" })
 			);
@@ -140,7 +140,7 @@ describe("Fungible Trading", () => {
 				{
 					tokenIn: tokenInAddr,
 					tokenOut: stableTokenAddr,
-					fee: UniswapPoolFee.MEDIUM,
+					fee: POOL_FEE,
 					recipient: swapOptions.recipient,
 					deadline: swapOptions.deadline,
 					amountIn: amount,

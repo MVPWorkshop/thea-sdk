@@ -54,16 +54,12 @@ export const typedDataSignerRequired = (providerOrSigner: ProviderOrSigner) => {
 	}
 };
 
-// TODO: Remove LINK after testing
-// TODO: Check is DAI stable coin
 export const getERC20ContractAddress = (token: TheaERC20Token, network: TheaNetwork): string => {
 	switch (token) {
 		case "SDG":
 			return consts[`${network}`].sdgTokenContract;
 		case "Vintage":
 			return consts[`${network}`].vintageTokenContract;
-		case "LINK":
-			return consts[`${network}`].linkTokenContract;
 		case "Stable":
 			return consts[`${network}`].stableTokenContract;
 		case "CurrentNBT":

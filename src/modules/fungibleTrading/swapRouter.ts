@@ -1,4 +1,10 @@
-import { ExactInputSingleParams, ProviderOrSigner, ISwapRouterContract, SwapTokens, TheaNetwork } from "../../types";
+import {
+	ExactInputSingleParams,
+	ProviderOrSigner,
+	ISwapRouterContract,
+	TheaNetwork,
+	TheaERC20Token
+} from "../../types";
 import { amountShouldBeGTZero, consts, ContractWrapper, signerRequired, validateAddress } from "../../utils";
 import SwapRouter_ABI from "../../abi/SwapRouter_ABI.json";
 import { ContractReceipt } from "@ethersproject/contracts";
@@ -22,7 +28,7 @@ export class SwapRouter extends ContractWrapper<ISwapRouterContract> {
 	 * @param params.sqrtPriceLimitX96 - sqrt price limit
 	 * @returns ContractTransaction
 	 */
-	async swap(params: ExactInputSingleParams, tokenIn: SwapTokens): Promise<ContractReceipt> {
+	async swap(params: ExactInputSingleParams, tokenIn: TheaERC20Token): Promise<ContractReceipt> {
 		signerRequired(this.providerOrSigner);
 		amountShouldBeGTZero(params.amountIn);
 		[params.tokenIn, params.tokenOut, params.recipient].forEach((address) => validateAddress(address));

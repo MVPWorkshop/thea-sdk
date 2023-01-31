@@ -7,7 +7,8 @@ import {
 	TheaNetwork,
 	ExactInputSingleParams,
 	FungibleStableOptions,
-	SwapOptions
+	SwapOptions,
+	POOL_FEE
 } from "../../types";
 import {
 	consts,
@@ -42,9 +43,9 @@ export class FungibleTrading {
 		signerRequired(this.providerOrSigner);
 		const { tokenIn, tokenOut } = this.getTokenInAndOutAddress(options);
 
-		const { amountOut, fee } = await this.quoter.quoteBestPrice(tokenIn, tokenOut, options.amountIn);
+		const amountOut = await this.quoter.quoteBestPrice(tokenIn, tokenOut, options.amountIn);
 
-		if (amountOut === 0) {
+		if (amountOut.eq(BigNumber.from(0))) {
 			throw new TheaError({ type: "INVALID_TOKEN_PRICE", message: "Coudn't fetch best token price from pair pools" });
 		}
 
@@ -58,7 +59,7 @@ export class FungibleTrading {
 		const swapParams: ExactInputSingleParams = {
 			tokenIn,
 			tokenOut,
-			fee,
+			fee: POOL_FEE,
 			recipient,
 			deadline,
 			amountIn: options.amountIn,
@@ -75,10 +76,10 @@ export class FungibleTrading {
 	 * @param amount - amount of token in
 	 * @returns - amount of token out in WEI
 	 */
-	async queryTokenPrice(options: FungibleOptions): Promise<string | 0> {
+	async queryTokenPrice(options: FungibleOptions): Promise<string> {
 		const { tokenIn, tokenOut } = this.getTokenInAndOutAddress(options);
-		const result = await this.quoter.quoteBestPrice(tokenIn, tokenOut, options.amountIn);
-		return result.amountOut.toString();
+		const amountOut = await this.quoter.quoteBestPrice(tokenIn, tokenOut, options.amountIn);
+		return amountOut.toString();
 	}
 
 	/**

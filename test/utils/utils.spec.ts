@@ -131,13 +131,7 @@ describe("Utils", () => {
 			const result = getERC20ContractAddress("CurrentNBT", TheaNetwork.GANACHE);
 			expect(result).toBe(consts[`${network}`].currentNbtTokenContract);
 		});
-		// TODO: Only to support test cases. Remove this after test cases are updated
-		it("should return link token contract address if token is Rating", () => {
-			const result = getERC20ContractAddress("LINK", TheaNetwork.GANACHE);
-			expect(result).toBe(consts[`${network}`].linkTokenContract);
-		});
 
-		// TODO: Only to support test cases. Remove this after test cases are updated
 		it("should return stable token contract address if token is Stable", () => {
 			const result = getERC20ContractAddress("Stable", TheaNetwork.GANACHE);
 			expect(result).toBe(consts[`${network}`].stableTokenContract);

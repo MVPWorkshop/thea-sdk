@@ -1,4 +1,4 @@
-import { IQuoterContract, ProviderOrSigner, TheaNetwork, UniswapPoolFee } from "../../types";
+import { IQuoterContract, POOL_FEE, ProviderOrSigner, TheaNetwork } from "../../types";
 import { amountShouldBeGTZero, consts, ContractWrapper, validateAddress } from "../../utils";
 import Quoter_ABI from "../../abi/Quoter_ABI.json";
 import { BigNumber, BigNumberish } from "@ethersproject/bignumber";
@@ -15,57 +15,11 @@ export class Quoter extends ContractWrapper<IQuoterContract> {
 	 * @param amount - amount of token in
 	 * @returns - amount of token out
 	 */
-	async quoteBestPrice(
-		tokenIn: string,
-		tokenOut: string,
-		amount: BigNumberish
-	): Promise<{ amountOut: BigNumber | 0; fee: number }> {
+	async quoteBestPrice(tokenIn: string, tokenOut: string, amount: BigNumberish): Promise<BigNumber> {
 		validateAddress(tokenIn);
 		validateAddress(tokenOut);
 		amountShouldBeGTZero(amount);
 
-		const fees = Object.values(UniswapPoolFee);
-
-		// Prepare quoute call for each pool fe
-		const promises = fees.map((fee) => {
-			return this.contract.callStatic.quoteExactInputSingle(tokenIn, tokenOut, fee, amount, 0);
-		});
-
-		const result = await Promise.allSettled(promises);
-
-		// Store fees of fulfilled promises
-		const fullFilledFees: number[] = [];
-
-		/*eslint no-undef: */
-		// Filter fullfilled promises and store their fees
-		const fullFilledPromises = result.filter((promise, ind) => {
-			if (promise.status === "fulfilled") {
-				fullFilledFees.push(fees[+ind]);
-				return true;
-			} else return false;
-		}) as PromiseFulfilledResult<BigNumber>[];
-
-		const bestPrice: { amountOut: BigNumber | 0; fee: number } = {
-			amountOut: 0,
-			fee: 0
-		};
-
-		// If no promises were fullfilled return 0
-		if (fullFilledPromises.length === 0) {
-			return bestPrice;
-		}
-
-		// Find largest amount out and store its fee
-		const amountOut = fullFilledPromises.reduce((acc, curr, ind) => {
-			if (curr.value.gt(acc)) {
-				bestPrice.fee = fullFilledFees[+ind];
-				return curr.value;
-			}
-			return acc;
-		}, BigNumber.from(0));
-
-		bestPrice.amountOut = amountOut;
-
-		return bestPrice;
+		return this.contract.callStatic.quoteExactInputSingle(tokenIn, tokenOut, POOL_FEE, amount, 0);
 	}
 }
