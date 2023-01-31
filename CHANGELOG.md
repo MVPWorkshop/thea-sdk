@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.6.0](https://github.com/MVPWorkshop/thea-sdk/compare/v0.5.0...v0.6.0) (2023-01-31)
+
+
+### Features
+
+* amount check on swap and quote functions ([ec28946](https://github.com/MVPWorkshop/thea-sdk/commit/ec28946cd105c608cbfb38c9289f09c40e3fd0c7))
+
+
+### Bug Fixes
+
+* deadline check added ([8ac857b](https://github.com/MVPWorkshop/thea-sdk/commit/8ac857b65ed628aa219eb9d4ada050c5a7eda4c1))
+* hardcoding pool for quote&swap ([6f7cef4](https://github.com/MVPWorkshop/thea-sdk/commit/6f7cef4595090421c7bc15cc143385ea741c96e0))
+
 ## [0.5.0](https://github.com/MVPWorkshop/thea-sdk/compare/v0.4.0...v0.5.0) (2023-01-30)
 
 
