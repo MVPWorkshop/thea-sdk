@@ -4,6 +4,7 @@ import {
 	GetCharacteristicsBytes,
 	GetTokenList,
 	NFTTrading,
+	Offset,
 	Orderbook,
 	Recover,
 	TheaNetwork,
@@ -61,6 +62,7 @@ describe("TheaSDK", () => {
 			});
 
 			expect(Unwrap).toHaveBeenCalledTimes(1);
+			expect(Offset).toHaveBeenCalledTimes(1);
 		});
 		it("should return TheaSDK instance using web3Provider", async () => {
 			const web3Provider = new Web3Provider({} as ExternalProvider);

@@ -14,6 +14,7 @@ import {
 	signerRequired,
 	TheaError,
 	TheaNetwork,
+	tokenAmountShouldBeTon,
 	typedDataSignerRequired,
 	validateAddress
 } from "../../src";
@@ -156,6 +157,25 @@ describe("Utils", () => {
 			const signer = new Wallet(PRIVATE_KEY);
 			const result = await getAddress(signer as Signer);
 			expect(result).toBe("0xE63CCe5bEBF27CFa751de8A1550692d3B12b7B7a");
+		});
+	});
+
+	describe("tokenAmountShouldBeTon", () => {
+		it("should throw error if amount is not ton", () => {
+			expect(() => {
+				tokenAmountShouldBeTon(100);
+			}).toThrow(
+				new TheaError({
+					type: "INVALID_TOKEN_AMOUNT_VALUE",
+					message: "Amount should be a ton. Value must be greater than 0 and divisible by 1000"
+				})
+			);
+		});
+
+		it("should not throw error if amount is ton", () => {
+			expect(() => {
+				tokenAmountShouldBeTon(1000);
+			}).not.toThrow();
 		});
 	});
 });

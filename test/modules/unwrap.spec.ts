@@ -5,6 +5,7 @@ import { Wallet } from "@ethersproject/wallet";
 import { consts, Events, IRegistryContract, TheaError, TheaNetwork, Unwrap } from "../../src";
 import { PRIVATE_KEY } from "../mocks";
 import * as shared from "../../src/modules/shared";
+import * as utils from "../../src/utils/utils";
 import Registry_ABI from "../../src/abi/Registry_ABI.json";
 
 const registryContractAddress = consts[TheaNetwork.GANACHE].registryContract;
@@ -74,8 +75,9 @@ describe("Unwrap", () => {
 			const checkBalanceSpy = jest.spyOn(shared, "checkBalance");
 			const approveSpy = jest.spyOn(shared, "approve");
 			const executeSpy = jest.spyOn(shared, "executeWithResponse");
-
+			const tokenAmountShouldBeTonSpy = jest.spyOn(utils, "tokenAmountShouldBeTon");
 			const result = await unwrap.unwrapToken(tokenId, amount, offchainAccount);
+
 			expect(result.requestId).toBe("1");
 			expect(checkBalanceSpy).toHaveBeenCalledWith(providerOrSigner, network, { token: "ERC1155", tokenId, amount });
 			expect(approveSpy).toHaveBeenCalledWith(providerOrSigner, network, {
@@ -97,6 +99,7 @@ describe("Unwrap", () => {
 				from: "0x123",
 				contractAddress: registryContractAddress
 			});
+			expect(tokenAmountShouldBeTonSpy).toHaveBeenCalledWith(amount);
 		});
 	});
 
