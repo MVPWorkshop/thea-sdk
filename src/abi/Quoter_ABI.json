@@ -1,6 +1,7 @@
 {
 	"_format": "hh-sol-artifact-1",
 	"contractName": "Quoter",
+	"sourceName": "contracts/Quoter.sol",
 	"abi": [
 		{
 			"inputs": [

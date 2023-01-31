@@ -24,26 +24,38 @@ export type ContractDetails = {
 	name: string;
 	address: string;
 };
-export type TheaERC20Token = "SDG" | "Vintage" | "Rating" | "CurrentNBT" | "Stable" | "LINK"; // TODO: Remove link from list after testing
-export type SwapTokens = "SDG" | "Vintage" | "LINK"; // TODO: Remove link from list after testing
-export const UniswapPoolFee = {
-	LOWEST: 100, // 0.01%
-	LOW: 500, // 0.05%
-	MEDIUM: 3000, // 0.3%
-	HIGH: 10000 // 1%
-};
-type QueryForERC20 = {
-	tokenIn: SwapTokens;
-	amount: BigNumberish;
-};
-// TODO: Should we use one hardcoded stable coin or support multiple stable coins?
-type QueryForStable = {
-	tokenIn: "Stable";
-	amount: BigNumberish;
-	tokenOut: SwapTokens;
+
+export type TheaERC20Token = "SDG" | "Vintage" | "Rating" | "CurrentNBT" | "Stable";
+
+export type ExactInputSingleParams = {
+	tokenIn: string;
+	tokenOut: string;
+	fee: BigNumberish;
+	recipient: string;
+	deadline: BigNumberish;
+	amountIn: BigNumberish;
+	amountOutMinimum: BigNumberish;
+	sqrtPriceLimitX96: BigNumberish;
 };
 
-export type QueryOptions = QueryForERC20 | QueryForStable;
+type FungibleERC20Options = {
+	tokenIn: TheaERC20Token;
+	amountIn: BigNumberish;
+};
+
+export type FungibleStableOptions = {
+	tokenIn: "Stable";
+	amountIn: BigNumberish;
+	tokenOut: TheaERC20Token;
+};
+
+export const POOL_FEE = 3000;
+export type FungibleOptions = FungibleERC20Options | FungibleStableOptions;
+export type SwapOptions = {
+	slippageTolerance?: number;
+	deadline?: number; // Unix timestamp
+	recipient?: string;
+};
 export type UnwrapRequestId = { requestId?: string };
 
 export enum TokenizationStatus {
@@ -194,5 +206,6 @@ export * from "./IBaseTokenManagerContract";
 export * from "./IERC1155Contract";
 export * from "./IERC20Contract";
 export * from "./IQuoterContract";
+export * from "./ISwapRouterContract";
 export * from "./IZeroExContract";
 export * from "./ZeroExProtocol";

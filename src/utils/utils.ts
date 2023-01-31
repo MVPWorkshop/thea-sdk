@@ -37,6 +37,8 @@ export const signerRequired = (providerOrSigner: ProviderOrSigner) => {
 	}
 };
 
+export const getAddress = async (signer: Signer) => signer.getAddress();
+
 /* eslint-disable  @typescript-eslint/no-explicit-any */
 export function isTypedDataSigner(providerOrSigner: any): providerOrSigner is Signer {
 	return !!providerOrSigner._signTypedData;
@@ -58,8 +60,8 @@ export const getERC20ContractAddress = (token: TheaERC20Token, network: TheaNetw
 			return consts[`${network}`].sdgTokenContract;
 		case "Vintage":
 			return consts[`${network}`].vintageTokenContract;
-		case "LINK":
-			return consts[`${network}`].linkTokenContract;
+		case "Stable":
+			return consts[`${network}`].stableTokenContract;
 		case "CurrentNBT":
 			return consts[`${network}`].currentNbtTokenContract;
 		default:

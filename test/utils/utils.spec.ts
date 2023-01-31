@@ -1,21 +1,24 @@
+import { Signer } from "@ethersproject/abstract-signer";
 import { BigNumber } from "@ethersproject/bignumber";
 import { Contract } from "@ethersproject/contracts";
 import { InfuraProvider } from "@ethersproject/providers";
 import { Wallet } from "@ethersproject/wallet";
-import { TheaNetwork } from "../../src";
 import {
 	castAbiInterface,
+	consts,
+	getAddress,
+	getCurrentNBTTokenAddress,
 	getERC20ContractAddress,
 	isSigner,
+	isTypedDataSigner,
 	signerRequired,
 	TheaError,
+	TheaNetwork,
 	tokenAmountShouldBeTon,
-	validateAddress,
-	consts,
-	getCurrentNBTTokenAddress,
-	isTypedDataSigner,
-	typedDataSignerRequired
-} from "../../src/utils";
+	typedDataSignerRequired,
+	validateAddress
+} from "../../src";
+
 import { ABI, CONTRACT_ADDRESS, PRIVATE_KEY, WALLET_ADDRESS } from "../mocks";
 
 jest.mock("@ethersproject/contracts", () => {
@@ -129,10 +132,10 @@ describe("Utils", () => {
 			const result = getERC20ContractAddress("CurrentNBT", TheaNetwork.GANACHE);
 			expect(result).toBe(consts[`${network}`].currentNbtTokenContract);
 		});
-		// TODO: Only to support test cases. Remove this after test cases are updated
-		it("should return link token contract address if token is Rating", () => {
-			const result = getERC20ContractAddress("LINK", TheaNetwork.GANACHE);
-			expect(result).toBe(consts[`${network}`].linkTokenContract);
+
+		it("should return stable token contract address if token is Stable", () => {
+			const result = getERC20ContractAddress("Stable", TheaNetwork.GANACHE);
+			expect(result).toBe(consts[`${network}`].stableTokenContract);
 		});
 	});
 
@@ -146,6 +149,14 @@ describe("Utils", () => {
 			expect(result).toBe("0x0001");
 			expect(baseCharacteristicsSpy).toBeCalled();
 			expect(baseTokensSpy).toBeCalledWith(BigNumber.from(1));
+		});
+	});
+
+	describe("getAddress", () => {
+		it("should return address of signer", async () => {
+			const signer = new Wallet(PRIVATE_KEY);
+			const result = await getAddress(signer as Signer);
+			expect(result).toBe("0xE63CCe5bEBF27CFa751de8A1550692d3B12b7B7a");
 		});
 	});
 
