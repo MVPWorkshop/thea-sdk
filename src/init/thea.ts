@@ -10,10 +10,11 @@ import {
 	Unwrap,
 	FungibleTrading,
 	Orderbook,
-	NFTTrading
+	NFTTrading,
+	Offset
 } from "../modules";
 import { TheaNetwork, ProviderOrSigner } from "../types";
-import { TheaError } from "../utils";
+import { consts, getCurrentNBTTokenAddress, TheaError } from "../utils";
 
 // SDK initialization options
 export type InitOptions = {
@@ -28,6 +29,7 @@ export class TheaSDK {
 	readonly unwrap: Unwrap;
 	readonly tokenization: Tokenization;
 	readonly convert: Convert;
+	readonly offset: Offset;
 	readonly recover: Recover;
 	readonly fungibleTrading: FungibleTrading;
 	readonly nftTokenList: GetTokenList;
@@ -37,6 +39,7 @@ export class TheaSDK {
 	private constructor(readonly providerOrSigner: ProviderOrSigner, readonly network: TheaNetwork) {
 		this.unwrap = new Unwrap(this.providerOrSigner, network);
 		this.convert = new Convert(this.providerOrSigner, network);
+		this.offset = new Offset(this.providerOrSigner, network);
 		const registry = new GetCharacteristicsBytes(this.providerOrSigner, network);
 		this.recover = new Recover(this.providerOrSigner, network, registry);
 		this.fungibleTrading = new FungibleTrading(this.providerOrSigner, network);
@@ -55,7 +58,7 @@ export class TheaSDK {
 	 * @param options.web3Provider Web3 provider
 	 * @returns Initialized TheaSDK instance
 	 */
-	static init(options: InitOptions): TheaSDK {
+	static async init(options: InitOptions): Promise<TheaSDK> {
 		let providerOrSigner: ProviderOrSigner;
 
 		if (options.web3Provider) providerOrSigner = options.web3Provider.getSigner() as Signer & TypedDataSigner;
@@ -72,6 +75,10 @@ export class TheaSDK {
 		} else if (options.provider) providerOrSigner = options.provider;
 		else throw new TheaError({ type: "EMPTY_OPTIONS", message: "Non of optional parameters were provided" });
 
+		consts[`${options.network}`].currentNbtTokenContract = await getCurrentNBTTokenAddress(
+			options.network,
+			providerOrSigner
+		);
 		return new TheaSDK(providerOrSigner, options.network);
 	}
 }

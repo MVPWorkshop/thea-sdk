@@ -20,4 +20,6 @@ export interface IRegistryContract extends Contract {
 		offchainAccount: PromiseOrValue<string>,
 		overrides?: TransactionOptions
 	): Promise<ContractTransaction>;
+
+	retire(tokenId: PromiseOrValue<BigNumberish>, amount: PromiseOrValue<BigNumberish>): Promise<ContractTransaction>;
 }

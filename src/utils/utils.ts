@@ -1,7 +1,7 @@
 import { Signer } from "@ethersproject/abstract-signer";
 import { isAddress } from "@ethersproject/address";
 import { Contract, ContractInterface } from "@ethersproject/contracts";
-import { ProviderOrSigner, TheaERC20Token, TheaNetwork } from "../types";
+import { IBaseTokenManagerContract, ProviderOrSigner, TheaERC20Token, TheaNetwork } from "../types";
 import { consts } from "./consts";
 import { TheaError } from "./theaError";
 import BaseTokenManager_ABI from "../abi/BaseTokenManager_ABI.json";
@@ -37,6 +37,8 @@ export const signerRequired = (providerOrSigner: ProviderOrSigner) => {
 	}
 };
 
+export const getAddress = async (signer: Signer) => signer.getAddress();
+
 /* eslint-disable  @typescript-eslint/no-explicit-any */
 export function isTypedDataSigner(providerOrSigner: any): providerOrSigner is Signer {
 	return !!providerOrSigner._signTypedData;
@@ -58,26 +60,23 @@ export const getERC20ContractAddress = (token: TheaERC20Token, network: TheaNetw
 			return consts[`${network}`].sdgTokenContract;
 		case "Vintage":
 			return consts[`${network}`].vintageTokenContract;
-		case "LINK":
-			return consts[`${network}`].linkTokenContract;
 		case "Stable":
 			return consts[`${network}`].stableTokenContract;
+		case "CurrentNBT":
+			return consts[`${network}`].currentNbtTokenContract;
 		default:
 			return consts[`${network}`].ratingTokenContract;
 	}
 };
 
-export const getBaseTokenERC20ContractAddress = async (
-	id: BigNumberish,
-	providerOrSigner: ProviderOrSigner,
-	contractAddress: string
-): Promise<string> => {
-	const basteTokenManagerContract = new Contract(
-		contractAddress,
+export const getCurrentNBTTokenAddress = async (network: TheaNetwork, providerOrSigner: ProviderOrSigner) => {
+	const baseTokenManagerContract = new Contract(
+		consts[`${network}`].baseTokenManagerContract,
 		castAbiInterface(BaseTokenManager_ABI.abi),
 		providerOrSigner
-	);
-	return await basteTokenManagerContract.baseTokens(id);
+	) as IBaseTokenManagerContract;
+	const { vintage } = await baseTokenManagerContract.baseCharacteristics();
+	return baseTokenManagerContract.baseTokens(vintage);
 };
 
 export const amountShouldBeGTZero = (amount: BigNumberish): void => {
@@ -86,6 +85,20 @@ export const amountShouldBeGTZero = (amount: BigNumberish): void => {
 		throw new TheaError({
 			type: "INVALID_TOKEN_AMOUNT_VALUE",
 			message: "Amount should be greater than 0"
+		});
+	}
+};
+
+/**
+ * Token amount check. Value should be in ton format
+ * @param amount amount to be checked
+ */
+export const tokenAmountShouldBeTon = (amount: BigNumberish): void => {
+	const amountBigNumber = BigNumber.from(amount);
+	if (amountBigNumber.lte(0) || amountBigNumber.mod(1000).toNumber() !== 0) {
+		throw new TheaError({
+			type: "INVALID_TOKEN_AMOUNT_VALUE",
+			message: "Amount should be a ton. Value must be greater than 0 and divisible by 1000"
 		});
 	}
 };

@@ -20,7 +20,6 @@ export class TheaERC20 extends ContractWrapper<IERC20Contract> {
 
 	async approveERC20(owner: string, spender: string, amount: BigNumberish) {
 		const allowance = await this.allowance(owner, spender);
-
 		if (allowance.lt(amount)) {
 			await this.approve(spender, amount);
 		}
