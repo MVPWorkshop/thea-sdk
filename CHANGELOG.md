@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.7.0](https://github.com/MVPWorkshop/thea-sdk/compare/v0.6.0...v0.7.0) (2023-02-01)
+
+
+### Features
+
+* roll base tokens ([25425a9](https://github.com/MVPWorkshop/thea-sdk/commit/25425a908370daee5609d3d07c3369c4789f1190))
+
 ## [0.6.0](https://github.com/MVPWorkshop/thea-sdk/compare/v0.5.0...v0.6.0) (2023-01-31)
 
 
