@@ -21,6 +21,8 @@ export type ErrorType =
 	| "INVALID_APP_ID"
 	| "INVALID_SIGNATURE_SIZE"
 	| "INVALID_SIGNATURE_LAYOUT"
+	| "NO_PRICE_LISTING_FOUND"
+	| "SELL_ERC1155_ERROR"
 	| "INVALID_NONCE";
 
 export type ErrorProps = {

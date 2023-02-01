@@ -60,6 +60,8 @@ export const getERC20ContractAddress = (token: TheaERC20Token, network: TheaNetw
 			return consts[`${network}`].vintageTokenContract;
 		case "LINK":
 			return consts[`${network}`].linkTokenContract;
+		case "Stable":
+			return consts[`${network}`].stableTokenContract;
 		default:
 			return consts[`${network}`].ratingTokenContract;
 	}

@@ -28,6 +28,7 @@ export type PriceListings = {
 	nftTokenAmount: string;
 	priceForOneNFT: number;
 	orderId: string;
+	orderToBeFilled: SignedERC1155OrderStructSerialized;
 };
 export type OrderSide = "buy" | "sell";
 export type ERC1155OrderStruct = {

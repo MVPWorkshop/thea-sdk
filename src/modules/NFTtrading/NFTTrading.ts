@@ -10,8 +10,10 @@ import {
 	OrderSide,
 	OrderStructOptionsCommon,
 	OrderStructOptionsCommonStrict,
+	PriceListings,
 	ProviderOrSigner,
 	SignedERC1155OrderStruct,
+	SignedERC1155OrderStructSerialized,
 	TheaNetwork,
 	TradeDirection,
 	UserFacingERC1155AssetDataSerializedV4,
@@ -32,8 +34,9 @@ import {
 } from "src/utils/consts";
 import { approve, checkBalance } from "../shared";
 import { Orderbook } from "./orderbook";
-import { BigNumber } from "@ethersproject/bignumber";
+import { BigNumber, BigNumberish } from "@ethersproject/bignumber";
 import OxExchange_ABI from "../../abi/0xExchange_ABI.json";
+import { ContractReceipt } from "@ethersproject/contracts";
 
 export class NFTTrading extends ContractWrapper<IZeroExContract> {
 	readonly orderBook: Orderbook;
@@ -46,24 +49,7 @@ export class NFTTrading extends ContractWrapper<IZeroExContract> {
 		this.orderBook = orderbook;
 		this.signer = signer;
 	}
-	// cancel order on Exchange contract, with order id, which is actually order nonce
-	async cancelOrder(orderId: string) {
-		signerRequired(this.signer);
-		const cancelOrderResponse = await this.contract.cancelERC1155Order(orderId);
-		return cancelOrderResponse.wait();
-	}
-	async updateOrder(orderId: string, price: number, quantity: number) {
-		typedDataSignerRequired(this.signer);
-		await this.cancelOrder(orderId);
-		const canceledOrder = await this.orderBook.queryOrderByNonce(orderId);
-		const updatedOrder = await this.enterNFTLimit(
-			canceledOrder.nftTokenId,
-			canceledOrder.sellOrBuyNft,
-			price,
-			quantity
-		);
-		return updatedOrder;
-	}
+
 	async enterNFTLimit(
 		tokenId: string,
 		side: OrderSide,
@@ -100,6 +86,144 @@ export class NFTTrading extends ContractWrapper<IZeroExContract> {
 		const signedOrder = await this.signOrder(builtOrder);
 		const orderBookResponse = await this.orderBook.postOrder(signedOrder);
 		return orderBookResponse;
+	}
+	// cancel order on Exchange contract, with order id, which is actually order nonce
+	async cancelOrder(orderId: string) {
+		signerRequired(this.signer);
+		const cancelOrderResponse = await this.contract.cancelERC1155Order(orderId);
+		return cancelOrderResponse.wait();
+	}
+	async updateOrder(orderId: string, price: number, quantity: number) {
+		typedDataSignerRequired(this.signer);
+		await this.cancelOrder(orderId);
+		const canceledOrder = await this.orderBook.queryOrderByNonce(orderId);
+		const updatedOrder = await this.enterNFTLimit(
+			canceledOrder.nftTokenId,
+			canceledOrder.sellOrBuyNft,
+			price,
+			quantity
+		);
+		return updatedOrder;
+	}
+
+	async enterNFTOrderAtMarket(tokenId: string, side: OrderSide, quantity: number) {
+		signerRequired(this.signer);
+		const priceListingSide = side === "buy" ? "sell" : "buy";
+		const priceListing: PriceListings[] = await this.orderBook.queryPriceListing(tokenId, priceListingSide);
+		if (priceListing.length === 0) {
+			throw new TheaError({ message: "No price listing found for this tokenId", type: "NO_PRICE_LISTING_FOUND" });
+		}
+		const ordersToBeFilled: { order: SignedERC1155OrderStructSerialized; amount: number }[] = [];
+		if (priceListingSide === "sell") {
+			let cummulativeQuantity = 0;
+			let stableTokenAmount = 0;
+			for (let i = 0; i < priceListing.length; i++) {
+				const listing = priceListing[`${i}`];
+				cummulativeQuantity += parseInt(listing.nftTokenAmount);
+				if (cummulativeQuantity > quantity) {
+					const partialAmount = quantity - (cummulativeQuantity - parseInt(listing.nftTokenAmount));
+					stableTokenAmount +=
+						(parseInt(listing.orderToBeFilled.erc20TokenAmount) * partialAmount) / parseInt(listing.nftTokenAmount);
+					ordersToBeFilled.push({
+						order: listing.orderToBeFilled,
+						amount: quantity - (cummulativeQuantity - parseInt(listing.nftTokenAmount))
+					});
+					break;
+				} else if (cummulativeQuantity === quantity) {
+					stableTokenAmount += parseInt(listing.orderToBeFilled.erc20TokenAmount);
+					ordersToBeFilled.push({
+						order: listing.orderToBeFilled,
+						amount: parseInt(listing.nftTokenAmount)
+					});
+					break;
+				} else {
+					stableTokenAmount += parseInt(listing.orderToBeFilled.erc20TokenAmount);
+					ordersToBeFilled.push({
+						order: listing.orderToBeFilled,
+						amount: parseInt(listing.nftTokenAmount)
+					});
+				}
+			}
+			if (cummulativeQuantity < quantity) {
+				throw new TheaError({
+					message: "Not enough quantity to sell tokend",
+					type: "NO_PRICE_LISTING_FOUND"
+				});
+			}
+
+			await checkBalance(this.signer as Signer, this.network, {
+				token: "ERC20",
+				amount: stableTokenAmount.toString(),
+				tokenName: "Stable"
+			});
+
+			await approve(this.signer as Signer, this.network, {
+				token: "ERC20",
+				amount: stableTokenAmount.toString(),
+				spender: consts[`${this.network}`].exchangeProxyAddress,
+				tokenName: "Stable"
+			});
+			const erc1155SignedOrders: SignedERC1155OrderStruct[] = ordersToBeFilled.map((orderObj) => {
+				return orderObj.order as SignedERC1155OrderStruct;
+			}) as SignedERC1155OrderStruct[];
+			const erc1155SignedOrdersAmount: BigNumberish[] = ordersToBeFilled.map((orderObj) => {
+				return orderObj.amount as BigNumberish;
+			}) as BigNumberish[];
+			const batchBuy = await this.contract.batchBuyERC1155s(
+				erc1155SignedOrders,
+				erc1155SignedOrders.map((so) => so.signature),
+				erc1155SignedOrdersAmount,
+				erc1155SignedOrders.map(() => "0x"),
+				true
+			);
+			return batchBuy.wait();
+		} else {
+			await checkBalance(this.signer as Signer, this.network, { token: "ERC1155", tokenId, amount: quantity });
+			let cummulativeQuantity = 0;
+			for (let i = 0; i < priceListing.length; i++) {
+				const listing = priceListing[`${i}`];
+				cummulativeQuantity += parseInt(listing.nftTokenAmount);
+				if (cummulativeQuantity >= quantity) {
+					const partialAmount = quantity - (cummulativeQuantity - parseInt(listing.nftTokenAmount));
+					ordersToBeFilled.push({
+						order: listing.orderToBeFilled,
+						amount: partialAmount
+					});
+					break;
+				} else {
+					ordersToBeFilled.push({
+						order: listing.orderToBeFilled,
+						amount: parseInt(listing.nftTokenAmount)
+					});
+				}
+			}
+			if (cummulativeQuantity < quantity) {
+				throw new TheaError({
+					message: "Not enough quantity to sell tokend",
+					type: "NO_PRICE_LISTING_FOUND"
+				});
+			}
+			await approve(this.signer as Signer, this.network, {
+				token: "ERC1155",
+				spender: consts[`${this.network}`].exchangeProxyAddress
+			});
+			const sellOrders: Promise<ContractReceipt>[] = ordersToBeFilled.map(async (orderObj) => {
+				const sellOrder = await this.contract.sellERC1155(
+					orderObj.order,
+					orderObj.order.signature,
+					tokenId,
+					orderObj.amount,
+					false,
+					"0x"
+				);
+				return sellOrder.wait();
+			});
+			try {
+				return await Promise.all(sellOrders);
+			} catch (error) {
+				throw new TheaError({ message: error.message, type: "SELL_ERC1155_ERROR" });
+			}
+		}
 	}
 	/**
 	 * Signs a 0x order. Requires a signer (e.g. wallet or private key)
@@ -219,7 +343,6 @@ export class NFTTrading extends ContractWrapper<IZeroExContract> {
 			type: "ERC20",
 			amount: Math.floor(quantity * price * STABLE_TOKEN_DECIMALS_MULTIPLIER).toString()
 		};
-
 		const defaultConfig = {
 			chainId: this.network,
 			makerAddress: makerAddress,
@@ -228,7 +351,6 @@ export class NFTTrading extends ContractWrapper<IZeroExContract> {
 		const config = { ...defaultConfig, ...userConfig };
 
 		const direction = side === "sell" ? TradeDirection.SellNFT : TradeDirection.BuyNFT;
-
 		const erc1155Order = this.generateErc1155Order(nft, erc20, {
 			direction,
 			maker: makerAddress,
