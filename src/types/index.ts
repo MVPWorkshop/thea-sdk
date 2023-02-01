@@ -144,6 +144,7 @@ export type TokenizationRequest = ClientDetails & {
 
 export type ConvertEvent = { id?: string; amount?: string };
 export type RecoverEvent = { id?: string; amount?: string };
+export type RollTokensEvent = { user?: string; vintage?: string; amount?: string };
 
 export type BaseTokenCharactaristics = {
 	vintage: BigNumber;

@@ -9,6 +9,12 @@ export interface IBaseTokenManagerContract extends Contract {
 		overrides?: TransactionOptions
 	): Promise<ContractTransaction>;
 
+	rollTokens(
+		id: PromiseOrValue<BigNumberish>,
+		amount: PromiseOrValue<BigNumberish>,
+		overrides?: TransactionOptions
+	): Promise<ContractTransaction>;
+
 	recover(
 		id: PromiseOrValue<BigNumberish>,
 		amount: PromiseOrValue<BigNumberish>,

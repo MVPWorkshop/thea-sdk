@@ -46,7 +46,8 @@ export const PROPERTY_ABI = [
 export enum Events {
 	unwrap = "UnwrapRequested",
 	convert = "Converted",
-	recover = "Recovered"
+	recover = "Recovered",
+	rollTokens = "Rolled"
 }
 
 export type EnvConfig = {
