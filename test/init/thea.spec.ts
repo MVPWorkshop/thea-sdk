@@ -7,6 +7,7 @@ import {
 	Offset,
 	Orderbook,
 	Recover,
+	RollBaseTokens,
 	TheaNetwork,
 	TheaSDK,
 	Unwrap
@@ -85,6 +86,7 @@ describe("TheaSDK", () => {
 			expect(Orderbook).toBeCalled();
 			expect(NFTTrading).toBeCalled();
 			expect(GetTokenList).toBeCalled();
+			expect(RollBaseTokens).toBeCalled();
 			expect(currentNbtSpy).toBeCalled();
 			expect(consts[TheaNetwork.MUMBAI].currentNbtTokenContract).toBe("0x5FbDB2315678afecb367f032d93F642f64180aa3");
 		});
