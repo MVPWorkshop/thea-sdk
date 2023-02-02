@@ -24,7 +24,9 @@ export type ErrorType =
 	| "INVALID_SIGNATURE_SIZE"
 	| "INVALID_SIGNATURE_LAYOUT"
 	| "INVALID_NONCE"
-	| "INVALID_DEADLINE";
+	| "INVALID_DEADLINE"
+	| "INVALID_YEAR"
+	| "INVALID_YEAR_IN_QUERY";
 
 export type ErrorProps = {
 	type: ErrorType;

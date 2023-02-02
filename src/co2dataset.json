@@ -1,0 +1,2680 @@
+{
+	"AFG": {
+		"country": "Afghanistan",
+		"isoCode": "AFG",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 0.261795312166214 },
+			{ "year": 2017, "co2_per_capita": 0.27685248851776123 },
+			{ "year": 2018, "co2_per_capita": 0.2948758602142334 },
+			{ "year": 2019, "co2_per_capita": 0.2934013605117798 },
+			{ "year": 2020, "co2_per_capita": 0.2997458577156067 },
+			{ "year": 2021, "co2_per_capita": 0.29611897468566895 }
+		]
+	},
+	"ALA": {
+		"country": "Aland Islands",
+		"isoCode": "ALA",
+		"data": [{ "year": 2016 }, { "year": 2017 }, { "year": 2018 }, { "year": 2019 }, { "year": 2020 }, { "year": 2021 }]
+	},
+	"ALB": {
+		"country": "Albania",
+		"isoCode": "ALB",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 1.6077313423156738 },
+			{ "year": 2017, "co2_per_capita": 1.9324249029159546 },
+			{ "year": 2018, "co2_per_capita": 1.732364296913147 },
+			{ "year": 2019, "co2_per_capita": 1.721533179283142 },
+			{ "year": 2020, "co2_per_capita": 1.6493918895721436 },
+			{ "year": 2021, "co2_per_capita": 1.6180659532546997 }
+		]
+	},
+	"DZA": {
+		"country": "Algeria",
+		"isoCode": "DZA",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 3.9353251457214355 },
+			{ "year": 2017, "co2_per_capita": 4.045341491699219 },
+			{ "year": 2018, "co2_per_capita": 4.147960662841797 },
+			{ "year": 2019, "co2_per_capita": 4.203331470489502 },
+			{ "year": 2020, "co2_per_capita": 3.9700307846069336 },
+			{ "year": 2021, "co2_per_capita": 3.9899773597717285 }
+		]
+	},
+	"ASM": {
+		"country": "American Samoa",
+		"isoCode": "ASM",
+		"data": [{ "year": 2016 }, { "year": 2017 }, { "year": 2018 }, { "year": 2019 }, { "year": 2020 }, { "year": 2021 }]
+	},
+	"AND": {
+		"country": "Andorra",
+		"isoCode": "AND",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 6.463238716125488 },
+			{ "year": 2017, "co2_per_capita": 6.300732612609863 },
+			{ "year": 2018, "co2_per_capita": 6.592211723327637 },
+			{ "year": 2019, "co2_per_capita": 6.285721778869629 },
+			{ "year": 2020, "co2_per_capita": 5.77543306350708 },
+			{ "year": 2021, "co2_per_capita": 5.728626251220703 }
+		]
+	},
+	"AGO": {
+		"country": "Angola",
+		"isoCode": "AGO",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 0.9332854747772217 },
+			{ "year": 2017, "co2_per_capita": 0.8045411705970764 },
+			{ "year": 2018, "co2_per_capita": 0.7283953428268433 },
+			{ "year": 2019, "co2_per_capita": 0.6743615865707397 },
+			{ "year": 2020, "co2_per_capita": 0.6065404415130615 },
+			{ "year": 2021, "co2_per_capita": 0.6191413998603821 }
+		]
+	},
+	"AIA": {
+		"country": "Anguilla",
+		"isoCode": "AIA",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 10.368413925170898 },
+			{ "year": 2017, "co2_per_capita": 9.50106430053711 },
+			{ "year": 2018, "co2_per_capita": 9.400434494018555 },
+			{ "year": 2019, "co2_per_capita": 9.987539291381836 },
+			{ "year": 2020, "co2_per_capita": 8.415962219238281 },
+			{ "year": 2021, "co2_per_capita": 9.17320442199707 }
+		]
+	},
+	"ATA": { "country": "Antarctica", "isoCode": "ATA", "data": [] },
+	"ATG": {
+		"country": "Antigua and Barbuda",
+		"isoCode": "ATG",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 5.420656681060791 },
+			{ "year": 2017, "co2_per_capita": 5.387466907501221 },
+			{ "year": 2018, "co2_per_capita": 5.437387943267822 },
+			{ "year": 2019, "co2_per_capita": 5.408881187438965 },
+			{ "year": 2020, "co2_per_capita": 4.5909552574157715 },
+			{ "year": 2021, "co2_per_capita": 5.0273518562316895 }
+		]
+	},
+	"ARG": {
+		"country": "Argentina",
+		"isoCode": "ARG",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 4.349166393280029 },
+			{ "year": 2017, "co2_per_capita": 4.242435932159424 },
+			{ "year": 2018, "co2_per_capita": 4.066307544708252 },
+			{ "year": 2019, "co2_per_capita": 3.9894862174987793 },
+			{ "year": 2020, "co2_per_capita": 3.7583837509155273 },
+			{ "year": 2021, "co2_per_capita": 4.117966175079346 }
+		]
+	},
+	"ARM": {
+		"country": "Armenia",
+		"isoCode": "ARM",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 1.8155274391174316 },
+			{ "year": 2017, "co2_per_capita": 1.9425984621047974 },
+			{ "year": 2018, "co2_per_capita": 2.053818702697754 },
+			{ "year": 2019, "co2_per_capita": 2.2279305458068848 },
+			{ "year": 2020, "co2_per_capita": 2.292072296142578 },
+			{ "year": 2021, "co2_per_capita": 2.438593864440918 }
+		]
+	},
+	"ABW": {
+		"country": "Aruba",
+		"isoCode": "ABW",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 8.418571472167969 },
+			{ "year": 2017, "co2_per_capita": 8.443037033081055 },
+			{ "year": 2018, "co2_per_capita": 8.228269577026367 },
+			{ "year": 2019, "co2_per_capita": 8.569914817810059 },
+			{ "year": 2020, "co2_per_capita": 7.307466506958008 },
+			{ "year": 2021, "co2_per_capita": 8.054268836975098 }
+		]
+	},
+	"AUS": {
+		"country": "Australia",
+		"isoCode": "AUS",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 16.997407913208008 },
+			{ "year": 2017, "co2_per_capita": 16.850452423095703 },
+			{ "year": 2018, "co2_per_capita": 16.665199279785156 },
+			{ "year": 2019, "co2_per_capita": 16.419681549072266 },
+			{ "year": 2020, "co2_per_capita": 15.579325675964355 },
+			{ "year": 2021, "co2_per_capita": 15.091470718383789 }
+		]
+	},
+	"AUT": {
+		"country": "Austria",
+		"isoCode": "AUT",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 7.693105220794678 },
+			{ "year": 2017, "co2_per_capita": 7.910525321960449 },
+			{ "year": 2018, "co2_per_capita": 7.528652191162109 },
+			{ "year": 2019, "co2_per_capita": 7.650523662567139 },
+			{ "year": 2020, "co2_per_capita": 6.964411735534668 },
+			{ "year": 2021, "co2_per_capita": 7.2433271408081055 }
+		]
+	},
+	"AZE": {
+		"country": "Azerbaijan",
+		"isoCode": "AZE",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 3.480999231338501 },
+			{ "year": 2017, "co2_per_capita": 3.43611216545105 },
+			{ "year": 2018, "co2_per_capita": 3.405637502670288 },
+			{ "year": 2019, "co2_per_capita": 3.687948226928711 },
+			{ "year": 2020, "co2_per_capita": 3.646883010864258 },
+			{ "year": 2021, "co2_per_capita": 3.732457399368286 }
+		]
+	},
+	"BHS": {
+		"country": "Bahamas",
+		"isoCode": "BHS",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 4.996540069580078 },
+			{ "year": 2017, "co2_per_capita": 5.252296447753906 },
+			{ "year": 2018, "co2_per_capita": 6.718821048736572 },
+			{ "year": 2019, "co2_per_capita": 6.267226696014404 },
+			{ "year": 2020, "co2_per_capita": 5.330357551574707 },
+			{ "year": 2021, "co2_per_capita": 5.850321292877197 }
+		]
+	},
+	"BHR": {
+		"country": "Bahrain",
+		"isoCode": "BHR",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 22.387903213500977 },
+			{ "year": 2017, "co2_per_capita": 22.5385799407959 },
+			{ "year": 2018, "co2_per_capita": 22.044057846069336 },
+			{ "year": 2019, "co2_per_capita": 25.30706024169922 },
+			{ "year": 2020, "co2_per_capita": 25.450632095336914 },
+			{ "year": 2021, "co2_per_capita": 26.6637020111084 }
+		]
+	},
+	"BGD": {
+		"country": "Bangladesh",
+		"isoCode": "BGD",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 0.4768516719341278 },
+			{ "year": 2017, "co2_per_capita": 0.4989750385284424 },
+			{ "year": 2018, "co2_per_capita": 0.5039817094802856 },
+			{ "year": 2019, "co2_per_capita": 0.5537670254707336 },
+			{ "year": 2020, "co2_per_capita": 0.5424966812133789 },
+			{ "year": 2021, "co2_per_capita": 0.5501772165298462 }
+		]
+	},
+	"BRB": {
+		"country": "Barbados",
+		"isoCode": "BRB",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 4.750075340270996 },
+			{ "year": 2017, "co2_per_capita": 4.320960998535156 },
+			{ "year": 2018, "co2_per_capita": 4.600778579711914 },
+			{ "year": 2019, "co2_per_capita": 4.201018810272217 },
+			{ "year": 2020, "co2_per_capita": 3.6393706798553467 },
+			{ "year": 2021, "co2_per_capita": 4.001724720001221 }
+		]
+	},
+	"BLR": {
+		"country": "Belarus",
+		"isoCode": "BLR",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 5.988238334655762 },
+			{ "year": 2017, "co2_per_capita": 6.10455846786499 },
+			{ "year": 2018, "co2_per_capita": 6.404399871826172 },
+			{ "year": 2019, "co2_per_capita": 6.413032531738281 },
+			{ "year": 2020, "co2_per_capita": 6.081958770751953 },
+			{ "year": 2021, "co2_per_capita": 6.222738265991211 }
+		]
+	},
+	"BEL": {
+		"country": "Belgium",
+		"isoCode": "BEL",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 8.801189422607422 },
+			{ "year": 2017, "co2_per_capita": 8.707133293151855 },
+			{ "year": 2018, "co2_per_capita": 8.723655700683594 },
+			{ "year": 2019, "co2_per_capita": 8.638375282287598 },
+			{ "year": 2020, "co2_per_capita": 7.816141605377197 },
+			{ "year": 2021, "co2_per_capita": 8.243807792663574 }
+		]
+	},
+	"BLZ": {
+		"country": "Belize",
+		"isoCode": "BLZ",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 1.6957098245620728 },
+			{ "year": 2017, "co2_per_capita": 1.642777442932129 },
+			{ "year": 2018, "co2_per_capita": 1.5823030471801758 },
+			{ "year": 2019, "co2_per_capita": 1.8173902034759521 },
+			{ "year": 2020, "co2_per_capita": 1.5564086437225342 },
+			{ "year": 2021, "co2_per_capita": 1.7231431007385254 }
+		]
+	},
+	"BEN": {
+		"country": "Benin",
+		"isoCode": "BEN",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 0.5767284035682678 },
+			{ "year": 2017, "co2_per_capita": 0.5867273211479187 },
+			{ "year": 2018, "co2_per_capita": 0.6226187944412231 },
+			{ "year": 2019, "co2_per_capita": 0.5812689661979675 },
+			{ "year": 2020, "co2_per_capita": 0.5745261907577515 },
+			{ "year": 2021, "co2_per_capita": 0.5967434048652649 }
+		]
+	},
+	"BMU": {
+		"country": "Bermuda",
+		"isoCode": "BMU",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 9.814804077148438 },
+			{ "year": 2017, "co2_per_capita": 9.956679344177246 },
+			{ "year": 2018, "co2_per_capita": 11.062697410583496 },
+			{ "year": 2019, "co2_per_capita": 9.126564979553223 },
+			{ "year": 2020, "co2_per_capita": 7.7657647132873535 },
+			{ "year": 2021, "co2_per_capita": 8.533474922180176 }
+		]
+	},
+	"BTN": {
+		"country": "Bhutan",
+		"isoCode": "BTN",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 1.5373210906982422 },
+			{ "year": 2017, "co2_per_capita": 1.6389020681381226 },
+			{ "year": 2018, "co2_per_capita": 1.770596981048584 },
+			{ "year": 2019, "co2_per_capita": 1.885505199432373 },
+			{ "year": 2020, "co2_per_capita": 1.9413200616836548 },
+			{ "year": 2021, "co2_per_capita": 1.9576668739318848 }
+		]
+	},
+	"BOL": {
+		"country": "Bolivia",
+		"isoCode": "BOL",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 2.013929843902588 },
+			{ "year": 2017, "co2_per_capita": 2.0531883239746094 },
+			{ "year": 2018, "co2_per_capita": 2.0504140853881836 },
+			{ "year": 2019, "co2_per_capita": 1.9732229709625244 },
+			{ "year": 2020, "co2_per_capita": 1.765021800994873 },
+			{ "year": 2021, "co2_per_capita": 1.9306857585906982 }
+		]
+	},
+	"BES": {
+		"country": "Bonaire Sint Eustatius and Saba",
+		"isoCode": "BES",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 4.311856269836426 },
+			{ "year": 2017, "co2_per_capita": 4.205969333648682 },
+			{ "year": 2018, "co2_per_capita": 3.957911491394043 },
+			{ "year": 2019, "co2_per_capita": 4.294253349304199 },
+			{ "year": 2020, "co2_per_capita": 3.585071325302124 },
+			{ "year": 2021, "co2_per_capita": 3.86790132522583 }
+		]
+	},
+	"BIH": {
+		"country": "Bosnia and Herzegovina",
+		"isoCode": "BIH",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 6.242603302001953 },
+			{ "year": 2017, "co2_per_capita": 6.440701484680176 },
+			{ "year": 2018, "co2_per_capita": 6.492405414581299 },
+			{ "year": 2019, "co2_per_capita": 6.192241668701172 },
+			{ "year": 2020, "co2_per_capita": 6.308126449584961 },
+			{ "year": 2021, "co2_per_capita": 4.14751672744751 }
+		]
+	},
+	"BWA": {
+		"country": "Botswana",
+		"isoCode": "BWA",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 2.6985843181610107 },
+			{ "year": 2017, "co2_per_capita": 2.9466195106506348 },
+			{ "year": 2018, "co2_per_capita": 3.061199903488159 },
+			{ "year": 2019, "co2_per_capita": 2.7131457328796387 },
+			{ "year": 2020, "co2_per_capita": 2.4578146934509277 },
+			{ "year": 2021, "co2_per_capita": 2.5111491680145264 }
+		]
+	},
+	"BRA": {
+		"country": "Brazil",
+		"isoCode": "BRA",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 2.3820409774780273 },
+			{ "year": 2017, "co2_per_capita": 2.385615587234497 },
+			{ "year": 2018, "co2_per_capita": 2.2701141834259033 },
+			{ "year": 2019, "co2_per_capita": 2.243356943130493 },
+			{ "year": 2020, "co2_per_capita": 2.0746419429779053 },
+			{ "year": 2021, "co2_per_capita": 2.2810139656066895 }
+		]
+	},
+	"VGB": {
+		"country": "British Virgin Islands",
+		"isoCode": "VGB",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 7.140140533447266 },
+			{ "year": 2017, "co2_per_capita": 5.602446556091309 },
+			{ "year": 2018, "co2_per_capita": 5.310319900512695 },
+			{ "year": 2019, "co2_per_capita": 5.502399444580078 },
+			{ "year": 2020, "co2_per_capita": 4.6519365310668945 },
+			{ "year": 2021, "co2_per_capita": 5.090030670166016 }
+		]
+	},
+	"BRN": {
+		"country": "Brunei",
+		"isoCode": "BRN",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 17.917572021484375 },
+			{ "year": 2017, "co2_per_capita": 21.6351375579834 },
+			{ "year": 2018, "co2_per_capita": 21.516897201538086 },
+			{ "year": 2019, "co2_per_capita": 23.940914154052734 },
+			{ "year": 2020, "co2_per_capita": 23.89021110534668 },
+			{ "year": 2021, "co2_per_capita": 23.53152847290039 }
+		]
+	},
+	"BGR": {
+		"country": "Bulgaria",
+		"isoCode": "BGR",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 6.277176856994629 },
+			{ "year": 2017, "co2_per_capita": 6.623072624206543 },
+			{ "year": 2018, "co2_per_capita": 6.128068923950195 },
+			{ "year": 2019, "co2_per_capita": 5.991569995880127 },
+			{ "year": 2020, "co2_per_capita": 5.296769142150879 },
+			{ "year": 2021, "co2_per_capita": 6.180809497833252 }
+		]
+	},
+	"BFA": {
+		"country": "Burkina Faso",
+		"isoCode": "BFA",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 0.20253624022006989 },
+			{ "year": 2017, "co2_per_capita": 0.22782167792320251 },
+			{ "year": 2018, "co2_per_capita": 0.24262861907482147 },
+			{ "year": 2019, "co2_per_capita": 0.25278836488723755 },
+			{ "year": 2020, "co2_per_capita": 0.25038716197013855 },
+			{ "year": 2021, "co2_per_capita": 0.257831871509552 }
+		]
+	},
+	"BDI": {
+		"country": "Burundi",
+		"isoCode": "BDI",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 0.042871035635471344 },
+			{ "year": 2017, "co2_per_capita": 0.04754539206624031 },
+			{ "year": 2018, "co2_per_capita": 0.059497058391571045 },
+			{ "year": 2019, "co2_per_capita": 0.06045505777001381 },
+			{ "year": 2020, "co2_per_capita": 0.05377386882901192 },
+			{ "year": 2021, "co2_per_capita": 0.05520644783973694 }
+		]
+	},
+	"KHM": {
+		"country": "Cambodia",
+		"isoCode": "KHM",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 0.6990081071853638 },
+			{ "year": 2017, "co2_per_capita": 0.789911150932312 },
+			{ "year": 2018, "co2_per_capita": 0.8978448510169983 },
+			{ "year": 2019, "co2_per_capita": 1.1121004819869995 },
+			{ "year": 2020, "co2_per_capita": 1.1406623125076294 },
+			{ "year": 2021, "co2_per_capita": 1.1470590829849243 }
+		]
+	},
+	"CMR": {
+		"country": "Cameroon",
+		"isoCode": "CMR",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 0.4193093776702881 },
+			{ "year": 2017, "co2_per_capita": 0.39328888058662415 },
+			{ "year": 2018, "co2_per_capita": 0.3841748833656311 },
+			{ "year": 2019, "co2_per_capita": 0.36865782737731934 },
+			{ "year": 2020, "co2_per_capita": 0.34001195430755615 },
+			{ "year": 2021, "co2_per_capita": 0.3418290913105011 }
+		]
+	},
+	"CAN": {
+		"country": "Canada",
+		"isoCode": "CAN",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 15.521199226379395 },
+			{ "year": 2017, "co2_per_capita": 15.635478019714355 },
+			{ "year": 2018, "co2_per_capita": 15.77872371673584 },
+			{ "year": 2019, "co2_per_capita": 15.582993507385254 },
+			{ "year": 2020, "co2_per_capita": 14.11670970916748 },
+			{ "year": 2021, "co2_per_capita": 14.300467491149902 }
+		]
+	},
+	"CPV": {
+		"country": "Cape Verde",
+		"isoCode": "CPV",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 0.9645575881004333 },
+			{ "year": 2017, "co2_per_capita": 1.0246974229812622 },
+			{ "year": 2018, "co2_per_capita": 1.019899845123291 },
+			{ "year": 2019, "co2_per_capita": 1.060396432876587 },
+			{ "year": 2020, "co2_per_capita": 1.0728298425674438 },
+			{ "year": 2021, "co2_per_capita": 1.1356576681137085 }
+		]
+	},
+	"CAF": {
+		"country": "Central African Republic",
+		"isoCode": "CAF",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 0.04034434258937836 },
+			{ "year": 2017, "co2_per_capita": 0.04326339811086655 },
+			{ "year": 2018, "co2_per_capita": 0.0431499220430851 },
+			{ "year": 2019, "co2_per_capita": 0.0436079204082489 },
+			{ "year": 2020, "co2_per_capita": 0.040097516030073166 },
+			{ "year": 2021, "co2_per_capita": 0.041650932282209396 }
+		]
+	},
+	"TCD": {
+		"country": "Chad",
+		"isoCode": "TCD",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 0.13811279833316803 },
+			{ "year": 2017, "co2_per_capita": 0.13111765682697296 },
+			{ "year": 2018, "co2_per_capita": 0.12860341370105743 },
+			{ "year": 2019, "co2_per_capita": 0.11919735372066498 },
+			{ "year": 2020, "co2_per_capita": 0.10827454179525375 },
+			{ "year": 2021, "co2_per_capita": 0.1129189133644104 }
+		]
+	},
+	"CHL": {
+		"country": "Chile",
+		"isoCode": "CHL",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 4.658467769622803 },
+			{ "year": 2017, "co2_per_capita": 4.577086448669434 },
+			{ "year": 2018, "co2_per_capita": 4.5166916847229 },
+			{ "year": 2019, "co2_per_capita": 4.830064296722412 },
+			{ "year": 2020, "co2_per_capita": 4.343648433685303 },
+			{ "year": 2021, "co2_per_capita": 4.383425712585449 }
+		]
+	},
+	"CHN": {
+		"country": "China",
+		"isoCode": "CHN",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 6.965583801269531 },
+			{ "year": 2017, "co2_per_capita": 7.098686695098877 },
+			{ "year": 2018, "co2_per_capita": 7.306541919708252 },
+			{ "year": 2019, "co2_per_capita": 7.554165363311768 },
+			{ "year": 2020, "co2_per_capita": 7.6889495849609375 },
+			{ "year": 2021, "co2_per_capita": 8.045740127563477 }
+		]
+	},
+	"CXR": { "country": "Christmas Island", "isoCode": "CXR", "data": [] },
+	"COL": {
+		"country": "Colombia",
+		"isoCode": "COL",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 2.073049306869507 },
+			{ "year": 2017, "co2_per_capita": 1.6480841636657715 },
+			{ "year": 2018, "co2_per_capita": 1.6727244853973389 },
+			{ "year": 2019, "co2_per_capita": 1.9215612411499023 },
+			{ "year": 2020, "co2_per_capita": 1.6792564392089844 },
+			{ "year": 2021, "co2_per_capita": 1.7800756692886353 }
+		]
+	},
+	"COM": {
+		"country": "Comoros",
+		"isoCode": "COM",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 0.2896873652935028 },
+			{ "year": 2017, "co2_per_capita": 0.3511642813682556 },
+			{ "year": 2018, "co2_per_capita": 0.3775752782821655 },
+			{ "year": 2019, "co2_per_capita": 0.3937329351902008 },
+			{ "year": 2020, "co2_per_capita": 0.35040462017059326 },
+			{ "year": 2021, "co2_per_capita": 0.36290091276168823 }
+		]
+	},
+	"COG": {
+		"country": "Congo",
+		"isoCode": "COG",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 1.1201207637786865 },
+			{ "year": 2017, "co2_per_capita": 1.0733956098556519 },
+			{ "year": 2018, "co2_per_capita": 1.2123057842254639 },
+			{ "year": 2019, "co2_per_capita": 1.3178640604019165 },
+			{ "year": 2020, "co2_per_capita": 1.320522665977478 },
+			{ "year": 2021, "co2_per_capita": 1.2790621519088745 }
+		]
+	},
+	"COK": {
+		"country": "Cook Islands",
+		"isoCode": "COK",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 4.170270919799805 },
+			{ "year": 2017, "co2_per_capita": 4.628121852874756 },
+			{ "year": 2018, "co2_per_capita": 4.665894985198975 },
+			{ "year": 2019, "co2_per_capita": 4.918694972991943 },
+			{ "year": 2020, "co2_per_capita": 5.21653938293457 },
+			{ "year": 2021, "co2_per_capita": 5.3678059577941895 }
+		]
+	},
+	"CRI": {
+		"country": "Costa Rica",
+		"isoCode": "CRI",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 1.6183865070343018 },
+			{ "year": 2017, "co2_per_capita": 1.6416270732879639 },
+			{ "year": 2018, "co2_per_capita": 1.6325938701629639 },
+			{ "year": 2019, "co2_per_capita": 1.5839439630508423 },
+			{ "year": 2020, "co2_per_capita": 1.3823137283325195 },
+			{ "year": 2021, "co2_per_capita": 1.5171846151351929 }
+		]
+	},
+	"CIV": {
+		"country": "Cote d'Ivoire",
+		"isoCode": "CIV",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 0.4948766827583313 },
+			{ "year": 2017, "co2_per_capita": 0.48301276564598083 },
+			{ "year": 2018, "co2_per_capita": 0.40607383847236633 },
+			{ "year": 2019, "co2_per_capita": 0.40290912985801697 },
+			{ "year": 2020, "co2_per_capita": 0.4089188873767853 },
+			{ "year": 2021, "co2_per_capita": 0.42603302001953125 }
+		]
+	},
+	"HRV": {
+		"country": "Croatia",
+		"isoCode": "HRV",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 4.2874274253845215 },
+			{ "year": 2017, "co2_per_capita": 4.470873832702637 },
+			{ "year": 2018, "co2_per_capita": 4.260113716125488 },
+			{ "year": 2019, "co2_per_capita": 4.324099540710449 },
+			{ "year": 2020, "co2_per_capita": 4.1179046630859375 },
+			{ "year": 2021, "co2_per_capita": 4.359813690185547 }
+		]
+	},
+	"CUB": {
+		"country": "Cuba",
+		"isoCode": "CUB",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 2.491574287414551 },
+			{ "year": 2017, "co2_per_capita": 2.2245678901672363 },
+			{ "year": 2018, "co2_per_capita": 1.9977669715881348 },
+			{ "year": 2019, "co2_per_capita": 2.018453598022461 },
+			{ "year": 2020, "co2_per_capita": 1.7461034059524536 },
+			{ "year": 2021, "co2_per_capita": 1.9595414400100708 }
+		]
+	},
+	"CUW": {
+		"country": "Curacao",
+		"isoCode": "CUW",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 33.968048095703125 },
+			{ "year": 2017, "co2_per_capita": 26.78428077697754 },
+			{ "year": 2018, "co2_per_capita": 21.539640426635742 },
+			{ "year": 2019, "co2_per_capita": 10.15042495727539 },
+			{ "year": 2020, "co2_per_capita": 8.841387748718262 },
+			{ "year": 2021, "co2_per_capita": 9.686285018920898 }
+		]
+	},
+	"CYP": {
+		"country": "Cyprus",
+		"isoCode": "CYP",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 6.157010555267334 },
+			{ "year": 2017, "co2_per_capita": 6.2268900871276855 },
+			{ "year": 2018, "co2_per_capita": 6.024238109588623 },
+			{ "year": 2019, "co2_per_capita": 5.9756975173950195 },
+			{ "year": 2020, "co2_per_capita": 5.874216556549072 },
+			{ "year": 2021, "co2_per_capita": 6.1087164878845215 }
+		]
+	},
+	"CZE": {
+		"country": "Czechia",
+		"isoCode": "CZE",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 10.131072044372559 },
+			{ "year": 2017, "co2_per_capita": 10.23117733001709 },
+			{ "year": 2018, "co2_per_capita": 10.094165802001953 },
+			{ "year": 2019, "co2_per_capita": 9.586613655090332 },
+			{ "year": 2020, "co2_per_capita": 8.722277641296387 },
+			{ "year": 2021, "co2_per_capita": 9.241808891296387 }
+		]
+	},
+	"COD": {
+		"country": "Democratic Republic of Congo",
+		"isoCode": "COD",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 0.024734174832701683 },
+			{ "year": 2017, "co2_per_capita": 0.02935178019106388 },
+			{ "year": 2018, "co2_per_capita": 0.02838517725467682 },
+			{ "year": 2019, "co2_per_capita": 0.028979690745472908 },
+			{ "year": 2020, "co2_per_capita": 0.02673986367881298 },
+			{ "year": 2021, "co2_per_capita": 0.027182981371879578 }
+		]
+	},
+	"DNK": {
+		"country": "Denmark",
+		"isoCode": "DNK",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 6.4892578125 },
+			{ "year": 2017, "co2_per_capita": 6.0621466636657715 },
+			{ "year": 2018, "co2_per_capita": 6.02164888381958 },
+			{ "year": 2019, "co2_per_capita": 5.340940475463867 },
+			{ "year": 2020, "co2_per_capita": 4.854752063751221 },
+			{ "year": 2021, "co2_per_capita": 5.052222728729248 }
+		]
+	},
+	"DJI": {
+		"country": "Djibouti",
+		"isoCode": "DJI",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 0.3714897930622101 },
+			{ "year": 2017, "co2_per_capita": 0.37660372257232666 },
+			{ "year": 2018, "co2_per_capita": 0.36402907967567444 },
+			{ "year": 2019, "co2_per_capita": 0.36555248498916626 },
+			{ "year": 2020, "co2_per_capita": 0.333259642124176 },
+			{ "year": 2021, "co2_per_capita": 0.34297308325767517 }
+		]
+	},
+	"DMA": {
+		"country": "Dominica",
+		"isoCode": "DMA",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 2.5612142086029053 },
+			{ "year": 2017, "co2_per_capita": 2.2892847061157227 },
+			{ "year": 2018, "co2_per_capita": 2.2757763862609863 },
+			{ "year": 2019, "co2_per_capita": 2.3590404987335205 },
+			{ "year": 2020, "co2_per_capita": 1.998347520828247 },
+			{ "year": 2021, "co2_per_capita": 2.1885690689086914 }
+		]
+	},
+	"DOM": {
+		"country": "Dominican Republic",
+		"isoCode": "DOM",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 2.3409507274627686 },
+			{ "year": 2017, "co2_per_capita": 2.255693197250366 },
+			{ "year": 2018, "co2_per_capita": 2.392472505569458 },
+			{ "year": 2019, "co2_per_capita": 2.6059486865997314 },
+			{ "year": 2020, "co2_per_capita": 2.3982393741607666 },
+			{ "year": 2021, "co2_per_capita": 2.601405382156372 }
+		]
+	},
+	"ECU": {
+		"country": "Ecuador",
+		"isoCode": "ECU",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 2.4439661502838135 },
+			{ "year": 2017, "co2_per_capita": 2.4001715183258057 },
+			{ "year": 2018, "co2_per_capita": 2.24764084815979 },
+			{ "year": 2019, "co2_per_capita": 2.3215560913085938 },
+			{ "year": 2020, "co2_per_capita": 1.959079623222351 },
+			{ "year": 2021, "co2_per_capita": 2.3217411041259766 }
+		]
+	},
+	"EGY": {
+		"country": "Egypt",
+		"isoCode": "EGY",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 2.3990368843078613 },
+			{ "year": 2017, "co2_per_capita": 2.555380344390869 },
+			{ "year": 2018, "co2_per_capita": 2.351128339767456 },
+			{ "year": 2019, "co2_per_capita": 2.425140857696533 },
+			{ "year": 2020, "co2_per_capita": 2.1943840980529785 },
+			{ "year": 2021, "co2_per_capita": 2.2846343517303467 }
+		]
+	},
+	"SLV": {
+		"country": "El Salvador",
+		"isoCode": "SLV",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 1.0552406311035156 },
+			{ "year": 2017, "co2_per_capita": 0.952612578868866 },
+			{ "year": 2018, "co2_per_capita": 1.0212242603302002 },
+			{ "year": 2019, "co2_per_capita": 1.1819562911987305 },
+			{ "year": 2020, "co2_per_capita": 1.0330922603607178 },
+			{ "year": 2021, "co2_per_capita": 1.1409876346588135 }
+		]
+	},
+	"GNQ": {
+		"country": "Equatorial Guinea",
+		"isoCode": "GNQ",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 5.404387474060059 },
+			{ "year": 2017, "co2_per_capita": 5.419530868530273 },
+			{ "year": 2018, "co2_per_capita": 4.00002908706665 },
+			{ "year": 2019, "co2_per_capita": 2.986391067504883 },
+			{ "year": 2020, "co2_per_capita": 3.125900983810425 },
+			{ "year": 2021, "co2_per_capita": 3.1966192722320557 }
+		]
+	},
+	"ERI": {
+		"country": "Eritrea",
+		"isoCode": "ERI",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 0.19178715348243713 },
+			{ "year": 2017, "co2_per_capita": 0.20732054114341736 },
+			{ "year": 2018, "co2_per_capita": 0.24099113047122955 },
+			{ "year": 2019, "co2_per_capita": 0.24450993537902832 },
+			{ "year": 2020, "co2_per_capita": 0.22023871541023254 },
+			{ "year": 2021, "co2_per_capita": 0.22666506469249725 }
+		]
+	},
+	"EST": {
+		"country": "Estonia",
+		"isoCode": "EST",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 13.34370231628418 },
+			{ "year": 2017, "co2_per_capita": 14.240437507629395 },
+			{ "year": 2018, "co2_per_capita": 13.565123558044434 },
+			{ "year": 2019, "co2_per_capita": 9.329183578491211 },
+			{ "year": 2020, "co2_per_capita": 7.027730941772461 },
+			{ "year": 2021, "co2_per_capita": 7.864069938659668 }
+		]
+	},
+	"SWZ": {
+		"country": "Eswatini",
+		"isoCode": "SWZ",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 0.9235931634902954 },
+			{ "year": 2017, "co2_per_capita": 0.856017529964447 },
+			{ "year": 2018, "co2_per_capita": 0.8904009461402893 },
+			{ "year": 2019, "co2_per_capita": 0.9585882425308228 },
+			{ "year": 2020, "co2_per_capita": 0.8978277444839478 },
+			{ "year": 2021, "co2_per_capita": 0.9118876457214355 }
+		]
+	},
+	"ETH": {
+		"country": "Ethiopia",
+		"isoCode": "ETH",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 0.13626159727573395 },
+			{ "year": 2017, "co2_per_capita": 0.1437050849199295 },
+			{ "year": 2018, "co2_per_capita": 0.14224885404109955 },
+			{ "year": 2019, "co2_per_capita": 0.16033709049224854 },
+			{ "year": 2020, "co2_per_capita": 0.1454101800918579 },
+			{ "year": 2021, "co2_per_capita": 0.14792238175868988 }
+		]
+	},
+	"FRO": {
+		"country": "Faeroe Islands",
+		"isoCode": "FRO",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 12.72556209564209 },
+			{ "year": 2017, "co2_per_capita": 14.070157051086426 },
+			{ "year": 2018, "co2_per_capita": 14.231080055236816 },
+			{ "year": 2019, "co2_per_capita": 14.313607215881348 },
+			{ "year": 2020, "co2_per_capita": 13.199332237243652 },
+			{ "year": 2021, "co2_per_capita": 13.197504997253418 }
+		]
+	},
+	"FLK": {
+		"country": "Falkland Islands",
+		"isoCode": "FLK",
+		"data": [{ "year": 2016 }, { "year": 2017 }, { "year": 2018 }, { "year": 2019 }, { "year": 2020 }, { "year": 2021 }]
+	},
+	"FJI": {
+		"country": "Fiji",
+		"isoCode": "FJI",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 1.2806850671768188 },
+			{ "year": 2017, "co2_per_capita": 1.4233043193817139 },
+			{ "year": 2018, "co2_per_capita": 1.475009799003601 },
+			{ "year": 2019, "co2_per_capita": 1.479850172996521 },
+			{ "year": 2020, "co2_per_capita": 1.5544984340667725 },
+			{ "year": 2021, "co2_per_capita": 1.5902856588363647 }
+		]
+	},
+	"FIN": {
+		"country": "Finland",
+		"isoCode": "FIN",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 8.585987091064453 },
+			{ "year": 2017, "co2_per_capita": 8.093067169189453 },
+			{ "year": 2018, "co2_per_capita": 8.303281784057617 },
+			{ "year": 2019, "co2_per_capita": 7.675729751586914 },
+			{ "year": 2020, "co2_per_capita": 6.7991943359375 },
+			{ "year": 2021, "co2_per_capita": 6.7923502922058105 }
+		]
+	},
+	"FRA": {
+		"country": "France",
+		"isoCode": "FRA",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 5.226493835449219 },
+			{ "year": 2017, "co2_per_capita": 5.260929584503174 },
+			{ "year": 2018, "co2_per_capita": 5.017700672149658 },
+			{ "year": 2019, "co2_per_capita": 4.912856578826904 },
+			{ "year": 2020, "co2_per_capita": 4.342916965484619 },
+			{ "year": 2021, "co2_per_capita": 4.741311550140381 }
+		]
+	},
+	"GUF": {
+		"country": "French Guiana",
+		"isoCode": "GUF",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 2.725494146347046 },
+			{ "year": 2017, "co2_per_capita": 2.624027729034424 },
+			{ "year": 2018, "co2_per_capita": 2.540043830871582 },
+			{ "year": 2019, "co2_per_capita": 2.5341055393218994 },
+			{ "year": 2020, "co2_per_capita": 2.2385952472686768 },
+			{ "year": 2021, "co2_per_capita": 2.1897990703582764 }
+		]
+	},
+	"PYF": {
+		"country": "French Polynesia",
+		"isoCode": "PYF",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 2.9581403732299805 },
+			{ "year": 2017, "co2_per_capita": 2.9142749309539795 },
+			{ "year": 2018, "co2_per_capita": 2.942378520965576 },
+			{ "year": 2019, "co2_per_capita": 2.9216160774230957 },
+			{ "year": 2020, "co2_per_capita": 3.0610032081604004 },
+			{ "year": 2021, "co2_per_capita": 3.1239516735076904 }
+		]
+	},
+	"GAB": {
+		"country": "Gabon",
+		"isoCode": "GAB",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 3.1260995864868164 },
+			{ "year": 2017, "co2_per_capita": 2.936988353729248 },
+			{ "year": 2018, "co2_per_capita": 2.733581304550171 },
+			{ "year": 2019, "co2_per_capita": 2.5571980476379395 },
+			{ "year": 2020, "co2_per_capita": 2.483144998550415 },
+			{ "year": 2021, "co2_per_capita": 2.4399938583374023 }
+		]
+	},
+	"GMB": {
+		"country": "Gambia",
+		"isoCode": "GMB",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 0.25457489490509033 },
+			{ "year": 2017, "co2_per_capita": 0.24927379190921783 },
+			{ "year": 2018, "co2_per_capita": 0.24277643859386444 },
+			{ "year": 2019, "co2_per_capita": 0.23950748145580292 },
+			{ "year": 2020, "co2_per_capita": 0.23848089575767517 },
+			{ "year": 2021, "co2_per_capita": 0.24837817251682281 }
+		]
+	},
+	"GEO": {
+		"country": "Georgia",
+		"isoCode": "GEO",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 2.669684648513794 },
+			{ "year": 2017, "co2_per_capita": 2.69692063331604 },
+			{ "year": 2018, "co2_per_capita": 2.667463541030884 },
+			{ "year": 2019, "co2_per_capita": 2.89597225189209 },
+			{ "year": 2020, "co2_per_capita": 2.838777780532837 },
+			{ "year": 2021, "co2_per_capita": 2.9297080039978027 }
+		]
+	},
+	"DEU": {
+		"country": "Germany",
+		"isoCode": "DEU",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 9.720951080322266 },
+			{ "year": 2017, "co2_per_capita": 9.50829029083252 },
+			{ "year": 2018, "co2_per_capita": 9.100584983825684 },
+			{ "year": 2019, "co2_per_capita": 8.504698753356934 },
+			{ "year": 2020, "co2_per_capita": 7.672972202301025 },
+			{ "year": 2021, "co2_per_capita": 8.089739799499512 }
+		]
+	},
+	"GHA": {
+		"country": "Ghana",
+		"isoCode": "GHA",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 0.5265697240829468 },
+			{ "year": 2017, "co2_per_capita": 0.4613627791404724 },
+			{ "year": 2018, "co2_per_capita": 0.5540846586227417 },
+			{ "year": 2019, "co2_per_capita": 0.5934363603591919 },
+			{ "year": 2020, "co2_per_capita": 0.6107552647590637 },
+			{ "year": 2021, "co2_per_capita": 0.6491267681121826 }
+		]
+	},
+	"GRC": {
+		"country": "Greece",
+		"isoCode": "GRC",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 6.638686656951904 },
+			{ "year": 2017, "co2_per_capita": 6.999947547912598 },
+			{ "year": 2018, "co2_per_capita": 6.750694751739502 },
+			{ "year": 2019, "co2_per_capita": 6.218656063079834 },
+			{ "year": 2020, "co2_per_capita": 5.2900543212890625 },
+			{ "year": 2021, "co2_per_capita": 5.3908371925354 }
+		]
+	},
+	"GRL": {
+		"country": "Greenland",
+		"isoCode": "GRL",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 9.383528709411621 },
+			{ "year": 2017, "co2_per_capita": 9.68708324432373 },
+			{ "year": 2018, "co2_per_capita": 9.794134140014648 },
+			{ "year": 2019, "co2_per_capita": 9.894308090209961 },
+			{ "year": 2020, "co2_per_capita": 8.92929458618164 },
+			{ "year": 2021, "co2_per_capita": 9.075799942016602 }
+		]
+	},
+	"GRD": {
+		"country": "Grenada",
+		"isoCode": "GRD",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 2.2294349670410156 },
+			{ "year": 2017, "co2_per_capita": 2.3026113510131836 },
+			{ "year": 2018, "co2_per_capita": 2.5257973670959473 },
+			{ "year": 2019, "co2_per_capita": 2.686720371246338 },
+			{ "year": 2020, "co2_per_capita": 2.3122453689575195 },
+			{ "year": 2021, "co2_per_capita": 2.561384677886963 }
+		]
+	},
+	"GLP": {
+		"country": "Guadeloupe",
+		"isoCode": "GLP",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 6.332608699798584 },
+			{ "year": 2017, "co2_per_capita": 6.2616472244262695 },
+			{ "year": 2018, "co2_per_capita": 6.237260818481445 },
+			{ "year": 2019, "co2_per_capita": 6.402473449707031 },
+			{ "year": 2020, "co2_per_capita": 5.790657997131348 },
+			{ "year": 2021, "co2_per_capita": 5.784692764282227 }
+		]
+	},
+	"GTM": {
+		"country": "Guatemala",
+		"isoCode": "GTM",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 1.039008378982544 },
+			{ "year": 2017, "co2_per_capita": 1.0447444915771484 },
+			{ "year": 2018, "co2_per_capita": 1.1092326641082764 },
+			{ "year": 2019, "co2_per_capita": 1.1552122831344604 },
+			{ "year": 2020, "co2_per_capita": 1.0134117603302002 },
+			{ "year": 2021, "co2_per_capita": 1.1543926000595093 }
+		]
+	},
+	"GGY": {
+		"country": "Guernsey",
+		"isoCode": "GGY",
+		"data": [{ "year": 2016 }, { "year": 2017 }, { "year": 2018 }, { "year": 2019 }, { "year": 2020 }, { "year": 2021 }]
+	},
+	"GIN": {
+		"country": "Guinea",
+		"isoCode": "GIN",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 0.22975392639636993 },
+			{ "year": 2017, "co2_per_capita": 0.2646051347255707 },
+			{ "year": 2018, "co2_per_capita": 0.2935899496078491 },
+			{ "year": 2019, "co2_per_capita": 0.34430986642837524 },
+			{ "year": 2020, "co2_per_capita": 0.34325703978538513 },
+			{ "year": 2021, "co2_per_capita": 0.3578045666217804 }
+		]
+	},
+	"GNB": {
+		"country": "Guinea-Bissau",
+		"isoCode": "GNB",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 0.16576890647411346 },
+			{ "year": 2017, "co2_per_capita": 0.16177590191364288 },
+			{ "year": 2018, "co2_per_capita": 0.1617908775806427 },
+			{ "year": 2019, "co2_per_capita": 0.1636328548192978 },
+			{ "year": 2020, "co2_per_capita": 0.16339747607707977 },
+			{ "year": 2021, "co2_per_capita": 0.17073512077331543 }
+		]
+	},
+	"GUY": {
+		"country": "Guyana",
+		"isoCode": "GUY",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 3.089374542236328 },
+			{ "year": 2017, "co2_per_capita": 3.0389013290405273 },
+			{ "year": 2018, "co2_per_capita": 3.158402442932129 },
+			{ "year": 2019, "co2_per_capita": 3.4179611206054688 },
+			{ "year": 2020, "co2_per_capita": 4.002680778503418 },
+			{ "year": 2021, "co2_per_capita": 3.8378539085388184 }
+		]
+	},
+	"HTI": {
+		"country": "Haiti",
+		"isoCode": "HTI",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 0.2780998647212982 },
+			{ "year": 2017, "co2_per_capita": 0.28539741039276123 },
+			{ "year": 2018, "co2_per_capita": 0.3061444163322449 },
+			{ "year": 2019, "co2_per_capita": 0.273529052734375 },
+			{ "year": 2020, "co2_per_capita": 0.23151908814907074 },
+			{ "year": 2021, "co2_per_capita": 0.2512255311012268 }
+		]
+	},
+	"HND": {
+		"country": "Honduras",
+		"isoCode": "HND",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 1.0276414155960083 },
+			{ "year": 2017, "co2_per_capita": 1.0628077983856201 },
+			{ "year": 2018, "co2_per_capita": 1.0069851875305176 },
+			{ "year": 2019, "co2_per_capita": 1.1278570890426636 },
+			{ "year": 2020, "co2_per_capita": 0.9725754261016846 },
+			{ "year": 2021, "co2_per_capita": 1.0602689981460571 }
+		]
+	},
+	"HKG": {
+		"country": "Hong Kong",
+		"isoCode": "HKG",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 5.831928730010986 },
+			{ "year": 2017, "co2_per_capita": 5.686675071716309 },
+			{ "year": 2018, "co2_per_capita": 5.6940813064575195 },
+			{ "year": 2019, "co2_per_capita": 5.589583873748779 },
+			{ "year": 2020, "co2_per_capita": 4.200106143951416 },
+			{ "year": 2021, "co2_per_capita": 4.22497034072876 }
+		]
+	},
+	"HUN": {
+		"country": "Hungary",
+		"isoCode": "HUN",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 4.800058841705322 },
+			{ "year": 2017, "co2_per_capita": 5.058282852172852 },
+			{ "year": 2018, "co2_per_capita": 5.059481143951416 },
+			{ "year": 2019, "co2_per_capita": 5.038442134857178 },
+			{ "year": 2020, "co2_per_capita": 4.84940767288208 },
+			{ "year": 2021, "co2_per_capita": 4.990288257598877 }
+		]
+	},
+	"ISL": {
+		"country": "Iceland",
+		"isoCode": "ISL",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 10.382552146911621 },
+			{ "year": 2017, "co2_per_capita": 10.48076343536377 },
+			{ "year": 2018, "co2_per_capita": 10.366744995117188 },
+			{ "year": 2019, "co2_per_capita": 9.829242706298828 },
+			{ "year": 2020, "co2_per_capita": 9.078372955322266 },
+			{ "year": 2021, "co2_per_capita": 9.113199234008789 }
+		]
+	},
+	"IND": {
+		"country": "India",
+		"isoCode": "IND",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 1.7807793617248535 },
+			{ "year": 2017, "co2_per_capita": 1.7980177402496338 },
+			{ "year": 2018, "co2_per_capita": 1.8995181322097778 },
+			{ "year": 2019, "co2_per_capita": 1.898949146270752 },
+			{ "year": 2020, "co2_per_capita": 1.7509557008743286 },
+			{ "year": 2021, "co2_per_capita": 1.925087571144104 }
+		]
+	},
+	"IDN": {
+		"country": "Indonesia",
+		"isoCode": "IDN",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 2.1105637550354004 },
+			{ "year": 2017, "co2_per_capita": 2.1446399688720703 },
+			{ "year": 2018, "co2_per_capita": 2.260322093963623 },
+			{ "year": 2019, "co2_per_capita": 2.4461333751678467 },
+			{ "year": 2020, "co2_per_capita": 2.2430317401885986 },
+			{ "year": 2021, "co2_per_capita": 2.262174606323242 }
+		]
+	},
+	"IRN": {
+		"country": "Iran",
+		"isoCode": "IRN",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 7.608397006988525 },
+			{ "year": 2017, "co2_per_capita": 8.110770225524902 },
+			{ "year": 2018, "co2_per_capita": 8.186842918395996 },
+			{ "year": 2019, "co2_per_capita": 8.12065601348877 },
+			{ "year": 2020, "co2_per_capita": 8.362656593322754 },
+			{ "year": 2021, "co2_per_capita": 8.517395973205566 }
+		]
+	},
+	"IRQ": {
+		"country": "Iraq",
+		"isoCode": "IRQ",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 5.013467311859131 },
+			{ "year": 2017, "co2_per_capita": 5.343389987945557 },
+			{ "year": 2018, "co2_per_capita": 5.258127212524414 },
+			{ "year": 2019, "co2_per_capita": 4.502708435058594 },
+			{ "year": 2020, "co2_per_capita": 4.077051639556885 },
+			{ "year": 2021, "co2_per_capita": 4.262930870056152 }
+		]
+	},
+	"IRL": {
+		"country": "Ireland",
+		"isoCode": "IRL",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 8.560502052307129 },
+			{ "year": 2017, "co2_per_capita": 8.189266204833984 },
+			{ "year": 2018, "co2_per_capita": 8.06956672668457 },
+			{ "year": 2019, "co2_per_capita": 7.623672962188721 },
+			{ "year": 2020, "co2_per_capita": 7.107223987579346 },
+			{ "year": 2021, "co2_per_capita": 7.528354644775391 }
+		]
+	},
+	"IMN": {
+		"country": "Isle of Man",
+		"isoCode": "IMN",
+		"data": [{ "year": 2016 }, { "year": 2017 }, { "year": 2018 }, { "year": 2019 }, { "year": 2020 }, { "year": 2021 }]
+	},
+	"ISR": {
+		"country": "Israel",
+		"isoCode": "ISR",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 7.4960832595825195 },
+			{ "year": 2017, "co2_per_capita": 7.081456184387207 },
+			{ "year": 2018, "co2_per_capita": 7.125525951385498 },
+			{ "year": 2019, "co2_per_capita": 6.812933921813965 },
+			{ "year": 2020, "co2_per_capita": 6.2812652587890625 },
+			{ "year": 2021, "co2_per_capita": 6.1267619132995605 }
+		]
+	},
+	"ITA": {
+		"country": "Italy",
+		"isoCode": "ITA",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 5.957929611206055 },
+			{ "year": 2017, "co2_per_capita": 5.878529071807861 },
+			{ "year": 2018, "co2_per_capita": 5.828657150268555 },
+			{ "year": 2019, "co2_per_capita": 5.679640769958496 },
+			{ "year": 2020, "co2_per_capita": 5.080263137817383 },
+			{ "year": 2021, "co2_per_capita": 5.548370361328125 }
+		]
+	},
+	"JAM": {
+		"country": "Jamaica",
+		"isoCode": "JAM",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 2.9127037525177 },
+			{ "year": 2017, "co2_per_capita": 2.776520252227783 },
+			{ "year": 2018, "co2_per_capita": 2.875849485397339 },
+			{ "year": 2019, "co2_per_capita": 2.7803971767425537 },
+			{ "year": 2020, "co2_per_capita": 2.46185564994812 },
+			{ "year": 2021, "co2_per_capita": 2.719432830810547 }
+		]
+	},
+	"JPN": {
+		"country": "Japan",
+		"isoCode": "JPN",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 9.47989273071289 },
+			{ "year": 2017, "co2_per_capita": 9.38209342956543 },
+			{ "year": 2018, "co2_per_capita": 9.056305885314941 },
+			{ "year": 2019, "co2_per_capita": 8.792437553405762 },
+			{ "year": 2020, "co2_per_capita": 8.321497917175293 },
+			{ "year": 2021, "co2_per_capita": 8.565739631652832 }
+		]
+	},
+	"JEY": {
+		"country": "Jersey",
+		"isoCode": "JEY",
+		"data": [{ "year": 2016 }, { "year": 2017 }, { "year": 2018 }, { "year": 2019 }, { "year": 2020 }, { "year": 2021 }]
+	},
+	"JOR": {
+		"country": "Jordan",
+		"isoCode": "JOR",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 2.4340760707855225 },
+			{ "year": 2017, "co2_per_capita": 2.489241600036621 },
+			{ "year": 2018, "co2_per_capita": 2.3862228393554688 },
+			{ "year": 2019, "co2_per_capita": 2.460867166519165 },
+			{ "year": 2020, "co2_per_capita": 2.282257556915283 },
+			{ "year": 2021, "co2_per_capita": 2.295753240585327 }
+		]
+	},
+	"KAZ": {
+		"country": "Kazakhstan",
+		"isoCode": "KAZ",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 16.861940383911133 },
+			{ "year": 2017, "co2_per_capita": 17.51540184020996 },
+			{ "year": 2018, "co2_per_capita": 17.899391174316406 },
+			{ "year": 2019, "co2_per_capita": 15.866766929626465 },
+			{ "year": 2020, "co2_per_capita": 14.668893814086914 },
+			{ "year": 2021, "co2_per_capita": 14.413248062133789 }
+		]
+	},
+	"KEN": {
+		"country": "Kenya",
+		"isoCode": "KEN",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 0.36310040950775146 },
+			{ "year": 2017, "co2_per_capita": 0.34768176078796387 },
+			{ "year": 2018, "co2_per_capita": 0.36372315883636475 },
+			{ "year": 2019, "co2_per_capita": 0.3763817250728607 },
+			{ "year": 2020, "co2_per_capita": 0.3515545129776001 },
+			{ "year": 2021, "co2_per_capita": 0.3749678432941437 }
+		]
+	},
+	"KIR": {
+		"country": "Kiribati",
+		"isoCode": "KIR",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 0.46368399262428284 },
+			{ "year": 2017, "co2_per_capita": 0.5478742122650146 },
+			{ "year": 2018, "co2_per_capita": 0.5393699407577515 },
+			{ "year": 2019, "co2_per_capita": 0.530792236328125 },
+			{ "year": 2020, "co2_per_capita": 0.550370454788208 },
+			{ "year": 2021, "co2_per_capita": 0.5550227761268616 }
+		]
+	},
+	"KWT": {
+		"country": "Kuwait",
+		"isoCode": "KWT",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 25.171659469604492 },
+			{ "year": 2017, "co2_per_capita": 23.258195877075195 },
+			{ "year": 2018, "co2_per_capita": 22.478843688964844 },
+			{ "year": 2019, "co2_per_capita": 23.49879264831543 },
+			{ "year": 2020, "co2_per_capita": 22.88266944885254 },
+			{ "year": 2021, "co2_per_capita": 24.972116470336914 }
+		]
+	},
+	"KGZ": {
+		"country": "Kyrgyzstan",
+		"isoCode": "KGZ",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 1.6028152704238892 },
+			{ "year": 2017, "co2_per_capita": 1.5271471738815308 },
+			{ "year": 2018, "co2_per_capita": 1.7842894792556763 },
+			{ "year": 2019, "co2_per_capita": 1.428018569946289 },
+			{ "year": 2020, "co2_per_capita": 1.3212233781814575 },
+			{ "year": 2021, "co2_per_capita": 1.4259296655654907 }
+		]
+	},
+	"LAO": {
+		"country": "Laos",
+		"isoCode": "LAO",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 2.388223171234131 },
+			{ "year": 2017, "co2_per_capita": 2.812812089920044 },
+			{ "year": 2018, "co2_per_capita": 2.8934669494628906 },
+			{ "year": 2019, "co2_per_capita": 2.717137575149536 },
+			{ "year": 2020, "co2_per_capita": 2.7991104125976562 },
+			{ "year": 2021, "co2_per_capita": 2.798295736312866 }
+		]
+	},
+	"LVA": {
+		"country": "Latvia",
+		"isoCode": "LVA",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 3.6536149978637695 },
+			{ "year": 2017, "co2_per_capita": 3.6907718181610107 },
+			{ "year": 2018, "co2_per_capita": 4.060359954833984 },
+			{ "year": 2019, "co2_per_capita": 3.9908506870269775 },
+			{ "year": 2020, "co2_per_capita": 3.6868228912353516 },
+			{ "year": 2021, "co2_per_capita": 3.877535104751587 }
+		]
+	},
+	"LBN": {
+		"country": "Lebanon",
+		"isoCode": "LBN",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 4.227317810058594 },
+			{ "year": 2017, "co2_per_capita": 4.558050155639648 },
+			{ "year": 2018, "co2_per_capita": 4.403217792510986 },
+			{ "year": 2019, "co2_per_capita": 4.566013336181641 },
+			{ "year": 2020, "co2_per_capita": 4.321998119354248 },
+			{ "year": 2021, "co2_per_capita": 4.462822914123535 }
+		]
+	},
+	"LSO": {
+		"country": "Lesotho",
+		"isoCode": "LSO",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 1.0322686433792114 },
+			{ "year": 2017, "co2_per_capita": 1.157964825630188 },
+			{ "year": 2018, "co2_per_capita": 1.078514814376831 },
+			{ "year": 2019, "co2_per_capita": 1.0733330249786377 },
+			{ "year": 2020, "co2_per_capita": 0.9706938862800598 },
+			{ "year": 2021, "co2_per_capita": 1.0003072023391724 }
+		]
+	},
+	"LBR": {
+		"country": "Liberia",
+		"isoCode": "LBR",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 0.28766924142837524 },
+			{ "year": 2017, "co2_per_capita": 0.25600379705429077 },
+			{ "year": 2018, "co2_per_capita": 0.22122180461883545 },
+			{ "year": 2019, "co2_per_capita": 0.22192731499671936 },
+			{ "year": 2020, "co2_per_capita": 0.2215946614742279 },
+			{ "year": 2021, "co2_per_capita": 0.23014883697032928 }
+		]
+	},
+	"LBY": {
+		"country": "Libya",
+		"isoCode": "LBY",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 8.22154426574707 },
+			{ "year": 2017, "co2_per_capita": 8.377983093261719 },
+			{ "year": 2018, "co2_per_capita": 8.338614463806152 },
+			{ "year": 2019, "co2_per_capita": 10.540814399719238 },
+			{ "year": 2020, "co2_per_capita": 8.801566123962402 },
+			{ "year": 2021, "co2_per_capita": 11.064882278442383 }
+		]
+	},
+	"LIE": {
+		"country": "Liechtenstein",
+		"isoCode": "LIE",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 3.9818761348724365 },
+			{ "year": 2017, "co2_per_capita": 4.1082658767700195 },
+			{ "year": 2018, "co2_per_capita": 3.74165678024292 },
+			{ "year": 2019, "co2_per_capita": 3.870805263519287 },
+			{ "year": 2020, "co2_per_capita": 3.661294937133789 },
+			{ "year": 2021, "co2_per_capita": 3.864765167236328 }
+		]
+	},
+	"LTU": {
+		"country": "Lithuania",
+		"isoCode": "LTU",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 4.551005840301514 },
+			{ "year": 2017, "co2_per_capita": 4.672769069671631 },
+			{ "year": 2018, "co2_per_capita": 4.760340690612793 },
+			{ "year": 2019, "co2_per_capita": 4.8869428634643555 },
+			{ "year": 2020, "co2_per_capita": 4.841082572937012 },
+			{ "year": 2021, "co2_per_capita": 4.98118782043457 }
+		]
+	},
+	"LUX": {
+		"country": "Luxembourg",
+		"isoCode": "LUX",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 15.58096694946289 },
+			{ "year": 2017, "co2_per_capita": 15.531365394592285 },
+			{ "year": 2018, "co2_per_capita": 15.736726760864258 },
+			{ "year": 2019, "co2_per_capita": 15.72907543182373 },
+			{ "year": 2020, "co2_per_capita": 12.843433380126953 },
+			{ "year": 2021, "co2_per_capita": 13.067672729492188 }
+		]
+	},
+	"MAC": {
+		"country": "Macao",
+		"isoCode": "MAC",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 2.8414249420166016 },
+			{ "year": 2017, "co2_per_capita": 3.017894983291626 },
+			{ "year": 2018, "co2_per_capita": 1.9079933166503906 },
+			{ "year": 2019, "co2_per_capita": 1.8274176120758057 },
+			{ "year": 2020, "co2_per_capita": 1.8805521726608276 },
+			{ "year": 2021, "co2_per_capita": 1.8740766048431396 }
+		]
+	},
+	"MDG": {
+		"country": "Madagascar",
+		"isoCode": "MDG",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 0.12813878059387207 },
+			{ "year": 2017, "co2_per_capita": 0.15739256143569946 },
+			{ "year": 2018, "co2_per_capita": 0.14237654209136963 },
+			{ "year": 2019, "co2_per_capita": 0.1561385691165924 },
+			{ "year": 2020, "co2_per_capita": 0.14173805713653564 },
+			{ "year": 2021, "co2_per_capita": 0.1467839926481247 }
+		]
+	},
+	"MWI": {
+		"country": "Malawi",
+		"isoCode": "MWI",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 0.06861868500709534 },
+			{ "year": 2017, "co2_per_capita": 0.07607325911521912 },
+			{ "year": 2018, "co2_per_capita": 0.08548365533351898 },
+			{ "year": 2019, "co2_per_capita": 0.08442923426628113 },
+			{ "year": 2020, "co2_per_capita": 0.07594563812017441 },
+			{ "year": 2021, "co2_per_capita": 0.07803987711668015 }
+		]
+	},
+	"MYS": {
+		"country": "Malaysia",
+		"isoCode": "MYS",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 7.995221138000488 },
+			{ "year": 2017, "co2_per_capita": 7.762195110321045 },
+			{ "year": 2018, "co2_per_capita": 8.243607521057129 },
+			{ "year": 2019, "co2_per_capita": 8.204959869384766 },
+			{ "year": 2020, "co2_per_capita": 7.815706253051758 },
+			{ "year": 2021, "co2_per_capita": 7.626434803009033 }
+		]
+	},
+	"MDV": {
+		"country": "Maldives",
+		"isoCode": "MDV",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 3.1617982387542725 },
+			{ "year": 2017, "co2_per_capita": 3.2029531002044678 },
+			{ "year": 2018, "co2_per_capita": 3.553483009338379 },
+			{ "year": 2019, "co2_per_capita": 3.87084698677063 },
+			{ "year": 2020, "co2_per_capita": 4.006476879119873 },
+			{ "year": 2021, "co2_per_capita": 4.061936378479004 }
+		]
+	},
+	"MLI": {
+		"country": "Mali",
+		"isoCode": "MLI",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 0.17844592034816742 },
+			{ "year": 2017, "co2_per_capita": 0.1838240623474121 },
+			{ "year": 2018, "co2_per_capita": 0.18433651328086853 },
+			{ "year": 2019, "co2_per_capita": 0.18736599385738373 },
+			{ "year": 2020, "co2_per_capita": 0.18509024381637573 },
+			{ "year": 2021, "co2_per_capita": 0.1903565227985382 }
+		]
+	},
+	"MLT": {
+		"country": "Malta",
+		"isoCode": "MLT",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 2.8999438285827637 },
+			{ "year": 2017, "co2_per_capita": 3.19260835647583 },
+			{ "year": 2018, "co2_per_capita": 3.1468255519866943 },
+			{ "year": 2019, "co2_per_capita": 3.274508237838745 },
+			{ "year": 2020, "co2_per_capita": 3.1037790775299072 },
+			{ "year": 2021, "co2_per_capita": 3.273185968399048 }
+		]
+	},
+	"MHL": {
+		"country": "Marshall Islands",
+		"isoCode": "MHL",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 2.9552054405212402 },
+			{ "year": 2017, "co2_per_capita": 3.1048216819763184 },
+			{ "year": 2018, "co2_per_capita": 3.185256004333496 },
+			{ "year": 2019, "co2_per_capita": 3.2750837802886963 },
+			{ "year": 2020, "co2_per_capita": 3.561065435409546 },
+			{ "year": 2021, "co2_per_capita": 3.7781527042388916 }
+		]
+	},
+	"MTQ": {
+		"country": "Martinique",
+		"isoCode": "MTQ",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 6.072144031524658 },
+			{ "year": 2017, "co2_per_capita": 6.037421226501465 },
+			{ "year": 2018, "co2_per_capita": 6.044362545013428 },
+			{ "year": 2019, "co2_per_capita": 6.235223770141602 },
+			{ "year": 2020, "co2_per_capita": 5.669955730438232 },
+			{ "year": 2021, "co2_per_capita": 5.694554328918457 }
+		]
+	},
+	"MRT": {
+		"country": "Mauritania",
+		"isoCode": "MRT",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 0.6483631134033203 },
+			{ "year": 2017, "co2_per_capita": 0.8220935463905334 },
+			{ "year": 2018, "co2_per_capita": 0.8580114245414734 },
+			{ "year": 2019, "co2_per_capita": 0.8608682751655579 },
+			{ "year": 2020, "co2_per_capita": 0.8569948077201843 },
+			{ "year": 2021, "co2_per_capita": 0.8923354744911194 }
+		]
+	},
+	"MUS": {
+		"country": "Mauritius",
+		"isoCode": "MUS",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 3.358430862426758 },
+			{ "year": 2017, "co2_per_capita": 3.503422737121582 },
+			{ "year": 2018, "co2_per_capita": 3.484712600708008 },
+			{ "year": 2019, "co2_per_capita": 3.4879517555236816 },
+			{ "year": 2020, "co2_per_capita": 3.242607355117798 },
+			{ "year": 2021, "co2_per_capita": 3.442603826522827 }
+		]
+	},
+	"MYT": {
+		"country": "Mayotte",
+		"isoCode": "MYT",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 1.1545624732971191 },
+			{ "year": 2017, "co2_per_capita": 1.0919153690338135 },
+			{ "year": 2018, "co2_per_capita": 1.0418916940689087 },
+			{ "year": 2019, "co2_per_capita": 1.0255651473999023 },
+			{ "year": 2020, "co2_per_capita": 0.8942704200744629 },
+			{ "year": 2021, "co2_per_capita": 0.8647530674934387 }
+		]
+	},
+	"MEX": {
+		"country": "Mexico",
+		"isoCode": "MEX",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 3.9482622146606445 },
+			{ "year": 2017, "co2_per_capita": 3.790489673614502 },
+			{ "year": 2018, "co2_per_capita": 3.832385540008545 },
+			{ "year": 2019, "co2_per_capita": 3.7749555110931396 },
+			{ "year": 2020, "co2_per_capita": 3.108821392059326 },
+			{ "year": 2021, "co2_per_capita": 3.2138006687164307 }
+		]
+	},
+	"FSM": {
+		"country": "Micronesia (country)",
+		"isoCode": "FSM",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 1.2998344898223877 },
+			{ "year": 2017, "co2_per_capita": 1.2938673496246338 },
+			{ "year": 2018, "co2_per_capita": 1.2879894971847534 },
+			{ "year": 2019, "co2_per_capita": 1.315713882446289 },
+			{ "year": 2020, "co2_per_capita": 1.3796234130859375 },
+			{ "year": 2021, "co2_per_capita": 1.4049654006958008 }
+		]
+	},
+	"MDA": {
+		"country": "Moldova",
+		"isoCode": "MDA",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 1.5204591751098633 },
+			{ "year": 2017, "co2_per_capita": 1.6414042711257935 },
+			{ "year": 2018, "co2_per_capita": 1.7332046031951904 },
+			{ "year": 2019, "co2_per_capita": 1.7657732963562012 },
+			{ "year": 2020, "co2_per_capita": 1.7019565105438232 },
+			{ "year": 2021, "co2_per_capita": 1.8296566009521484 }
+		]
+	},
+	"MNG": {
+		"country": "Mongolia",
+		"isoCode": "MNG",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 8.459693908691406 },
+			{ "year": 2017, "co2_per_capita": 11.02551555633545 },
+			{ "year": 2018, "co2_per_capita": 14.322290420532227 },
+			{ "year": 2019, "co2_per_capita": 14.618863105773926 },
+			{ "year": 2020, "co2_per_capita": 15.057703018188477 },
+			{ "year": 2021, "co2_per_capita": 15.029627799987793 }
+		]
+	},
+	"MNE": {
+		"country": "Montenegro",
+		"isoCode": "MNE",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 3.1822428703308105 },
+			{ "year": 2017, "co2_per_capita": 3.3254053592681885 },
+			{ "year": 2018, "co2_per_capita": 3.8005950450897217 },
+			{ "year": 2019, "co2_per_capita": 3.9290168285369873 },
+			{ "year": 2020, "co2_per_capita": 3.8967185020446777 },
+			{ "year": 2021, "co2_per_capita": 2.789470911026001 }
+		]
+	},
+	"MSR": {
+		"country": "Montserrat",
+		"isoCode": "MSR",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 5.738449573516846 },
+			{ "year": 2017, "co2_per_capita": 6.2062249183654785 },
+			{ "year": 2018, "co2_per_capita": 6.690710067749023 },
+			{ "year": 2019, "co2_per_capita": 4.855123519897461 },
+			{ "year": 2020, "co2_per_capita": 4.147149562835693 },
+			{ "year": 2021, "co2_per_capita": 4.659306049346924 }
+		]
+	},
+	"MAR": {
+		"country": "Morocco",
+		"isoCode": "MAR",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 1.6651102304458618 },
+			{ "year": 2017, "co2_per_capita": 1.7302387952804565 },
+			{ "year": 2018, "co2_per_capita": 1.7538100481033325 },
+			{ "year": 2019, "co2_per_capita": 1.8897852897644043 },
+			{ "year": 2020, "co2_per_capita": 1.7640362977981567 },
+			{ "year": 2021, "co2_per_capita": 1.903564214706421 }
+		]
+	},
+	"MOZ": {
+		"country": "Mozambique",
+		"isoCode": "MOZ",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 0.294599324464798 },
+			{ "year": 2017, "co2_per_capita": 0.2432432323694229 },
+			{ "year": 2018, "co2_per_capita": 0.24061369895935059 },
+			{ "year": 2019, "co2_per_capita": 0.2359810769557953 },
+			{ "year": 2020, "co2_per_capita": 0.21391218900680542 },
+			{ "year": 2021, "co2_per_capita": 0.22309419512748718 }
+		]
+	},
+	"MMR": {
+		"country": "Myanmar",
+		"isoCode": "MMR",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 0.40738967061042786 },
+			{ "year": 2017, "co2_per_capita": 0.4519188106060028 },
+			{ "year": 2018, "co2_per_capita": 0.660453736782074 },
+			{ "year": 2019, "co2_per_capita": 0.6525071263313293 },
+			{ "year": 2020, "co2_per_capita": 0.6755284667015076 },
+			{ "year": 2021, "co2_per_capita": 0.6748708486557007 }
+		]
+	},
+	"NAM": {
+		"country": "Namibia",
+		"isoCode": "NAM",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 1.743686556816101 },
+			{ "year": 2017, "co2_per_capita": 1.7830753326416016 },
+			{ "year": 2018, "co2_per_capita": 1.7271276712417603 },
+			{ "year": 2019, "co2_per_capita": 1.6786423921585083 },
+			{ "year": 2020, "co2_per_capita": 1.5849686861038208 },
+			{ "year": 2021, "co2_per_capita": 1.5867921113967896 }
+		]
+	},
+	"NRU": {
+		"country": "Nauru",
+		"isoCode": "NRU",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 4.474919319152832 },
+			{ "year": 2017, "co2_per_capita": 4.694226264953613 },
+			{ "year": 2018, "co2_per_capita": 4.599547863006592 },
+			{ "year": 2019, "co2_per_capita": 4.521224021911621 },
+			{ "year": 2020, "co2_per_capita": 4.701029300689697 },
+			{ "year": 2021, "co2_per_capita": 4.756323337554932 }
+		]
+	},
+	"NPL": {
+		"country": "Nepal",
+		"isoCode": "NPL",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 0.3503352701663971 },
+			{ "year": 2017, "co2_per_capita": 0.41327589750289917 },
+			{ "year": 2018, "co2_per_capita": 0.5203410387039185 },
+			{ "year": 2019, "co2_per_capita": 0.46573588252067566 },
+			{ "year": 2020, "co2_per_capita": 0.4751327633857727 },
+			{ "year": 2021, "co2_per_capita": 0.47188523411750793 }
+		]
+	},
+	"NLD": {
+		"country": "Netherlands",
+		"isoCode": "NLD",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 9.627254486083984 },
+			{ "year": 2017, "co2_per_capita": 9.443367958068848 },
+			{ "year": 2018, "co2_per_capita": 9.176643371582031 },
+			{ "year": 2019, "co2_per_capita": 8.8135986328125 },
+			{ "year": 2020, "co2_per_capita": 7.906681060791016 },
+			{ "year": 2021, "co2_per_capita": 8.05895709991455 }
+		]
+	},
+	"ANT": {
+		"country": "Netherlands Antilles",
+		"isoCode": "ANT",
+		"data": [{ "year": 2016 }, { "year": 2017 }, { "year": 2018 }, { "year": 2019 }, { "year": 2020 }, { "year": 2021 }]
+	},
+	"NCL": {
+		"country": "New Caledonia",
+		"isoCode": "NCL",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 18.731914520263672 },
+			{ "year": 2017, "co2_per_capita": 18.797290802001953 },
+			{ "year": 2018, "co2_per_capita": 18.764074325561523 },
+			{ "year": 2019, "co2_per_capita": 17.936742782592773 },
+			{ "year": 2020, "co2_per_capita": 18.807144165039062 },
+			{ "year": 2021, "co2_per_capita": 19.096946716308594 }
+		]
+	},
+	"NZL": {
+		"country": "New Zealand",
+		"isoCode": "NZL",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 7.316193580627441 },
+			{ "year": 2017, "co2_per_capita": 7.51922082901001 },
+			{ "year": 2018, "co2_per_capita": 7.379215240478516 },
+			{ "year": 2019, "co2_per_capita": 7.485538482666016 },
+			{ "year": 2020, "co2_per_capita": 6.808114528656006 },
+			{ "year": 2021, "co2_per_capita": 6.587057113647461 }
+		]
+	},
+	"NIC": {
+		"country": "Nicaragua",
+		"isoCode": "NIC",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 0.846133291721344 },
+			{ "year": 2017, "co2_per_capita": 0.8427245616912842 },
+			{ "year": 2018, "co2_per_capita": 0.791087806224823 },
+			{ "year": 2019, "co2_per_capita": 0.7832199335098267 },
+			{ "year": 2020, "co2_per_capita": 0.674516499042511 },
+			{ "year": 2021, "co2_per_capita": 0.7385936975479126 }
+		]
+	},
+	"NER": {
+		"country": "Niger",
+		"isoCode": "NER",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 0.10260681807994843 },
+			{ "year": 2017, "co2_per_capita": 0.10357755422592163 },
+			{ "year": 2018, "co2_per_capita": 0.07940170168876648 },
+			{ "year": 2019, "co2_per_capita": 0.10530144721269608 },
+			{ "year": 2020, "co2_per_capita": 0.10238421708345413 },
+			{ "year": 2021, "co2_per_capita": 0.10687553137540817 }
+		]
+	},
+	"NGA": {
+		"country": "Nigeria",
+		"isoCode": "NGA",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 0.6198763847351074 },
+			{ "year": 2017, "co2_per_capita": 0.5828379988670349 },
+			{ "year": 2018, "co2_per_capita": 0.530428409576416 },
+			{ "year": 2019, "co2_per_capita": 0.6261749267578125 },
+			{ "year": 2020, "co2_per_capita": 0.6248663067817688 },
+			{ "year": 2021, "co2_per_capita": 0.6419209241867065 }
+		]
+	},
+	"NIU": {
+		"country": "Niue",
+		"isoCode": "NIU",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 3.891662359237671 },
+			{ "year": 2017, "co2_per_capita": 3.8751983642578125 },
+			{ "year": 2018, "co2_per_capita": 5.764027118682861 },
+			{ "year": 2019, "co2_per_capita": 5.657230854034424 },
+			{ "year": 2020, "co2_per_capita": 5.909832000732422 },
+			{ "year": 2021, "co2_per_capita": 6.091977596282959 }
+		]
+	},
+	"PRK": {
+		"country": "North Korea",
+		"isoCode": "PRK",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 1.0859520435333252 },
+			{ "year": 2017, "co2_per_capita": 2.027557611465454 },
+			{ "year": 2018, "co2_per_capita": 1.8577724695205688 },
+			{ "year": 2019, "co2_per_capita": 2.0486629009246826 },
+			{ "year": 2020, "co2_per_capita": 2.139230251312256 },
+			{ "year": 2021, "co2_per_capita": 2.1708109378814697 }
+		]
+	},
+	"MKD": {
+		"country": "North Macedonia",
+		"isoCode": "MKD",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 3.311187505722046 },
+			{ "year": 2017, "co2_per_capita": 3.552999973297119 },
+			{ "year": 2018, "co2_per_capita": 3.3268160820007324 },
+			{ "year": 2019, "co2_per_capita": 3.7815451622009277 },
+			{ "year": 2020, "co2_per_capita": 3.149813413619995 },
+			{ "year": 2021, "co2_per_capita": 3.2574799060821533 }
+		]
+	},
+	"NOR": {
+		"country": "Norway",
+		"isoCode": "NOR",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 8.548500061035156 },
+			{ "year": 2017, "co2_per_capita": 8.38330078125 },
+			{ "year": 2018, "co2_per_capita": 8.356611251831055 },
+			{ "year": 2019, "co2_per_capita": 7.999573707580566 },
+			{ "year": 2020, "co2_per_capita": 7.657482624053955 },
+			{ "year": 2021, "co2_per_capita": 7.573272705078125 }
+		]
+	},
+	"OMN": {
+		"country": "Oman",
+		"isoCode": "OMN",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 14.931376457214355 },
+			{ "year": 2017, "co2_per_capita": 15.108304023742676 },
+			{ "year": 2018, "co2_per_capita": 15.769014358520508 },
+			{ "year": 2019, "co2_per_capita": 15.681249618530273 },
+			{ "year": 2020, "co2_per_capita": 15.958552360534668 },
+			{ "year": 2021, "co2_per_capita": 17.91652488708496 }
+		]
+	},
+	"PAK": {
+		"country": "Pakistan",
+		"isoCode": "PAK",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 0.916949450969696 },
+			{ "year": 2017, "co2_per_capita": 0.9989776015281677 },
+			{ "year": 2018, "co2_per_capita": 0.9332341551780701 },
+			{ "year": 2019, "co2_per_capita": 0.9228277206420898 },
+			{ "year": 2020, "co2_per_capita": 0.925998866558075 },
+			{ "year": 2021, "co2_per_capita": 0.9918335676193237 }
+		]
+	},
+	"PLW": {
+		"country": "Palau",
+		"isoCode": "PLW",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 11.912107467651367 },
+			{ "year": 2017, "co2_per_capita": 12.105953216552734 },
+			{ "year": 2018, "co2_per_capita": 11.880806922912598 },
+			{ "year": 2019, "co2_per_capita": 12.254863739013672 },
+			{ "year": 2020, "co2_per_capita": 12.89088249206543 },
+			{ "year": 2021, "co2_per_capita": 13.210193634033203 }
+		]
+	},
+	"PSE": {
+		"country": "Palestine",
+		"isoCode": "PSE",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 0.7038894295692444 },
+			{ "year": 2017, "co2_per_capita": 0.6952393054962158 },
+			{ "year": 2018, "co2_per_capita": 0.6157760620117188 },
+			{ "year": 2019, "co2_per_capita": 0.6650803685188293 },
+			{ "year": 2020, "co2_per_capita": 0.6011074781417847 },
+			{ "year": 2021, "co2_per_capita": 0.6023756861686707 }
+		]
+	},
+	"PAN": {
+		"country": "Panama",
+		"isoCode": "PAN",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 2.5926461219787598 },
+			{ "year": 2017, "co2_per_capita": 2.739980936050415 },
+			{ "year": 2018, "co2_per_capita": 2.5851011276245117 },
+			{ "year": 2019, "co2_per_capita": 3.1705665588378906 },
+			{ "year": 2020, "co2_per_capita": 2.714322328567505 },
+			{ "year": 2021, "co2_per_capita": 2.9949045181274414 }
+		]
+	},
+	"PNG": {
+		"country": "Papua New Guinea",
+		"isoCode": "PNG",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 0.765430212020874 },
+			{ "year": 2017, "co2_per_capita": 0.709792971611023 },
+			{ "year": 2018, "co2_per_capita": 0.806340754032135 },
+			{ "year": 2019, "co2_per_capita": 0.8257232904434204 },
+			{ "year": 2020, "co2_per_capita": 0.8538907766342163 },
+			{ "year": 2021, "co2_per_capita": 0.8552799820899963 }
+		]
+	},
+	"PRY": {
+		"country": "Paraguay",
+		"isoCode": "PRY",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 1.1415454149246216 },
+			{ "year": 2017, "co2_per_capita": 1.2695865631103516 },
+			{ "year": 2018, "co2_per_capita": 1.3204618692398071 },
+			{ "year": 2019, "co2_per_capita": 1.2625306844711304 },
+			{ "year": 2020, "co2_per_capita": 1.2137205600738525 },
+			{ "year": 2021, "co2_per_capita": 1.2793583869934082 }
+		]
+	},
+	"PER": {
+		"country": "Peru",
+		"isoCode": "PER",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 1.696399450302124 },
+			{ "year": 2017, "co2_per_capita": 1.7000353336334229 },
+			{ "year": 2018, "co2_per_capita": 1.712929368019104 },
+			{ "year": 2019, "co2_per_capita": 1.7572007179260254 },
+			{ "year": 2020, "co2_per_capita": 1.425896167755127 },
+			{ "year": 2021, "co2_per_capita": 1.6693229675292969 }
+		]
+	},
+	"PHL": {
+		"country": "Philippines",
+		"isoCode": "PHL",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 1.168607234954834 },
+			{ "year": 2017, "co2_per_capita": 1.2661793231964111 },
+			{ "year": 2018, "co2_per_capita": 1.3063054084777832 },
+			{ "year": 2019, "co2_per_capita": 1.315733790397644 },
+			{ "year": 2020, "co2_per_capita": 1.2092028856277466 },
+			{ "year": 2021, "co2_per_capita": 1.2668023109436035 }
+		]
+	},
+	"POL": {
+		"country": "Poland",
+		"isoCode": "POL",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 8.418465614318848 },
+			{ "year": 2017, "co2_per_capita": 8.764864921569824 },
+			{ "year": 2018, "co2_per_capita": 8.749628067016602 },
+			{ "year": 2019, "co2_per_capita": 8.273782730102539 },
+			{ "year": 2020, "co2_per_capita": 7.898411750793457 },
+			{ "year": 2021, "co2_per_capita": 8.577376365661621 }
+		]
+	},
+	"PRT": {
+		"country": "Portugal",
+		"isoCode": "PRT",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 4.881782054901123 },
+			{ "year": 2017, "co2_per_capita": 5.356297492980957 },
+			{ "year": 2018, "co2_per_capita": 5.0009660720825195 },
+			{ "year": 2019, "co2_per_capita": 4.627715587615967 },
+			{ "year": 2020, "co2_per_capita": 4.058956623077393 },
+			{ "year": 2021, "co2_per_capita": 3.9647021293640137 }
+		]
+	},
+	"PRI": {
+		"country": "Puerto Rico",
+		"isoCode": "PRI",
+		"data": [{ "year": 2016 }, { "year": 2017 }, { "year": 2018 }, { "year": 2019 }, { "year": 2020 }, { "year": 2021 }]
+	},
+	"QAT": {
+		"country": "Qatar",
+		"isoCode": "QAT",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 33.7336311340332 },
+			{ "year": 2017, "co2_per_capita": 36.942752838134766 },
+			{ "year": 2018, "co2_per_capita": 34.420223236083984 },
+			{ "year": 2019, "co2_per_capita": 36.03261947631836 },
+			{ "year": 2020, "co2_per_capita": 33.640438079833984 },
+			{ "year": 2021, "co2_per_capita": 35.58730697631836 }
+		]
+	},
+	"REU": {
+		"country": "Reunion",
+		"isoCode": "REU",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 4.8693132400512695 },
+			{ "year": 2017, "co2_per_capita": 4.773148059844971 },
+			{ "year": 2018, "co2_per_capita": 4.702954292297363 },
+			{ "year": 2019, "co2_per_capita": 4.776165008544922 },
+			{ "year": 2020, "co2_per_capita": 4.283602237701416 },
+			{ "year": 2021, "co2_per_capita": 4.246788501739502 }
+		]
+	},
+	"ROU": {
+		"country": "Romania",
+		"isoCode": "ROU",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 3.889899730682373 },
+			{ "year": 2017, "co2_per_capita": 4.063330173492432 },
+			{ "year": 2018, "co2_per_capita": 4.106550216674805 },
+			{ "year": 2019, "co2_per_capita": 3.9453892707824707 },
+			{ "year": 2020, "co2_per_capita": 3.8132834434509277 },
+			{ "year": 2021, "co2_per_capita": 4.104126930236816 }
+		]
+	},
+	"RUS": {
+		"country": "Russia",
+		"isoCode": "RUS",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 11.19678783416748 },
+			{ "year": 2017, "co2_per_capita": 11.372466087341309 },
+			{ "year": 2018, "co2_per_capita": 11.674741744995117 },
+			{ "year": 2019, "co2_per_capita": 11.612027168273926 },
+			{ "year": 2020, "co2_per_capita": 11.15403938293457 },
+			{ "year": 2021, "co2_per_capita": 12.098649978637695 }
+		]
+	},
+	"RWA": {
+		"country": "Rwanda",
+		"isoCode": "RWA",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 0.08959020674228668 },
+			{ "year": 2017, "co2_per_capita": 0.09547622501850128 },
+			{ "year": 2018, "co2_per_capita": 0.10224077850580215 },
+			{ "year": 2019, "co2_per_capita": 0.14118027687072754 },
+			{ "year": 2020, "co2_per_capita": 0.12641333043575287 },
+			{ "year": 2021, "co2_per_capita": 0.13033324480056763 }
+		]
+	},
+	"SHN": {
+		"country": "Saint Helena",
+		"isoCode": "SHN",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 2.648834228515625 },
+			{ "year": 2017, "co2_per_capita": 1.9909436702728271 },
+			{ "year": 2018, "co2_per_capita": 2.000728130340576 },
+			{ "year": 2019, "co2_per_capita": 2.6793417930603027 },
+			{ "year": 2020, "co2_per_capita": 2.2968060970306396 },
+			{ "year": 2021, "co2_per_capita": 2.539609432220459 }
+		]
+	},
+	"KNA": {
+		"country": "Saint Kitts and Nevis",
+		"isoCode": "KNA",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 4.980967998504639 },
+			{ "year": 2017, "co2_per_capita": 5.057915687561035 },
+			{ "year": 2018, "co2_per_capita": 5.137129306793213 },
+			{ "year": 2019, "co2_per_capita": 5.295795440673828 },
+			{ "year": 2020, "co2_per_capita": 4.52849006652832 },
+			{ "year": 2021, "co2_per_capita": 4.992420673370361 }
+		]
+	},
+	"LCA": {
+		"country": "Saint Lucia",
+		"isoCode": "LCA",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 2.7620856761932373 },
+			{ "year": 2017, "co2_per_capita": 2.853856086730957 },
+			{ "year": 2018, "co2_per_capita": 2.8629183769226074 },
+			{ "year": 2019, "co2_per_capita": 2.892728567123413 },
+			{ "year": 2020, "co2_per_capita": 2.4608497619628906 },
+			{ "year": 2021, "co2_per_capita": 2.704658269882202 }
+		]
+	},
+	"MAF": {
+		"country": "Saint Martin (French part)",
+		"isoCode": "MAF",
+		"data": [{ "year": 2016 }, { "year": 2017 }, { "year": 2018 }, { "year": 2019 }, { "year": 2020 }, { "year": 2021 }]
+	},
+	"SPM": {
+		"country": "Saint Pierre and Miquelon",
+		"isoCode": "SPM",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 11.010350227355957 },
+			{ "year": 2017, "co2_per_capita": 11.028762817382812 },
+			{ "year": 2018, "co2_per_capita": 9.821410179138184 },
+			{ "year": 2019, "co2_per_capita": 11.080645561218262 },
+			{ "year": 2020, "co2_per_capita": 9.495783805847168 },
+			{ "year": 2021, "co2_per_capita": 10.505165100097656 }
+		]
+	},
+	"VCT": {
+		"country": "Saint Vincent and the Grenadines",
+		"isoCode": "VCT",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 2.281982898712158 },
+			{ "year": 2017, "co2_per_capita": 2.047741651535034 },
+			{ "year": 2018, "co2_per_capita": 2.2965896129608154 },
+			{ "year": 2019, "co2_per_capita": 2.1647417545318604 },
+			{ "year": 2020, "co2_per_capita": 1.8534938097000122 },
+			{ "year": 2021, "co2_per_capita": 2.0478243827819824 }
+		]
+	},
+	"WSM": {
+		"country": "Samoa",
+		"isoCode": "WSM",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 1.1585967540740967 },
+			{ "year": 2017, "co2_per_capita": 1.1822656393051147 },
+			{ "year": 2018, "co2_per_capita": 1.1356364488601685 },
+			{ "year": 2019, "co2_per_capita": 1.279456377029419 },
+			{ "year": 2020, "co2_per_capita": 1.331390142440796 },
+			{ "year": 2021, "co2_per_capita": 1.3441752195358276 }
+		]
+	},
+	"STP": {
+		"country": "Sao Tome and Principe",
+		"isoCode": "STP",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 0.6087568402290344 },
+			{ "year": 2017, "co2_per_capita": 0.6163903474807739 },
+			{ "year": 2018, "co2_per_capita": 0.6240785717964172 },
+			{ "year": 2019, "co2_per_capita": 0.6146161556243896 },
+			{ "year": 2020, "co2_per_capita": 0.5689366459846497 },
+			{ "year": 2021, "co2_per_capita": 0.5915166139602661 }
+		]
+	},
+	"SAU": {
+		"country": "Saudi Arabia",
+		"isoCode": "SAU",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 19.237926483154297 },
+			{ "year": 2017, "co2_per_capita": 18.823627471923828 },
+			{ "year": 2018, "co2_per_capita": 17.881912231445312 },
+			{ "year": 2019, "co2_per_capita": 18.32346534729004 },
+			{ "year": 2020, "co2_per_capita": 18.36794662475586 },
+			{ "year": 2021, "co2_per_capita": 18.70298957824707 }
+		]
+	},
+	"SEN": {
+		"country": "Senegal",
+		"isoCode": "SEN",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 0.6789679527282715 },
+			{ "year": 2017, "co2_per_capita": 0.7098745703697205 },
+			{ "year": 2018, "co2_per_capita": 0.7274771928787231 },
+			{ "year": 2019, "co2_per_capita": 0.7975520491600037 },
+			{ "year": 2020, "co2_per_capita": 0.7753579020500183 },
+			{ "year": 2021, "co2_per_capita": 0.8057196736335754 }
+		]
+	},
+	"SRB": {
+		"country": "Serbia",
+		"isoCode": "SRB",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 6.010687828063965 },
+			{ "year": 2017, "co2_per_capita": 6.099165439605713 },
+			{ "year": 2018, "co2_per_capita": 5.9619855880737305 },
+			{ "year": 2019, "co2_per_capita": 5.991644382476807 },
+			{ "year": 2020, "co2_per_capita": 6.054511547088623 },
+			{ "year": 2021, "co2_per_capita": 4.230499267578125 }
+		]
+	},
+	"SYC": {
+		"country": "Seychelles",
+		"isoCode": "SYC",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 5.503964424133301 },
+			{ "year": 2017, "co2_per_capita": 5.64921236038208 },
+			{ "year": 2018, "co2_per_capita": 5.827152729034424 },
+			{ "year": 2019, "co2_per_capita": 5.686279773712158 },
+			{ "year": 2020, "co2_per_capita": 5.100990295410156 },
+			{ "year": 2021, "co2_per_capita": 5.3366546630859375 }
+		]
+	},
+	"SLE": {
+		"country": "Sierra Leone",
+		"isoCode": "SLE",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 0.15352396667003632 },
+			{ "year": 2017, "co2_per_capita": 0.13744348287582397 },
+			{ "year": 2018, "co2_per_capita": 0.13190104067325592 },
+			{ "year": 2019, "co2_per_capita": 0.14798374474048615 },
+			{ "year": 2020, "co2_per_capita": 0.14773815870285034 },
+			{ "year": 2021, "co2_per_capita": 0.15431174635887146 }
+		]
+	},
+	"SGP": {
+		"country": "Singapore",
+		"isoCode": "SGP",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 6.24208402633667 },
+			{ "year": 2017, "co2_per_capita": 6.445779323577881 },
+			{ "year": 2018, "co2_per_capita": 7.914609909057617 },
+			{ "year": 2019, "co2_per_capita": 5.09963846206665 },
+			{ "year": 2020, "co2_per_capita": 5.060935974121094 },
+			{ "year": 2021, "co2_per_capita": 5.471561431884766 }
+		]
+	},
+	"SXM": {
+		"country": "Sint Maarten (Dutch part)",
+		"isoCode": "SXM",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 17.981191635131836 },
+			{ "year": 2017, "co2_per_capita": 16.876733779907227 },
+			{ "year": 2018, "co2_per_capita": 16.29677391052246 },
+			{ "year": 2019, "co2_per_capita": 16.018604278564453 },
+			{ "year": 2020, "co2_per_capita": 13.477381706237793 },
+			{ "year": 2021, "co2_per_capita": 14.704659461975098 }
+		]
+	},
+	"SVK": {
+		"country": "Slovakia",
+		"isoCode": "SVK",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 6.428200721740723 },
+			{ "year": 2017, "co2_per_capita": 6.639065265655518 },
+			{ "year": 2018, "co2_per_capita": 6.628355979919434 },
+			{ "year": 2019, "co2_per_capita": 6.192997455596924 },
+			{ "year": 2020, "co2_per_capita": 5.698469161987305 },
+			{ "year": 2021, "co2_per_capita": 6.481400966644287 }
+		]
+	},
+	"SVN": {
+		"country": "Slovenia",
+		"isoCode": "SVN",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 6.920787334442139 },
+			{ "year": 2017, "co2_per_capita": 6.968191623687744 },
+			{ "year": 2018, "co2_per_capita": 6.8979997634887695 },
+			{ "year": 2019, "co2_per_capita": 6.648733615875244 },
+			{ "year": 2020, "co2_per_capita": 6.075720310211182 },
+			{ "year": 2021, "co2_per_capita": 5.921148777008057 }
+		]
+	},
+	"SLB": {
+		"country": "Solomon Islands",
+		"isoCode": "SLB",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 0.4608364701271057 },
+			{ "year": 2017, "co2_per_capita": 0.44402390718460083 },
+			{ "year": 2018, "co2_per_capita": 0.4390626549720764 },
+			{ "year": 2019, "co2_per_capita": 0.4342518448829651 },
+			{ "year": 2020, "co2_per_capita": 0.44757652282714844 },
+			{ "year": 2021, "co2_per_capita": 0.4491385817527771 }
+		]
+	},
+	"SOM": {
+		"country": "Somalia",
+		"isoCode": "SOM",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 0.04460524767637253 },
+			{ "year": 2017, "co2_per_capita": 0.04289063438773155 },
+			{ "year": 2018, "co2_per_capita": 0.041368622332811356 },
+			{ "year": 2019, "co2_per_capita": 0.03989259526133537 },
+			{ "year": 2020, "co2_per_capita": 0.034967850893735886 },
+			{ "year": 2021, "co2_per_capita": 0.0357663631439209 }
+		]
+	},
+	"ZAF": {
+		"country": "South Africa",
+		"isoCode": "ZAF",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 8.099157333374023 },
+			{ "year": 2017, "co2_per_capita": 7.757252216339111 },
+			{ "year": 2018, "co2_per_capita": 7.590512275695801 },
+			{ "year": 2019, "co2_per_capita": 8.038351058959961 },
+			{ "year": 2020, "co2_per_capita": 7.411863327026367 },
+			{ "year": 2021, "co2_per_capita": 7.339827060699463 }
+		]
+	},
+	"KOR": {
+		"country": "South Korea",
+		"isoCode": "KOR",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 12.432552337646484 },
+			{ "year": 2017, "co2_per_capita": 12.706589698791504 },
+			{ "year": 2018, "co2_per_capita": 12.968438148498535 },
+			{ "year": 2019, "co2_per_capita": 12.472092628479004 },
+			{ "year": 2020, "co2_per_capita": 11.527396202087402 },
+			{ "year": 2021, "co2_per_capita": 11.886425018310547 }
+		]
+	},
+	"SSD": {
+		"country": "South Sudan",
+		"isoCode": "SSD",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 0.1539618819952011 },
+			{ "year": 2017, "co2_per_capita": 0.13647744059562683 },
+			{ "year": 2018, "co2_per_capita": 0.14415855705738068 },
+			{ "year": 2019, "co2_per_capita": 0.15816569328308105 },
+			{ "year": 2020, "co2_per_capita": 0.14131654798984528 },
+			{ "year": 2021, "co2_per_capita": 0.14719195663928986 }
+		]
+	},
+	"ESP": {
+		"country": "Spain",
+		"isoCode": "ESP",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 5.621024131774902 },
+			{ "year": 2017, "co2_per_capita": 5.904434680938721 },
+			{ "year": 2018, "co2_per_capita": 5.771328926086426 },
+			{ "year": 2019, "co2_per_capita": 5.343047142028809 },
+			{ "year": 2020, "co2_per_capita": 4.504277229309082 },
+			{ "year": 2021, "co2_per_capita": 4.920291423797607 }
+		]
+	},
+	"LKA": {
+		"country": "Sri Lanka",
+		"isoCode": "LKA",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 1.0745893716812134 },
+			{ "year": 2017, "co2_per_capita": 1.070844292640686 },
+			{ "year": 2018, "co2_per_capita": 0.9728378653526306 },
+			{ "year": 2019, "co2_per_capita": 1.0263491868972778 },
+			{ "year": 2020, "co2_per_capita": 0.9994751811027527 },
+			{ "year": 2021, "co2_per_capita": 0.9544156789779663 }
+		]
+	},
+	"SDN": {
+		"country": "Sudan",
+		"isoCode": "SDN",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 0.5088661313056946 },
+			{ "year": 2017, "co2_per_capita": 0.5514177680015564 },
+			{ "year": 2018, "co2_per_capita": 0.5205904841423035 },
+			{ "year": 2019, "co2_per_capita": 0.5077720284461975 },
+			{ "year": 2020, "co2_per_capita": 0.4508390724658966 },
+			{ "year": 2021, "co2_per_capita": 0.4607863426208496 }
+		]
+	},
+	"SUR": {
+		"country": "Suriname",
+		"isoCode": "SUR",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 4.040111064910889 },
+			{ "year": 2017, "co2_per_capita": 3.593301773071289 },
+			{ "year": 2018, "co2_per_capita": 3.1487059593200684 },
+			{ "year": 2019, "co2_per_capita": 4.469178199768066 },
+			{ "year": 2020, "co2_per_capita": 4.295461177825928 },
+			{ "year": 2021, "co2_per_capita": 4.556698322296143 }
+		]
+	},
+	"SJM": {
+		"country": "Svalbard and Jan Mayen",
+		"isoCode": "SJM",
+		"data": [{ "year": 2016 }, { "year": 2017 }, { "year": 2018 }, { "year": 2019 }, { "year": 2020 }, { "year": 2021 }]
+	},
+	"SWE": {
+		"country": "Sweden",
+		"isoCode": "SWE",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 4.361958980560303 },
+			{ "year": 2017, "co2_per_capita": 4.245717525482178 },
+			{ "year": 2018, "co2_per_capita": 4.142261981964111 },
+			{ "year": 2019, "co2_per_capita": 3.9913132190704346 },
+			{ "year": 2020, "co2_per_capita": 3.521575450897217 },
+			{ "year": 2021, "co2_per_capita": 3.4249186515808105 }
+		]
+	},
+	"CHE": {
+		"country": "Switzerland",
+		"isoCode": "CHE",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 4.680018901824951 },
+			{ "year": 2017, "co2_per_capita": 4.517280101776123 },
+			{ "year": 2018, "co2_per_capita": 4.330743312835693 },
+			{ "year": 2019, "co2_per_capita": 4.283442974090576 },
+			{ "year": 2020, "co2_per_capita": 3.9637131690979004 },
+			{ "year": 2021, "co2_per_capita": 4.019105911254883 }
+		]
+	},
+	"SYR": {
+		"country": "Syria",
+		"isoCode": "SYR",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 1.529326319694519 },
+			{ "year": 2017, "co2_per_capita": 1.7179925441741943 },
+			{ "year": 2018, "co2_per_capita": 1.5636045932769775 },
+			{ "year": 2019, "co2_per_capita": 1.367231845855713 },
+			{ "year": 2020, "co2_per_capita": 1.2593427896499634 },
+			{ "year": 2021, "co2_per_capita": 1.2661932706832886 }
+		]
+	},
+	"TWN": {
+		"country": "Taiwan",
+		"isoCode": "TWN",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 11.854681015014648 },
+			{ "year": 2017, "co2_per_capita": 12.035524368286133 },
+			{ "year": 2018, "co2_per_capita": 11.921131134033203 },
+			{ "year": 2019, "co2_per_capita": 11.502985000610352 },
+			{ "year": 2020, "co2_per_capita": 11.093656539916992 },
+			{ "year": 2021, "co2_per_capita": 11.854869842529297 }
+		]
+	},
+	"TJK": {
+		"country": "Tajikistan",
+		"isoCode": "TJK",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 0.7376895546913147 },
+			{ "year": 2017, "co2_per_capita": 0.8804318308830261 },
+			{ "year": 2018, "co2_per_capita": 0.9978270530700684 },
+			{ "year": 2019, "co2_per_capita": 1.0530322790145874 },
+			{ "year": 2020, "co2_per_capita": 0.988560676574707 },
+			{ "year": 2021, "co2_per_capita": 1.0601359605789185 }
+		]
+	},
+	"TZA": {
+		"country": "Tanzania",
+		"isoCode": "TZA",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 0.19979830086231232 },
+			{ "year": 2017, "co2_per_capita": 0.202659010887146 },
+			{ "year": 2018, "co2_per_capita": 0.20290957391262054 },
+			{ "year": 2019, "co2_per_capita": 0.2178538739681244 },
+			{ "year": 2020, "co2_per_capita": 0.19924278557300568 },
+			{ "year": 2021, "co2_per_capita": 0.20536574721336365 }
+		]
+	},
+	"THA": {
+		"country": "Thailand",
+		"isoCode": "THA",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 4.086160182952881 },
+			{ "year": 2017, "co2_per_capita": 4.133731842041016 },
+			{ "year": 2018, "co2_per_capita": 3.9661760330200195 },
+			{ "year": 2019, "co2_per_capita": 4.07023286819458 },
+			{ "year": 2020, "co2_per_capita": 3.8805997371673584 },
+			{ "year": 2021, "co2_per_capita": 3.88954496383667 }
+		]
+	},
+	"TLS": {
+		"country": "Timor",
+		"isoCode": "TLS",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 0.48172417283058167 },
+			{ "year": 2017, "co2_per_capita": 0.5098556876182556 },
+			{ "year": 2018, "co2_per_capita": 0.5023354887962341 },
+			{ "year": 2019, "co2_per_capita": 0.5351027250289917 },
+			{ "year": 2020, "co2_per_capita": 0.5528246760368347 },
+			{ "year": 2021, "co2_per_capita": 0.5574256181716919 }
+		]
+	},
+	"TGO": {
+		"country": "Togo",
+		"isoCode": "TGO",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 0.3017711937427521 },
+			{ "year": 2017, "co2_per_capita": 0.2750527560710907 },
+			{ "year": 2018, "co2_per_capita": 0.27438482642173767 },
+			{ "year": 2019, "co2_per_capita": 0.267499715089798 },
+			{ "year": 2020, "co2_per_capita": 0.26575908064842224 },
+			{ "year": 2021, "co2_per_capita": 0.2709157168865204 }
+		]
+	},
+	"TON": {
+		"country": "Tonga",
+		"isoCode": "TON",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 1.1783467531204224 },
+			{ "year": 2017, "co2_per_capita": 1.285857915878296 },
+			{ "year": 2018, "co2_per_capita": 1.2890735864639282 },
+			{ "year": 2019, "co2_per_capita": 1.535902500152588 },
+			{ "year": 2020, "co2_per_capita": 1.6163966655731201 },
+			{ "year": 2021, "co2_per_capita": 1.649084210395813 }
+		]
+	},
+	"TTO": {
+		"country": "Trinidad and Tobago",
+		"isoCode": "TTO",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 27.150461196899414 },
+			{ "year": 2017, "co2_per_capita": 27.26731300354004 },
+			{ "year": 2018, "co2_per_capita": 26.8011531829834 },
+			{ "year": 2019, "co2_per_capita": 26.82189178466797 },
+			{ "year": 2020, "co2_per_capita": 23.552616119384766 },
+			{ "year": 2021, "co2_per_capita": 23.67747688293457 }
+		]
+	},
+	"TUN": {
+		"country": "Tunisia",
+		"isoCode": "TUN",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 2.556983470916748 },
+			{ "year": 2017, "co2_per_capita": 2.581057548522949 },
+			{ "year": 2018, "co2_per_capita": 2.5137715339660645 },
+			{ "year": 2019, "co2_per_capita": 2.4652345180511475 },
+			{ "year": 2020, "co2_per_capita": 2.267629861831665 },
+			{ "year": 2021, "co2_per_capita": 2.575460910797119 }
+		]
+	},
+	"TUR": {
+		"country": "Turkey",
+		"isoCode": "TUR",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 5.002561092376709 },
+			{ "year": 2017, "co2_per_capita": 5.240849018096924 },
+			{ "year": 2018, "co2_per_capita": 5.1029157638549805 },
+			{ "year": 2019, "co2_per_capita": 4.812070369720459 },
+			{ "year": 2020, "co2_per_capita": 4.913899898529053 },
+			{ "year": 2021, "co2_per_capita": 5.263368129730225 }
+		]
+	},
+	"TKM": {
+		"country": "Turkmenistan",
+		"isoCode": "TKM",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 12.518163681030273 },
+			{ "year": 2017, "co2_per_capita": 12.291215896606445 },
+			{ "year": 2018, "co2_per_capita": 12.07768726348877 },
+			{ "year": 2019, "co2_per_capita": 12.13973617553711 },
+			{ "year": 2020, "co2_per_capita": 11.524935722351074 },
+			{ "year": 2021, "co2_per_capita": 13.088737487792969 }
+		]
+	},
+	"TCA": {
+		"country": "Turks and Caicos Islands",
+		"isoCode": "TCA",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 8.61734676361084 },
+			{ "year": 2017, "co2_per_capita": 8.823378562927246 },
+			{ "year": 2018, "co2_per_capita": 8.737257957458496 },
+			{ "year": 2019, "co2_per_capita": 8.415367126464844 },
+			{ "year": 2020, "co2_per_capita": 6.9915571212768555 },
+			{ "year": 2021, "co2_per_capita": 7.558162212371826 }
+		]
+	},
+	"TUV": {
+		"country": "Tuvalu",
+		"isoCode": "TUV",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 0.6737771034240723 },
+			{ "year": 2017, "co2_per_capita": 0.6753917336463928 },
+			{ "year": 2018, "co2_per_capita": 0.6733437180519104 },
+			{ "year": 2019, "co2_per_capita": 0.667212963104248 },
+			{ "year": 2020, "co2_per_capita": 0.6973850131034851 },
+			{ "year": 2021, "co2_per_capita": 0.7078101634979248 }
+		]
+	},
+	"UGA": {
+		"country": "Uganda",
+		"isoCode": "UGA",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 0.12358653545379639 },
+			{ "year": 2017, "co2_per_capita": 0.13399648666381836 },
+			{ "year": 2018, "co2_per_capita": 0.1356322169303894 },
+			{ "year": 2019, "co2_per_capita": 0.13997535407543182 },
+			{ "year": 2020, "co2_per_capita": 0.12401825189590454 },
+			{ "year": 2021, "co2_per_capita": 0.12606297433376312 }
+		]
+	},
+	"UKR": {
+		"country": "Ukraine",
+		"isoCode": "UKR",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 5.219491958618164 },
+			{ "year": 2017, "co2_per_capita": 4.99553918838501 },
+			{ "year": 2018, "co2_per_capita": 5.212386608123779 },
+			{ "year": 2019, "co2_per_capita": 5.022645950317383 },
+			{ "year": 2020, "co2_per_capita": 4.712884426116943 },
+			{ "year": 2021, "co2_per_capita": 4.637057304382324 }
+		]
+	},
+	"ARE": {
+		"country": "United Arab Emirates",
+		"isoCode": "ARE",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 23.608854293823242 },
+			{ "year": 2017, "co2_per_capita": 23.61590003967285 },
+			{ "year": 2018, "co2_per_capita": 22.9993896484375 },
+			{ "year": 2019, "co2_per_capita": 22.633892059326172 },
+			{ "year": 2020, "co2_per_capita": 21.436235427856445 },
+			{ "year": 2021, "co2_per_capita": 21.79214096069336 }
+		]
+	},
+	"GBR": {
+		"country": "United Kingdom",
+		"isoCode": "GBR",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 6.083754539489746 },
+			{ "year": 2017, "co2_per_capita": 5.863441467285156 },
+			{ "year": 2018, "co2_per_capita": 5.715981483459473 },
+			{ "year": 2019, "co2_per_capita": 5.462123394012451 },
+			{ "year": 2020, "co2_per_capita": 4.865281581878662 },
+			{ "year": 2021, "co2_per_capita": 5.154099464416504 }
+		]
+	},
+	"USA": {
+		"country": "United States",
+		"isoCode": "USA",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 16.05010223388672 },
+			{ "year": 2017, "co2_per_capita": 15.800775527954102 },
+			{ "year": 2018, "co2_per_capita": 16.187923431396484 },
+			{ "year": 2019, "co2_per_capita": 15.730884552001953 },
+			{ "year": 2020, "co2_per_capita": 14.037217140197754 },
+			{ "year": 2021, "co2_per_capita": 14.858668327331543 }
+		]
+	},
+	"VIR": {
+		"country": "United States Virgin Islands",
+		"isoCode": "VIR",
+		"data": [{ "year": 2016 }, { "year": 2017 }, { "year": 2018 }, { "year": 2019 }, { "year": 2020 }, { "year": 2021 }]
+	},
+	"URY": {
+		"country": "Uruguay",
+		"isoCode": "URY",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 1.9102730751037598 },
+			{ "year": 2017, "co2_per_capita": 1.8007608652114868 },
+			{ "year": 2018, "co2_per_capita": 1.9173871278762817 },
+			{ "year": 2019, "co2_per_capita": 1.8929877281188965 },
+			{ "year": 2020, "co2_per_capita": 1.8362468481063843 },
+			{ "year": 2021, "co2_per_capita": 1.9665355682373047 }
+		]
+	},
+	"UZB": {
+		"country": "Uzbekistan",
+		"isoCode": "UZB",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 3.5016393661499023 },
+			{ "year": 2017, "co2_per_capita": 3.409874677658081 },
+			{ "year": 2018, "co2_per_capita": 3.5890793800354004 },
+			{ "year": 2019, "co2_per_capita": 3.60245418548584 },
+			{ "year": 2020, "co2_per_capita": 3.5267364978790283 },
+			{ "year": 2021, "co2_per_capita": 3.5688467025756836 }
+		]
+	},
+	"VUT": {
+		"country": "Vanuatu",
+		"isoCode": "VUT",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 0.5174428820610046 },
+			{ "year": 2017, "co2_per_capita": 0.4796968102455139 },
+			{ "year": 2018, "co2_per_capita": 0.5915501713752747 },
+			{ "year": 2019, "co2_per_capita": 0.5295945405960083 },
+			{ "year": 2020, "co2_per_capita": 0.5458879470825195 },
+			{ "year": 2021, "co2_per_capita": 0.5478965640068054 }
+		]
+	},
+	"VEN": {
+		"country": "Venezuela",
+		"isoCode": "VEN",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 4.956995487213135 },
+			{ "year": 2017, "co2_per_capita": 4.593233585357666 },
+			{ "year": 2018, "co2_per_capita": 3.442401170730591 },
+			{ "year": 2019, "co2_per_capita": 3.075801134109497 },
+			{ "year": 2020, "co2_per_capita": 2.6839678287506104 },
+			{ "year": 2021, "co2_per_capita": 2.8279075622558594 }
+		]
+	},
+	"VNM": {
+		"country": "Vietnam",
+		"isoCode": "VNM",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 2.42787766456604 },
+			{ "year": 2017, "co2_per_capita": 2.478285551071167 },
+			{ "year": 2018, "co2_per_capita": 2.8891642093658447 },
+			{ "year": 2019, "co2_per_capita": 3.5604159832000732 },
+			{ "year": 2020, "co2_per_capita": 3.4030439853668213 },
+			{ "year": 2021, "co2_per_capita": 3.3448269367218018 }
+		]
+	},
+	"WLF": {
+		"country": "Wallis and Futuna",
+		"isoCode": "WLF",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 2.122124671936035 },
+			{ "year": 2017, "co2_per_capita": 2.1443023681640625 },
+			{ "year": 2018, "co2_per_capita": 2.1662161350250244 },
+			{ "year": 2019, "co2_per_capita": 2.185598611831665 },
+			{ "year": 2020, "co2_per_capita": 2.3177497386932373 },
+			{ "year": 2021, "co2_per_capita": 2.386991500854492 }
+		]
+	},
+	"ESH": {
+		"country": "Western Sahara",
+		"isoCode": "ESH",
+		"data": [{ "year": 2016 }, { "year": 2017 }, { "year": 2018 }, { "year": 2019 }, { "year": 2020 }, { "year": 2021 }]
+	},
+	"YEM": {
+		"country": "Yemen",
+		"isoCode": "YEM",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 0.3723963797092438 },
+			{ "year": 2017, "co2_per_capita": 0.3525499105453491 },
+			{ "year": 2018, "co2_per_capita": 0.34017542004585266 },
+			{ "year": 2019, "co2_per_capita": 0.4020656943321228 },
+			{ "year": 2020, "co2_per_capita": 0.3760412633419037 },
+			{ "year": 2021, "co2_per_capita": 0.3782891035079956 }
+		]
+	},
+	"ZMB": {
+		"country": "Zambia",
+		"isoCode": "ZMB",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 0.3493276834487915 },
+			{ "year": 2017, "co2_per_capita": 0.39558637142181396 },
+			{ "year": 2018, "co2_per_capita": 0.4155687093734741 },
+			{ "year": 2019, "co2_per_capita": 0.4214886724948883 },
+			{ "year": 2020, "co2_per_capita": 0.3846561908721924 },
+			{ "year": 2021, "co2_per_capita": 0.3941933810710907 }
+		]
+	},
+	"ZWE": {
+		"country": "Zimbabwe",
+		"isoCode": "ZWE",
+		"data": [
+			{ "year": 2016, "co2_per_capita": 0.7288222312927246 },
+			{ "year": 2017, "co2_per_capita": 0.6505325436592102 },
+			{ "year": 2018, "co2_per_capita": 0.783638596534729 },
+			{ "year": 2019, "co2_per_capita": 0.7238614559173584 },
+			{ "year": 2020, "co2_per_capita": 0.676970362663269 },
+			{ "year": 2021, "co2_per_capita": 0.7062929272651672 }
+		]
+	}
+}
