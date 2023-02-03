@@ -16,7 +16,7 @@ import {
 	CarbonInfo
 } from "../modules";
 import { TheaNetwork, ProviderOrSigner } from "../types";
-import { consts, getCurrentNBTTokenAddress, TheaError } from "../utils";
+import { TheaError } from "../utils";
 
 // SDK initialization options
 export type InitOptions = {
@@ -64,7 +64,7 @@ export class TheaSDK {
 	 * @param options.web3Provider Web3 provider
 	 * @returns Initialized TheaSDK instance
 	 */
-	static async init(options: InitOptions): Promise<TheaSDK> {
+	static init(options: InitOptions): TheaSDK {
 		let providerOrSigner: ProviderOrSigner;
 
 		if (options.web3Provider) providerOrSigner = options.web3Provider.getSigner() as Signer & TypedDataSigner;
@@ -81,10 +81,6 @@ export class TheaSDK {
 		} else if (options.provider) providerOrSigner = options.provider;
 		else throw new TheaError({ type: "EMPTY_OPTIONS", message: "Non of optional parameters were provided" });
 
-		consts[`${options.network}`].currentNbtTokenContract = await getCurrentNBTTokenAddress(
-			options.network,
-			providerOrSigner
-		);
 		return new TheaSDK(providerOrSigner, options.network);
 	}
 }

@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.7.1](https://github.com/MVPWorkshop/thea-sdk/compare/v0.7.0...v0.7.1) (2023-02-02)
+
+
+### Bug Fixes
+
+* current nbt contract address hardcoded ([d7e58ba](https://github.com/MVPWorkshop/thea-sdk/commit/d7e58baac40d2a3413bb0063f422c1edadde202a))
+
 ## [0.7.0](https://github.com/MVPWorkshop/thea-sdk/compare/v0.6.0...v0.7.0) (2023-02-01)
 
 
