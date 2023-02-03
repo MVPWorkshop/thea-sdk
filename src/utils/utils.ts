@@ -6,6 +6,7 @@ import { consts } from "./consts";
 import { TheaError } from "./theaError";
 import BaseTokenManager_ABI from "../abi/BaseTokenManager_ABI.json";
 import { BigNumber, BigNumberish } from "@ethersproject/bignumber";
+import { Provider } from "@ethersproject/providers";
 
 /* eslint-disable  @typescript-eslint/no-explicit-any */
 export const castAbiInterface = (abi: any) => {
@@ -25,9 +26,12 @@ export const validateAddress = (address: string) => {
 
 /* eslint-disable  @typescript-eslint/no-explicit-any */
 export function isSigner(providerOrSigner: any): providerOrSigner is Signer {
-	return !!providerOrSigner.signMessage;
+	return !!providerOrSigner._isSigner;
 }
 
+export function isProvider(providerOrSigner: any): providerOrSigner is Provider {
+	return !!providerOrSigner._isProvider;
+}
 export const signerRequired = (providerOrSigner: ProviderOrSigner) => {
 	if (!isSigner(providerOrSigner)) {
 		throw new TheaError({

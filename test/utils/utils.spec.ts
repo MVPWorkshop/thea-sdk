@@ -9,6 +9,7 @@ import {
 	getAddress,
 	getCurrentNBTTokenAddress,
 	getERC20ContractAddress,
+	isProvider,
 	isSigner,
 	isTypedDataSigner,
 	signerRequired,
@@ -62,6 +63,18 @@ describe("Utils", () => {
 		it("should return false if providerOrSigner is not Signer", () => {
 			const provider = new InfuraProvider();
 			expect(isSigner(provider)).toBe(false);
+		});
+	});
+
+	describe("isProvider", () => {
+		it("should return true if providerOrSigner is Provider", () => {
+			const provider = new InfuraProvider();
+			expect(isProvider(provider)).toBe(true);
+		});
+
+		it("should return false if providerOrSigner is not Provider", () => {
+			const signer = new Wallet(PRIVATE_KEY);
+			expect(isProvider(signer)).toBe(false);
 		});
 	});
 
