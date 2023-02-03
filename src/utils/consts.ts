@@ -91,7 +91,7 @@ export const consts: { [key in TheaNetwork]: EnvConfig } = {
 		vintageTokenContract: "0x724176146cd1fC5873480E4F2f53184B6734cbD9",
 		sdgTokenContract: "0x4e5C34027912d6945B2C5CfE3A4E6CA16d50a482",
 		ratingTokenContract: "0x007d5Af3e0AC91F3aEd13B866Ba05A0E4DBf8421",
-		currentNbtTokenContract: "0xA1bf8f737e8E02b9040802dD3cEEdCe22a844352",
+		currentNbtTokenContract: "",
 		baseTokenManagerContract: "0xE100c4ffFF7c00253BA4A2a695F5ac909d756D76",
 		baseTokenManagerDeployerContract: "0x3ace09bba3b8507681146252d3dd33cd4e2d4f63",
 		stableTokenContract: "0x014349F1C543038a76384cFC1A68f1881AFc6B0a", // Dummy USDC

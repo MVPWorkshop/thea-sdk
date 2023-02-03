@@ -12,11 +12,10 @@ import {
 	Orderbook,
 	NFTTrading,
 	Offset,
-	RollBaseTokens,
 	CarbonInfo
 } from "../modules";
 import { TheaNetwork, ProviderOrSigner } from "../types";
-import { TheaError } from "../utils";
+import { consts, getCurrentNBTTokenAddress, TheaError } from "../utils";
 
 // SDK initialization options
 export type InitOptions = {
@@ -37,7 +36,6 @@ export class TheaSDK {
 	readonly nftTokenList: GetTokenList;
 	readonly nftOrderbook: Orderbook;
 	readonly nftTrading: NFTTrading;
-	readonly rollBaseTokens: RollBaseTokens;
 	readonly carbonInfo: CarbonInfo;
 
 	private constructor(readonly providerOrSigner: ProviderOrSigner, readonly network: TheaNetwork) {
@@ -50,7 +48,6 @@ export class TheaSDK {
 		this.nftTokenList = new GetTokenList(network);
 		this.nftOrderbook = new Orderbook(network);
 		this.nftTrading = new NFTTrading(this.providerOrSigner, network, this.nftOrderbook);
-		this.rollBaseTokens = new RollBaseTokens(this.providerOrSigner, network);
 		this.carbonInfo = new CarbonInfo();
 	}
 
@@ -64,7 +61,7 @@ export class TheaSDK {
 	 * @param options.web3Provider Web3 provider
 	 * @returns Initialized TheaSDK instance
 	 */
-	static init(options: InitOptions): TheaSDK {
+	static async init(options: InitOptions): Promise<TheaSDK> {
 		let providerOrSigner: ProviderOrSigner;
 
 		if (options.web3Provider) providerOrSigner = options.web3Provider.getSigner() as Signer & TypedDataSigner;
@@ -81,6 +78,10 @@ export class TheaSDK {
 		} else if (options.provider) providerOrSigner = options.provider;
 		else throw new TheaError({ type: "EMPTY_OPTIONS", message: "Non of optional parameters were provided" });
 
+		consts[`${options.network}`].currentNbtTokenContract = await getCurrentNBTTokenAddress(
+			options.network,
+			providerOrSigner
+		);
 		return new TheaSDK(providerOrSigner, options.network);
 	}
 }
