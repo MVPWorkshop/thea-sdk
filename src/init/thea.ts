@@ -12,7 +12,8 @@ import {
 	Orderbook,
 	NFTTrading,
 	Offset,
-	CarbonInfo
+	CarbonInfo,
+	RollBaseTokens
 } from "../modules";
 import { TheaNetwork, ProviderOrSigner } from "../types";
 import { consts, getCurrentNBTTokenAddress, TheaError } from "../utils";
@@ -37,6 +38,7 @@ export class TheaSDK {
 	readonly nftOrderbook: Orderbook;
 	readonly nftTrading: NFTTrading;
 	readonly carbonInfo: CarbonInfo;
+	readonly rollBaseTokens: RollBaseTokens;
 
 	private constructor(readonly providerOrSigner: ProviderOrSigner, readonly network: TheaNetwork) {
 		this.unwrap = new Unwrap(this.providerOrSigner, network);
@@ -48,6 +50,7 @@ export class TheaSDK {
 		this.nftTokenList = new GetTokenList(network);
 		this.nftOrderbook = new Orderbook(network);
 		this.nftTrading = new NFTTrading(this.providerOrSigner, network, this.nftOrderbook);
+		this.rollBaseTokens = new RollBaseTokens(this.providerOrSigner, network);
 		this.carbonInfo = new CarbonInfo();
 	}
 
