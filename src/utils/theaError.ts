@@ -26,7 +26,9 @@ export type ErrorType =
 	| "INVALID_NONCE"
 	| "INVALID_DEADLINE"
 	| "INVALID_YEAR"
-	| "INVALID_YEAR_IN_QUERY";
+	| "INVALID_YEAR_ORDER"
+	| "INVALID_YEAR_IN_QUERY"
+	| "YEAR_OF_BIRTH_GREATER_THAN_FIRST_LOCATION_YEAR";
 
 export type ErrorProps = {
 	type: ErrorType;
