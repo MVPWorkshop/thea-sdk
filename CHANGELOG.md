@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.8.0](https://github.com/MVPWorkshop/thea-sdk/compare/v0.7.1...v0.8.0) (2023-02-03)
+
+
+### Features
+
+* estimate footprint calculator ([bf85a9b](https://github.com/MVPWorkshop/thea-sdk/commit/bf85a9b157b5fe14acb7b36c6921f084a386d613))
+
 ## [0.7.1](https://github.com/MVPWorkshop/thea-sdk/compare/v0.7.0...v0.7.1) (2023-02-02)
 
 
