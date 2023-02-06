@@ -147,6 +147,14 @@ export enum TradeDirection {
 	BuyNFT = 1
 }
 
+export type MarketOrder = {
+	ordersToBeFilled: MarketFillableOrder[];
+	amount: number;
+};
+export type MarketFillableOrder = {
+	order: SignedERC1155OrderStructSerialized;
+	amount: number;
+};
 export interface UserFacingERC1155AssetDataSerializedV4 {
 	tokenAddress: string;
 	tokenId: string;

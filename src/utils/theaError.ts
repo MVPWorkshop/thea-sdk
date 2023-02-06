@@ -26,6 +26,7 @@ export type ErrorType =
 	| "NO_PRICE_LISTING_FOUND"
 	| "SELL_ERC1155_ERROR"
 	| "INVALID_NONCE"
+	| "INVALID_AMOUNT"
 	| "INVALID_DEADLINE";
 
 export type ErrorProps = {
