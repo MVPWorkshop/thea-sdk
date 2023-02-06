@@ -1,6 +1,7 @@
 import { Signer, TypedDataSigner } from "@ethersproject/abstract-signer";
 import { BigNumber, BigNumberish } from "@ethersproject/bignumber";
 import { Provider } from "@ethersproject/providers";
+import { ISO_CODES } from "../utils";
 
 export enum TheaNetwork {
 	GANACHE = 1337,
@@ -144,6 +145,7 @@ export type TokenizationRequest = ClientDetails & {
 
 export type ConvertEvent = { id?: string; amount?: string };
 export type RecoverEvent = { id?: string; amount?: string };
+export type RollTokensEvent = { user?: string; vintage?: string; amount?: string };
 
 export type BaseTokenCharactaristics = {
 	vintage: BigNumber;
@@ -200,6 +202,37 @@ export type TokenResponseFromRaribleAPI = {
 	totalStock: string;
 	sellers: number;
 	suspicious: boolean;
+};
+
+export type Co2DataSet = {
+	[key in ISO_CODES]: {
+		country: string;
+		isoCode: ISO_CODES;
+		data: { year: number; co2_per_capita?: number }[];
+	};
+};
+export type FootprintQuery = {
+	isoCode: ISO_CODES;
+	year: number | null;
+};
+
+export type FootprintSummary = {
+	country: string;
+	isoCode: ISO_CODES;
+	from: number;
+	to: number;
+	co2Emission: number;
+};
+export type FootprintDetail = {
+	year: number;
+	co2Emission: number;
+	country: string;
+	isoCode: string;
+};
+export type EstimatedFootprint = {
+	footprint: number;
+	summary: FootprintSummary[];
+	details: FootprintDetail[];
 };
 export * from "./IRegistryContract";
 export * from "./IBaseTokenManagerContract";

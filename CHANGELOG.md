@@ -1,5 +1,26 @@
 # Changelog
 
+## [0.8.0](https://github.com/MVPWorkshop/thea-sdk/compare/v0.7.1...v0.8.0) (2023-02-03)
+
+
+### Features
+
+* estimate footprint calculator ([bf85a9b](https://github.com/MVPWorkshop/thea-sdk/commit/bf85a9b157b5fe14acb7b36c6921f084a386d613))
+
+## [0.7.1](https://github.com/MVPWorkshop/thea-sdk/compare/v0.7.0...v0.7.1) (2023-02-02)
+
+
+### Bug Fixes
+
+* current nbt contract address hardcoded ([d7e58ba](https://github.com/MVPWorkshop/thea-sdk/commit/d7e58baac40d2a3413bb0063f422c1edadde202a))
+
+## [0.7.0](https://github.com/MVPWorkshop/thea-sdk/compare/v0.6.0...v0.7.0) (2023-02-01)
+
+
+### Features
+
+* roll base tokens ([25425a9](https://github.com/MVPWorkshop/thea-sdk/commit/25425a908370daee5609d3d07c3369c4789f1190))
+
 ## [0.6.0](https://github.com/MVPWorkshop/thea-sdk/compare/v0.5.0...v0.6.0) (2023-01-31)
 
 
