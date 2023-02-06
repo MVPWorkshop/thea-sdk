@@ -109,12 +109,14 @@ describe("Orderbook", () => {
 				{
 					priceForOneNFT: 0.1,
 					nftTokenAmount: priceListingMock.orders[0].nftTokenAmount,
-					orderId: priceListingMock.orders[0].order.nonce
+					orderId: priceListingMock.orders[0].order.nonce,
+					orderToBeFilled: priceListingMock.orders[0].order
 				},
 				{
 					priceForOneNFT: 0.01,
 					nftTokenAmount: priceListingMock.orders[1].nftTokenAmount,
-					orderId: priceListingMock.orders[1].order.nonce
+					orderId: priceListingMock.orders[1].order.nonce,
+					orderToBeFilled: priceListingMock.orders[1].order
 				}
 			]);
 			expect(httpGetSpy).toBeCalledWith("/orders", {
@@ -135,12 +137,14 @@ describe("Orderbook", () => {
 			{
 				priceForOneNFT: 0.01,
 				nftTokenAmount: priceListingMock.orders[1].nftTokenAmount,
-				orderId: priceListingMock.orders[1].order.nonce
+				orderId: priceListingMock.orders[1].order.nonce,
+				orderToBeFilled: priceListingMock.orders[1].order
 			},
 			{
 				priceForOneNFT: 0.1,
 				nftTokenAmount: priceListingMock.orders[0].nftTokenAmount,
-				orderId: priceListingMock.orders[0].order.nonce
+				orderId: priceListingMock.orders[0].order.nonce,
+				orderToBeFilled: priceListingMock.orders[0].order
 			}
 		]);
 		expect(httpGetSpy).toBeCalledWith("/orders", {

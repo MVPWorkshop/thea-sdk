@@ -1,4 +1,5 @@
 import {
+	PriceListings,
 	SearchOrdersResponsePayload,
 	TokenizationSource,
 	TokenizationState,
@@ -136,7 +137,7 @@ export const priceListingMock: SearchOrdersResponsePayload = {
 			nftToken: "0xb47e3cd837ddf8e4c57f05d70ab865de6e193bbb",
 			nftTokenId: "69",
 			nftTokenAmount: "100",
-			nftType: "ERC721",
+			nftType: "ERC1155",
 			sellOrBuyNft: "buy",
 			chainId: "1337",
 			order: {
@@ -172,7 +173,7 @@ export const priceListingMock: SearchOrdersResponsePayload = {
 			nftToken: "0xb47e3cd837ddf8e4c57f05d70ab865de6e193bbb",
 			nftTokenId: "69",
 			nftTokenAmount: "10",
-			nftType: "ERC721",
+			nftType: "ERC1155",
 			sellOrBuyNft: "buy",
 			chainId: "1337",
 			order: {
@@ -204,3 +205,109 @@ export const priceListingMock: SearchOrdersResponsePayload = {
 		}
 	]
 };
+
+export const priceListingReturnMockSell: PriceListings[] = [
+	{
+		priceForOneNFT: 20,
+		nftTokenAmount: "10",
+		orderId: "100133271337000000000000000000000000000173830542377169720320941218856725572133",
+		orderToBeFilled: {
+			direction: 0,
+			erc20Token: "0xa6cbe96c05e92a01b52f519d50541409d85ed6d6",
+			erc20TokenAmount: "200000000000000000000",
+			erc1155Token: "0xf37221f42678ace417f2bc5c89489d1f0c77c133",
+			erc1155TokenId: "1",
+			erc1155TokenAmount: "10",
+			erc1155TokenProperties: [],
+			expiry: "2524604400",
+			fees: [],
+			maker: "0xca1edbea332fe36a4164bfc85bc58de12f07f941",
+			nonce: "100133271337000000000000000000000000000173830542377169720320941218856725572133",
+			signature: {
+				r: "0x004c3187cd41552901eeda3b6aa8bf1934db4cbff9e080d193b30714a62f9ead",
+				s: "0x293711b92b8dd052bdaebd00b84f2997e67b0b6ba8cd699ad513173f2856c867",
+				v: 28,
+				signatureType: 2
+			},
+			taker: "0x0000000000000000000000000000000000000000"
+		}
+	},
+	{
+		priceForOneNFT: 10,
+		nftTokenAmount: "10",
+		orderId: "100133271337000000000000000000000000000173830542377169720320941218856725572133",
+		orderToBeFilled: {
+			direction: 0,
+			erc20Token: "0xa6cbe96c05e92a01b52f519d50541409d85ed6d6",
+			erc20TokenAmount: "100000000000000000000",
+			erc1155Token: "0xf37221f42678ace417f2bc5c89489d1f0c77c133",
+			erc1155TokenId: "1",
+			erc1155TokenAmount: "10",
+			erc1155TokenProperties: [],
+			expiry: "2524604400",
+			fees: [],
+			maker: "0xca1edbea332fe36a4164bfc85bc58de12f07f941",
+			nonce: "100133271337000000000000000000000000000173830542377169720320941218856725572133",
+			signature: {
+				r: "0x004c3187cd41552901eeda3b6aa8bf1934db4cbff9e080d193b30714a62f9ead",
+				s: "0x293711b92b8dd052bdaebd00b84f2997e67b0b6ba8cd699ad513173f2856c867",
+				v: 28,
+				signatureType: 2
+			},
+			taker: "0x0000000000000000000000000000000000000000"
+		}
+	}
+];
+
+export const priceListingReturnMockBuy: PriceListings[] = [
+	{
+		priceForOneNFT: 10,
+		nftTokenAmount: "10",
+		orderId: "100133271337000000000000000000000000000173830542377169720320941218856725572133",
+		orderToBeFilled: {
+			direction: 1,
+			erc20Token: "0xa6cbe96c05e92a01b52f519d50541409d85ed6d6",
+			erc20TokenAmount: "100000000000000000000",
+			erc1155Token: "0xf37221f42678ace417f2bc5c89489d1f0c77c133",
+			erc1155TokenId: "1",
+			erc1155TokenAmount: "10",
+			erc1155TokenProperties: [],
+			expiry: "2524604400",
+			fees: [],
+			maker: "0xca1edbea332fe36a4164bfc85bc58de12f07f941",
+			nonce: "100133271337000000000000000000000000000173830542377169720320941218856725572133",
+			signature: {
+				r: "0x004c3187cd41552901eeda3b6aa8bf1934db4cbff9e080d193b30714a62f9ead",
+				s: "0x293711b92b8dd052bdaebd00b84f2997e67b0b6ba8cd699ad513173f2856c867",
+				v: 28,
+				signatureType: 2
+			},
+			taker: "0x0000000000000000000000000000000000000000"
+		}
+	},
+	{
+		priceForOneNFT: 20,
+		nftTokenAmount: "10",
+		orderId: "100133271337000000000000000000000000000173830542377169720320941218856725572133",
+		orderToBeFilled: {
+			direction: 1,
+			erc20Token: "0xa6cbe96c05e92a01b52f519d50541409d85ed6d6",
+			erc20TokenAmount: "200000000000000000000",
+			erc1155Token: "0xf37221f42678ace417f2bc5c89489d1f0c77c133",
+			erc1155TokenId: "1",
+			erc1155TokenAmount: "10",
+			erc1155TokenProperties: [],
+			expiry: "2524604400",
+			fees: [],
+			maker: "0xca1edbea332fe36a4164bfc85bc58de12f07f941",
+			nonce: "100133271337000000000000000000000000000173830542377169720320941218856725572133",
+			signature: {
+				r: "0x004c3187cd41552901eeda3b6aa8bf1934db4cbff9e080d193b30714a62f9ead",
+				s: "0x293711b92b8dd052bdaebd00b84f2997e67b0b6ba8cd699ad513173f2856c867",
+				v: 28,
+				signatureType: 2
+			},
+			taker: "0x0000000000000000000000000000000000000000"
+		}
+	}
+];
