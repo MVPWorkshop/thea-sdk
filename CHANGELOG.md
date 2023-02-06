@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.8.1](https://github.com/MVPWorkshop/thea-sdk/compare/v0.8.0...v0.8.1) (2023-02-03)
+
+
+### Bug Fixes
+
+* init and provider network  mismatch ([86fdf0d](https://github.com/MVPWorkshop/thea-sdk/commit/86fdf0db5625490c840351307c05f9b6b3f2164c))
+
 ## [0.8.0](https://github.com/MVPWorkshop/thea-sdk/compare/v0.7.1...v0.8.0) (2023-02-03)
 
 
