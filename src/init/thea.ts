@@ -52,6 +52,7 @@ export class TheaSDK {
 		this.nftTrading = new NFTTrading(this.providerOrSigner, network, this.nftOrderbook);
 		this.rollBaseTokens = new RollBaseTokens(this.providerOrSigner, network);
 		this.carbonInfo = new CarbonInfo();
+		this.tokenization = new Tokenization(network);
 	}
 
 	/**
