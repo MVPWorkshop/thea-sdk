@@ -15,8 +15,7 @@ import {
 import { consts, TheaError } from "../../src/utils";
 import { ExternalProvider, InfuraProvider, Network, Provider, Web3Provider } from "@ethersproject/providers";
 import { Wallet } from "@ethersproject/wallet";
-import { PRIVATE_KEY } from "../mocks";
-import * as utils from "../../src/utils/utils";
+import { CONTRACT_ADDRESS, PRIVATE_KEY } from "../mocks";
 import { Signer } from "@ethersproject/abstract-signer";
 jest.mock("../../src/modules/");
 /* eslint-disable  @typescript-eslint/no-explicit-any */
@@ -28,7 +27,8 @@ jest.mock("../../src/utils/utils", () => {
 		},
 		isProvider(providerOrSigner: any): providerOrSigner is Provider {
 			return !!providerOrSigner._isProvider;
-		}
+		},
+		validateAddress: () => "0x5FbDB2315678afecb367f032d93F642f64180aa3".toLowerCase()
 	};
 });
 jest.mock("@ethersproject/providers", () => {
@@ -86,7 +86,6 @@ describe("TheaSDK", () => {
 		it("should return TheaSDK instance using web3Provider", async () => {
 			const web3Provider = new Web3Provider({} as ExternalProvider);
 			const getSignerSpy = jest.spyOn(web3Provider, "getSigner");
-			const currentNbtSpy = jest.spyOn(utils, "getCurrentNBTTokenAddress");
 			const result = await TheaSDK.init({
 				network: TheaNetwork.MUMBAI,
 				web3Provider
@@ -105,8 +104,6 @@ describe("TheaSDK", () => {
 			expect(NFTTrading).toBeCalled();
 			expect(GetTokenList).toBeCalled();
 			expect(CarbonInfo).toBeCalled();
-			expect(currentNbtSpy).toBeCalled();
-			expect(consts[TheaNetwork.MUMBAI].currentNbtTokenContract).toBe("0x5FbDB2315678afecb367f032d93F642f64180aa3");
 		});
 
 		it("should throw error if signer doesn't have provider specified", async () => {
@@ -167,6 +164,20 @@ describe("TheaSDK", () => {
 					message: `Provided network is ${options.network} but provider is connected to ${chainId} network`
 				})
 			);
+		});
+	});
+
+	describe("setCurrentNBTContractAddress", () => {
+		it("should set current NBT contract address", async () => {
+			const theaSDK = await TheaSDK.init({
+				network: TheaNetwork.MUMBAI,
+				privateKey: PRIVATE_KEY,
+				provider: new InfuraProvider()
+			});
+
+			theaSDK.setCurrentNBTContractAddress(CONTRACT_ADDRESS);
+
+			expect(consts[`${TheaNetwork.MUMBAI}`].currentNbtTokenContract).toBe(CONTRACT_ADDRESS);
 		});
 	});
 });
