@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.9.1](https://github.com/MVPWorkshop/thea-sdk/compare/v0.9.0...v0.9.1) (2023-02-08)
+
+
+### Bug Fixes
+
+* fix on setting current nbt contract address ([76cfb67](https://github.com/MVPWorkshop/thea-sdk/commit/76cfb67c341ee21252046220c1ac29048dd157af))
+* token addreses updated ([5ef93e5](https://github.com/MVPWorkshop/thea-sdk/commit/5ef93e50aed9f9ac66d47dd5d09a1ffb89f36eaf))
+
 ## [0.9.0](https://github.com/MVPWorkshop/thea-sdk/compare/v0.8.1...v0.9.0) (2023-02-08)
 
 
