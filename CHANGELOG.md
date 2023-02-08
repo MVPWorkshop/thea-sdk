@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.9.2](https://github.com/MVPWorkshop/thea-sdk/compare/v0.9.1...v0.9.2) (2023-02-08)
+
+
+### Bug Fixes
+
+* added missing module in sdk ([587265d](https://github.com/MVPWorkshop/thea-sdk/commit/587265da06689734118974b43999936da1e44226))
+
 ## [0.9.1](https://github.com/MVPWorkshop/thea-sdk/compare/v0.9.0...v0.9.1) (2023-02-08)
 
 
