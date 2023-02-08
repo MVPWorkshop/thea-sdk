@@ -57,9 +57,13 @@ export class NFTTrading extends ContractWrapper<IZeroExContract> {
 		side: OrderSide,
 		price: number,
 		quantity: number,
+		chunks = 1,
 		userConfig?: Partial<OrderStructOptionsCommonStrict>
 	) {
 		typedDataSignerRequired(this.signer);
+		if (quantity % chunks !== 0) {
+			throw new TheaError({ type: "INVALID_CHUNK_SIZE", message: "Quantity must be divisible by chunks" });
+		}
 		if (side === "sell") {
 			await checkBalance(this.signer as Signer, this.network, { token: "ERC1155", tokenId, amount: quantity });
 
@@ -68,7 +72,10 @@ export class NFTTrading extends ContractWrapper<IZeroExContract> {
 				spender: consts[`${this.network}`].exchangeProxyAddress
 			});
 		} else {
-			const stableTokenAmount = (price * quantity * STABLE_TOKEN_DECIMALS_MULTIPLIER).toString();
+			const stableTokenAmount = BigNumber.from(price)
+				.mul(quantity)
+				.mul(STABLE_TOKEN_DECIMALS_MULTIPLIER.toString())
+				.toString();
 			await checkBalance(this.signer as Signer, this.network, {
 				token: "ERC20",
 				amount: stableTokenAmount,
@@ -84,10 +91,14 @@ export class NFTTrading extends ContractWrapper<IZeroExContract> {
 		}
 		const signer = this.signer as Signer;
 		const makerAddress = await signer.getAddress();
-		const builtOrder = this.buildOrder(tokenId, side, price, quantity, makerAddress, userConfig);
-		const signedOrder = await this.signOrder(builtOrder);
-		const orderBookResponse = await this.orderBook.postOrder(signedOrder);
-		return orderBookResponse;
+		const orderBookResponses = [];
+		for (let i = 0; i < chunks; i++) {
+			const builtOrder = this.buildOrder(tokenId, side, price, quantity / chunks, makerAddress, userConfig);
+			const signedOrder = await this.signOrder(builtOrder);
+			const orderBookResponse = this.orderBook.postOrder(signedOrder);
+			orderBookResponses.push(orderBookResponse);
+		}
+		return Promise.all(orderBookResponses);
 	}
 	// cancel order on Exchange contract, with order id, which is actually order nonce
 	async cancelOrder(orderId: string) {
@@ -125,12 +136,12 @@ export class NFTTrading extends ContractWrapper<IZeroExContract> {
 			const marketOrder = this.parseSellOrdersAndAmountsToBeFilled(priceListing, quantity);
 			await checkBalance(this.signer as Signer, this.network, {
 				token: "ERC20",
-				amount: marketOrder.amount.toString(),
+				amount: marketOrder.amount,
 				tokenName: "Stable"
 			});
 			await approve(this.signer as Signer, this.network, {
 				token: "ERC20",
-				amount: marketOrder.amount.toString(),
+				amount: marketOrder.amount,
 				spender: consts[`${this.network}`].exchangeProxyAddress,
 				tokenName: "Stable"
 			});
@@ -183,28 +194,30 @@ export class NFTTrading extends ContractWrapper<IZeroExContract> {
 	parseSellOrdersAndAmountsToBeFilled(priceListing: PriceListings[], quantity: number): MarketOrder {
 		const ordersToBeFilled: MarketFillableOrder[] = [];
 		let cummulativeQuantity = 0;
-		let stableTokenAmount = 0;
+		let stableTokenAmount = BigNumber.from(0);
 		for (let i = 0; i < priceListing.length; i++) {
 			const listing = priceListing[`${i}`];
 			cummulativeQuantity += parseInt(listing.nftTokenAmount);
 			if (cummulativeQuantity > quantity) {
 				const partialAmount = quantity - (cummulativeQuantity - parseInt(listing.nftTokenAmount));
-				stableTokenAmount +=
-					(parseInt(listing.orderToBeFilled.erc20TokenAmount) * partialAmount) / parseInt(listing.nftTokenAmount);
+				stableTokenAmount = BigNumber.from(listing.orderToBeFilled.erc20TokenAmount)
+					.mul(partialAmount)
+					.div(listing.nftTokenAmount)
+					.add(stableTokenAmount);
 				ordersToBeFilled.push({
 					order: listing.orderToBeFilled,
 					amount: quantity - (cummulativeQuantity - parseInt(listing.nftTokenAmount))
 				});
 				break;
 			} else if (cummulativeQuantity === quantity) {
-				stableTokenAmount += parseInt(listing.orderToBeFilled.erc20TokenAmount);
+				stableTokenAmount = BigNumber.from(listing.orderToBeFilled.erc20TokenAmount).add(stableTokenAmount);
 				ordersToBeFilled.push({
 					order: listing.orderToBeFilled,
 					amount: parseInt(listing.nftTokenAmount)
 				});
 				break;
 			} else {
-				stableTokenAmount += parseInt(listing.orderToBeFilled.erc20TokenAmount);
+				stableTokenAmount = BigNumber.from(listing.orderToBeFilled.erc20TokenAmount).add(stableTokenAmount);
 				ordersToBeFilled.push({
 					order: listing.orderToBeFilled,
 					amount: parseInt(listing.nftTokenAmount)
@@ -217,7 +230,7 @@ export class NFTTrading extends ContractWrapper<IZeroExContract> {
 				type: "NO_PRICE_LISTING_FOUND"
 			});
 		}
-		return { ordersToBeFilled, amount: stableTokenAmount };
+		return { ordersToBeFilled, amount: stableTokenAmount.toString() };
 	}
 	// quantity param represents the amount of NFTs to be sold, and return value is the amount of NFTs to be sold and the orders to be filled
 	parseBuyOrdersAndAmountsToBeFilled(priceListing: PriceListings[], quantity: number): MarketOrder {
@@ -246,7 +259,7 @@ export class NFTTrading extends ContractWrapper<IZeroExContract> {
 				type: "NO_PRICE_LISTING_FOUND"
 			});
 		}
-		return { ordersToBeFilled, amount: quantity };
+		return { ordersToBeFilled, amount: quantity.toString() };
 	}
 	// fill any order that is signed by the owner of the NFT. This orders can be retreived from orderbook query PriceListing method (orderToBeFilled)
 	async fillOrder(order: SignedERC1155OrderStruct, amount: BigNumberish) {

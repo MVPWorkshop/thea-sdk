@@ -149,7 +149,7 @@ export enum TradeDirection {
 
 export type MarketOrder = {
 	ordersToBeFilled: MarketFillableOrder[];
-	amount: number;
+	amount: string;
 };
 export type MarketFillableOrder = {
 	order: SignedERC1155OrderStructSerialized;

@@ -187,7 +187,7 @@ describe("NFTTrading", () => {
 			const price = 10;
 			const quantity = 1;
 			const executeSpy = jest.spyOn(shared, "execute");
-			const enterNftLimitTxPromise = Promise.resolve(postOrderResponseMock as PostOrderResponsePayload);
+			const enterNftLimitTxPromise = Promise.resolve([postOrderResponseMock] as PostOrderResponsePayload[]);
 			const enterNftLimitSpy = jest.spyOn(nftTrading, "enterNFTLimit").mockReturnValue(enterNftLimitTxPromise);
 			const queryOrderByNonceSpy = jest
 				.spyOn(nftTrading.orderBook, "queryOrderByNonce")
@@ -200,7 +200,7 @@ describe("NFTTrading", () => {
 			});
 			expect(queryOrderByNonceSpy).toHaveBeenCalled();
 			expect(enterNftLimitSpy).toHaveBeenCalled();
-			expect(result).toMatchObject(postOrderResponseMock);
+			expect(result).toMatchObject([postOrderResponseMock]);
 		});
 	});
 
@@ -213,6 +213,15 @@ describe("NFTTrading", () => {
 					type: "TYPED_DATA_SIGNER_REQUIRED",
 					message:
 						"TypedDataSigner is required for this operation. You must pass in a TypedDataSigner(Wallet) on SDK initialization"
+				})
+			);
+		});
+
+		it("should throw error that quantity isn't breakable on desired chunks", async () => {
+			await expect(nftTrading.enterNFTLimit(tokenId, "sell", 10, 3, 2)).rejects.toThrow(
+				new TheaError({
+					type: "INVALID_CHUNK_SIZE",
+					message: "Quantity must be divisible by chunks"
 				})
 			);
 		});
@@ -244,7 +253,7 @@ describe("NFTTrading", () => {
 			});
 			expect(buildOrderSpy).toHaveBeenCalled();
 			expect(signOrderSpy).toHaveBeenCalled();
-			expect(result).toMatchObject(postOrderResponseMock);
+			expect(result).toMatchObject([postOrderResponseMock]);
 		});
 
 		it("should call create buy order and post order to orderbook", async () => {
@@ -277,7 +286,7 @@ describe("NFTTrading", () => {
 				tokenName: "Stable",
 				spender: exchangeProxyContractAddress
 			});
-			expect(result).toMatchObject(postOrderResponseMock);
+			expect(result).toMatchObject([postOrderResponseMock]);
 		});
 	});
 
