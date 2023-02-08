@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.9.0](https://github.com/MVPWorkshop/thea-sdk/compare/v0.8.1...v0.9.0) (2023-02-08)
+
+
+### Features
+
+* create limit orders in chunks ([f755fb0](https://github.com/MVPWorkshop/thea-sdk/commit/f755fb073aa25ee640e2107cc6ebecea6d820506))
+
 ## [0.8.1](https://github.com/MVPWorkshop/thea-sdk/compare/v0.8.0...v0.8.1) (2023-02-03)
 
 
