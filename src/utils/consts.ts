@@ -85,7 +85,7 @@ export const consts: { [key in TheaNetwork]: EnvConfig } = {
 		stableTokenContract: "0x6B175474E89094C44Da98b954EedeAC495271d0F", //DAI
 		quoterContract: "0xb27308f9F90D607463bb33eA1BeBb41C27CE5AB6",
 		swapRouterContract: "0xE592427A0AEce92De3Edee1F18E0157C05861564",
-		theaApiBaseUrl: "http://127.0.0.1:8078/cli",
+		theaApiBaseUrl: "https://127.0.0.1:8078/cli",
 		exchangeProxyAddress: "0xf91bb752490473b8342a3e964e855b9f9a2a668e",
 		subGraphUrl: "http://localhost:8000/subgraphs/name/thea-protocol/thea-subgraph"
 	},
@@ -102,7 +102,7 @@ export const consts: { [key in TheaNetwork]: EnvConfig } = {
 		stableTokenContract: "0xa6cbE96c05E92A01B52F519D50541409d85ed6d6", // Dummy USDC
 		quoterContract: "0xb27308f9F90D607463bb33eA1BeBb41C27CE5AB6",
 		swapRouterContract: "0xE592427A0AEce92De3Edee1F18E0157C05861564",
-		theaApiBaseUrl: "http://127.0.0.1:8078/cli",
+		theaApiBaseUrl: "https://127.0.0.1:8078/cli",
 		exchangeProxyAddress: "0x4fb72262344034e034fce3d9c701fd9213a55260",
 		subGraphUrl: "http://localhost:8000/subgraphs/name/thea-protocol/thea-subgraph"
 	},
@@ -119,7 +119,7 @@ export const consts: { [key in TheaNetwork]: EnvConfig } = {
 		stableTokenContract: "0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174", //DAI
 		quoterContract: "0xb27308f9F90D607463bb33eA1BeBb41C27CE5AB6",
 		swapRouterContract: "0xE592427A0AEce92De3Edee1F18E0157C05861564",
-		theaApiBaseUrl: "http://127.0.0.1:8078/cli",
+		theaApiBaseUrl: "https://127.0.0.1:8078/cli",
 		exchangeProxyAddress: "0xdef1c0ded9bec7f1a1670819833240f027b25eff",
 		subGraphUrl: "http://localhost:8000/subgraphs/name/thea-protocol/thea-subgraph"
 	}
