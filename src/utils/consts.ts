@@ -76,9 +76,9 @@ export const consts: { [key in TheaNetwork]: EnvConfig } = {
 		networkName: "GANACHE",
 		registryContract: "0xe135783649BfA7c9c4c6F8E528C7f56166efC8a6",
 		theaERC1155Contract: "0x2E1f232a9439C3D459FcEca0BeEf13acc8259Dd8",
-		vintageTokenContract: "0x3621027715647B69D706636a8878E85d725A2aed",
-		sdgTokenContract: "0xB48C895039c9F81C87eb97Ed54B69a769b291f28",
-		ratingTokenContract: "0xc95347BD5212148A09c34a7d890D061D73f50bb8",
+		vintageTokenContract: "0x686AfD6e502A81D2e77f2e038A23C0dEf4949A20",
+		sdgTokenContract: "0x43D1F9096674B5722D359B6402381816d5B22F28",
+		ratingTokenContract: "0x4261D524bc701dA4AC49339e5F8b299977045eA5",
 		currentNbtTokenContract: "", // Call setCurrentNBTContractAddress to set address at init/thea.ts
 		baseTokenManagerContract: "0xE100c4ffFF7c00253BA4A2a695F5ac909d756D76",
 		baseTokenManagerDeployerContract: "0x3ace09bba3b8507681146252d3dd33cd4e2d4f63",
