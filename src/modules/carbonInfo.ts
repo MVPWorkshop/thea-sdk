@@ -1,14 +1,82 @@
-import { ISO_CODES, TheaError } from "../utils";
+import { consts, ISO_CODES, TheaError } from "../utils";
 import co2dataset from "../co2dataset.json";
-import { Co2DataSet, EstimatedFootprint, FootprintDetail, FootprintQuery, FootprintSummary } from "../types";
+import {
+	Co2DataSet,
+	EstimatedFootprint,
+	FootprintDetail,
+	FootprintQuery,
+	FootprintSummary,
+	GraphqlQuery,
+	TheaNetwork,
+	TokenizationHistory
+} from "../types";
+import { HttpClient } from "./shared";
+/* eslint-disable  @typescript-eslint/no-explicit-any */
+type QueryResponse<T> = { data: T };
+type QueryError = Record<string, any>;
+type QueryErrorResponse = { errors: QueryError[] };
 
 /* eslint-disable  @typescript-eslint/no-non-null-assertion */
 export class CarbonInfo {
 	private dataSet: Co2DataSet;
 	private lastYearInDataset: number;
-	constructor() {
+	private httpClient: HttpClient;
+	constructor(network: TheaNetwork) {
 		this.dataSet = co2dataset as Co2DataSet;
 		this.lastYearInDataset = this.dataSet["USA"].data[this.dataSet["USA"].data.length - 1].year;
+		this.httpClient = new HttpClient(consts[`${network}`].subGraphUrl);
+	}
+
+	async queryTokenizationHistory(): Promise<TokenizationHistory[] | QueryError[]> {
+		const query: GraphqlQuery = {
+			query: `{
+				tokens {
+					id
+					unwrappedAmount
+					vintage
+				}
+			}`
+		};
+		const response = await this.httpClient.post<
+			GraphqlQuery,
+			QueryResponse<{ tokens: TokenizationHistory[] }> | QueryErrorResponse
+		>("", query);
+
+		return this.handleResponse<{ tokens: TokenizationHistory[] }, TokenizationHistory[]>(response, "tokens");
+	}
+
+	async queryTokenizationStats(id: string): Promise<TokenizationHistory | QueryError[]> {
+		const query: GraphqlQuery = {
+			query: `
+				query ($id: ID!){
+					token(id: $id) {
+					vintage
+					unwrappedAmount
+					id
+					}
+				}
+			  `,
+			variables: {
+				id
+			}
+		};
+
+		const response = await this.httpClient.post<
+			GraphqlQuery,
+			QueryResponse<{ token: TokenizationHistory }> | QueryErrorResponse
+		>("", query);
+
+		return this.handleResponse<{ token: TokenizationHistory }, TokenizationHistory>(response, "token");
+	}
+	private handleResponse<T, Response>(
+		response: QueryResponse<T> | QueryErrorResponse,
+		responseProperty: keyof T
+	): QueryError[] | Response {
+		if ("errors" in response) {
+			return response.errors;
+		}
+		// eslint-disable-next-line security/detect-object-injection
+		return response.data[responseProperty] as Response;
 	}
 
 	/**

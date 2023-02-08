@@ -234,6 +234,17 @@ export type EstimatedFootprint = {
 	summary: FootprintSummary[];
 	details: FootprintDetail[];
 };
+/* eslint-disable  @typescript-eslint/no-explicit-any */
+export type GraphqlQuery = {
+	query: string;
+	variables?: { [key: string]: any };
+};
+
+export type TokenizationHistory = {
+	id: string;
+	unwrappedAmount: string;
+	vintage: string;
+};
 export * from "./IRegistryContract";
 export * from "./IBaseTokenManagerContract";
 export * from "./IERC1155Contract";

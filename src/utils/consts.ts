@@ -65,6 +65,7 @@ export type EnvConfig = {
 	swapRouterContract: string;
 	theaApiBaseUrl: string;
 	exchangeProxyAddress: string;
+	subGraphUrl: string;
 };
 
 export const consts: { [key in TheaNetwork]: EnvConfig } = {
@@ -82,7 +83,8 @@ export const consts: { [key in TheaNetwork]: EnvConfig } = {
 		quoterContract: "0xb27308f9F90D607463bb33eA1BeBb41C27CE5AB6",
 		swapRouterContract: "0xE592427A0AEce92De3Edee1F18E0157C05861564",
 		theaApiBaseUrl: "http://127.0.0.1:8078/cli",
-		exchangeProxyAddress: "0xf91bb752490473b8342a3e964e855b9f9a2a668e"
+		exchangeProxyAddress: "0xf91bb752490473b8342a3e964e855b9f9a2a668e",
+		subGraphUrl: "http://localhost:8000/subgraphs/name/thea-protocol/thea-subgraph"
 	},
 	[TheaNetwork.MUMBAI]: {
 		networkName: "MUMBAI",
@@ -98,7 +100,8 @@ export const consts: { [key in TheaNetwork]: EnvConfig } = {
 		quoterContract: "0xb27308f9F90D607463bb33eA1BeBb41C27CE5AB6",
 		swapRouterContract: "0xE592427A0AEce92De3Edee1F18E0157C05861564",
 		theaApiBaseUrl: "http://127.0.0.1:8078/cli",
-		exchangeProxyAddress: "0x4fb72262344034e034fce3d9c701fd9213a55260"
+		exchangeProxyAddress: "0x4fb72262344034e034fce3d9c701fd9213a55260",
+		subGraphUrl: "http://localhost:8000/subgraphs/name/thea-protocol/thea-subgraph"
 	},
 	[TheaNetwork.POLYGON]: {
 		networkName: "POLYGON",
@@ -114,7 +117,8 @@ export const consts: { [key in TheaNetwork]: EnvConfig } = {
 		quoterContract: "0xb27308f9F90D607463bb33eA1BeBb41C27CE5AB6",
 		swapRouterContract: "0xE592427A0AEce92De3Edee1F18E0157C05861564",
 		theaApiBaseUrl: "http://127.0.0.1:8078/cli",
-		exchangeProxyAddress: "0xdef1c0ded9bec7f1a1670819833240f027b25eff"
+		exchangeProxyAddress: "0xdef1c0ded9bec7f1a1670819833240f027b25eff",
+		subGraphUrl: "http://localhost:8000/subgraphs/name/thea-protocol/thea-subgraph"
 	}
 };
 
