@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.9.3](https://github.com/MVPWorkshop/thea-sdk/compare/v0.9.2...v0.9.3) (2023-02-08)
+
+
+### Bug Fixes
+
+* thea api fix ([64b7c26](https://github.com/MVPWorkshop/thea-sdk/commit/64b7c26b3e4af2ce49fb3caf0520d6877573dcb3))
+
 ## [0.9.2](https://github.com/MVPWorkshop/thea-sdk/compare/v0.9.1...v0.9.2) (2023-02-08)
 
 
