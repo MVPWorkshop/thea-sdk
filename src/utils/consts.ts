@@ -99,7 +99,7 @@ export const consts: { [key in TheaNetwork]: EnvConfig } = {
 		currentNbtTokenContract: "",
 		baseTokenManagerContract: "0xE100c4ffFF7c00253BA4A2a695F5ac909d756D76",
 		baseTokenManagerDeployerContract: "0x3ace09bba3b8507681146252d3dd33cd4e2d4f63",
-		stableTokenContract: "0xa6cbE96c05E92A01B52F519D50541409d85ed6d6", // Dummy USDC
+		stableTokenContract: "0x014349F1C543038a76384cFC1A68f1881AFc6B0a", // Dummy USDC
 		quoterContract: "0xb27308f9F90D607463bb33eA1BeBb41C27CE5AB6",
 		swapRouterContract: "0xE592427A0AEce92De3Edee1F18E0157C05861564",
 		theaApiBaseUrl: "https://127.0.0.1:8078/cli",
@@ -116,7 +116,7 @@ export const consts: { [key in TheaNetwork]: EnvConfig } = {
 		currentNbtTokenContract: "",
 		baseTokenManagerContract: "0xE100c4ffFF7c00253BA4A2a695F5ac909d756D76",
 		baseTokenManagerDeployerContract: "0x3ace09bba3b8507681146252d3dd33cd4e2d4f63",
-		stableTokenContract: "0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174", //DAI
+		stableTokenContract: "0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174",
 		quoterContract: "0xb27308f9F90D607463bb33eA1BeBb41C27CE5AB6",
 		swapRouterContract: "0xE592427A0AEce92De3Edee1F18E0157C05861564",
 		theaApiBaseUrl: "https://127.0.0.1:8078/cli",
