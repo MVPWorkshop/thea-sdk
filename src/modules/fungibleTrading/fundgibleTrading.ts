@@ -37,7 +37,7 @@ export class FungibleTrading {
 	 * @param swapOptions.slippageTolerance - slippage tolerance. Default is 0.5%
 	 * @param swapOptions.deadline - deadline of swap exectution
 	 * @param swapOptions.recipient - specify recipient address
-	 * @returns
+	 * @returns ContractReceipt
 	 */
 	async swapTokens(options: FungibleOptions, swapOptions?: SwapOptions): Promise<ContractReceipt> {
 		signerRequired(this.providerOrSigner);
@@ -70,9 +70,8 @@ export class FungibleTrading {
 		return this.swapRouter.swap(swapParams, options.tokenIn);
 	}
 	/**
-	 * Get token price by searching all pair pools.
-	 * If function returns 0, it means there is no pool for given token pair or something went wrong.
-	 * @param token - token in
+	 * Get token price by querying specific pair's pool
+	 * @param token - token in {@link TheaERC20Token}
 	 * @param amount - amount of token in
 	 * @returns - amount of token out in WEI
 	 */

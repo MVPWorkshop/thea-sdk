@@ -26,7 +26,7 @@ export class SwapRouter extends ContractWrapper<ISwapRouterContract> {
 	 * @param params.amountOutMinimum - minimum amount out
 	 * @param params.deadline - deadline
 	 * @param params.sqrtPriceLimitX96 - sqrt price limit
-	 * @returns ContractTransaction
+	 * @returns ContractReceipt
 	 */
 	async swap(params: ExactInputSingleParams, tokenIn: TheaERC20Token): Promise<ContractReceipt> {
 		signerRequired(this.providerOrSigner);

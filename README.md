@@ -78,3 +78,47 @@ const tokenizationState = await theaSDK.tokenization.getTokenizationState(tokeni
 ```js
 const tokenizationState = await theaSDK.tokenization.tokenize(tokenizationId);
 ```
+
+## Fungible trading
+
+- Query token price - Used to fetch best price by calling Uniswap's V3 Quoter contract
+
+```js
+// Token in is "SDG" | "Vintage" | "Rating" | "CurrentNBT" | "Stable"
+
+// From ERC20 to Stable coin
+const priceInWEI = await theaSDK.fungibleTrading.queryTokenPrice({
+	tokenIn: "SDG",
+	amountIn: "1000000000000000000"
+});
+
+// From Stable coin to ERC20
+const priceInWEI = await theaSDK.fungibleTrading.queryTokenPrice({
+	tokenIn: "Stable",
+	tokenOut: "SDG",
+	amountIn: "1000000000000000000"
+});
+```
+
+- Swap tokens - Used to swap tokens by calling Uniswap's V3 SwapRouter contract
+
+```js
+// From ERC20 to Stable coin
+const transactionReceipt = await theaSDK.fungibleTrading.swapTokens({
+	tokenIn: "SDG",
+	amountIn: "1000000000000000000"
+});
+
+// From Stable coin to ERC20
+const transactionReceipt = await theaSDK.fungibleTrading.swapTokens({
+	tokenIn: "Stable",
+	tokenOut: "SDG",
+	amountIn: "1000000000000000000"
+});
+```
+
+- **Note!** In order to use `CurrentNBT` token in swap or query token price methods you will have to specify his current address. You can do that by calling:
+
+```js
+theaSDK.setCurrentNBTContractAddress("0x123...");
+```
