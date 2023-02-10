@@ -1,4 +1,31 @@
-# thea-sdk
+# Thea SDK [![npm version](https://badge.fury.io/js/@mcovilo%2Fthea-sdk.svg)](https://badge.fury.io/js/@mcovilo%2Fthea-sdk)
+
+This is official JS SDK for Thea Protocol
+
+## SDK Initialization
+
+Depending on the platform you're using, there are different ways to initialize the SDK. Below are few samples
+
+```js
+// Client side
+const theaSDK = await TheaSDK.init({
+	network: TheaNetwork.MUMBAI,
+	web3Provider: new ethers.providers.Web3Provider(window.ethereum)
+});
+
+// Server side with private key and provider
+const theaSDK = await TheaSDK.init({
+	network: TheaNetwork.MUMBAI,
+	privateKey: "123...",
+	provider: new ethers.providers.AlchemyProvider(80001, "apiKey")
+});
+
+// Server side with signer
+const theaSDK = await TheaSDK.init({
+	network: TheaNetwork.MUMBAI,
+	signer: new Wallet(privateKey, provider)
+});
+```
 
 ## Convert module
 
