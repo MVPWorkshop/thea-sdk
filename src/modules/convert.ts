@@ -17,7 +17,7 @@ export class Convert extends ContractWrapper<IBaseTokenManagerContract> {
 	 * @param amount amount of tokens to convert
 	 * @returns A promise fulfilled with the contract transaction.
 	 */
-	async convertNFT(tokenId: BigNumberish, amount: BigNumberish): Promise<ContractReceipt> {
+	async convertNFT(tokenId: BigNumberish, amount: BigNumberish): Promise<ContractReceipt & ConvertEvent> {
 		signerRequired(this.providerOrSigner);
 		amountShouldBeGTZero(amount);
 

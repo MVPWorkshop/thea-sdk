@@ -17,7 +17,7 @@ export class RollBaseTokens extends ContractWrapper<IBaseTokenManagerContract> {
 	 * @param amount amount of tokens to roll
 	 * @returns A promise fulfilled with the contract transaction.
 	 */
-	async rollTokens(vintage: BigNumberish, amount: BigNumberish): Promise<ContractReceipt> {
+	async rollTokens(vintage: BigNumberish, amount: BigNumberish): Promise<ContractReceipt & RollTokensEvent> {
 		signerRequired(this.providerOrSigner);
 		amountShouldBeGTZero(amount);
 
