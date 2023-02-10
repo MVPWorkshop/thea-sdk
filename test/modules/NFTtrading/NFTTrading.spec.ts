@@ -10,18 +10,28 @@ import {
 	IZeroExContract,
 	Orderbook,
 	PostOrderResponsePayload,
-	STABLE_TOKEN_DECIMALS_MULTIPLIER
+	STABLE_TOKEN_DECIMALS_MULTIPLIER,
+	MAX_APPROVAL
 } from "../../../src";
 import * as shared from "../../../src/modules/shared";
 import * as uuid from "uuid";
-import { postOrderResponseMock, PRIVATE_KEY } from "../../mocks";
+import * as utils from "../../../src/utils/utils";
+import { postOrderResponseMock, priceListingReturnMockBuy, priceListingReturnMockSell, PRIVATE_KEY } from "../../mocks";
+import ZeroExExchange_ABI from "../../../src/abi/0xExchange_ABI.json";
 
 const exchangeProxyContractAddress = consts[TheaNetwork.GANACHE].exchangeProxyAddress;
 
 jest.mock("../../../src/modules/shared", () => {
 	return {
 		checkBalance: jest.fn(),
-		approve: jest.fn()
+		approve: jest.fn(),
+		execute: jest.fn().mockImplementation(() => {
+			return {
+				to: exchangeProxyContractAddress,
+				from: "0x123",
+				contractAddress: exchangeProxyContractAddress
+			};
+		})
 	};
 });
 
@@ -35,13 +45,23 @@ describe("NFTTrading", () => {
 	let nftTrading: NFTTrading;
 	const orderId = "1";
 	const tokenId = "1";
+	const network = TheaNetwork.GANACHE;
+	const contractAddress = exchangeProxyContractAddress;
 
 	const contractTransaction: Partial<ContractTransaction> = {
 		wait: jest.fn().mockResolvedValue({
 			to: exchangeProxyContractAddress,
 			from: "0x123",
-			contractAddress: null
+			contractAddress: exchangeProxyContractAddress
 		})
+	};
+	const txPromise = Promise.resolve(contractTransaction as ContractTransaction);
+
+	const mockContract: Partial<IZeroExContract> = {
+		cancelERC1155Order: jest.fn().mockReturnValue(txPromise),
+		buyERC1155: jest.fn().mockReturnValue(txPromise),
+		batchBuyERC1155s: jest.fn().mockReturnValue(txPromise),
+		sellERC1155: jest.fn().mockReturnValue(txPromise)
 	};
 	const queryOrderByNonceTransaction = {
 		erc20Token: "0xd393b1e02da9831ff419e22ea105aae4c47e1253",
@@ -116,12 +136,6 @@ describe("NFTTrading", () => {
 		taker: "0x0000000000000000000000000000000000000000"
 	};
 
-	const mockContract: Partial<IZeroExContract> = {
-		cancelERC1155Order: jest.fn().mockResolvedValue(contractTransaction as ContractTransaction)
-	};
-
-	const network = TheaNetwork.GANACHE;
-
 	beforeEach(() => {
 		const orderBook = new Orderbook(network);
 		nftTrading = new NFTTrading(providerOrSigner, network, orderBook);
@@ -141,11 +155,17 @@ describe("NFTTrading", () => {
 		});
 
 		it("should call cancelERC1155Order method from contract", async () => {
+			const executeSpy = jest.spyOn(shared, "execute");
 			const result = await nftTrading.cancelOrder(orderId);
+			expect(executeSpy).toHaveBeenCalledWith(txPromise, {
+				name: ZeroExExchange_ABI.contractName,
+				address: contractAddress,
+				contractFunction: "cancelERC1155Order"
+			});
 			expect(result).toMatchObject({
 				to: exchangeProxyContractAddress,
 				from: "0x123",
-				contractAddress: null
+				contractAddress: exchangeProxyContractAddress
 			});
 		});
 	});
@@ -163,23 +183,24 @@ describe("NFTTrading", () => {
 			);
 		});
 
-		it("should call cancel previous order and post new one to orderbook", async () => {
+		it("should update order which includes canceling previous order and posting new one to orderbook", async () => {
 			const price = 10;
 			const quantity = 1;
-			const cancelOrderTxPromise = Promise.resolve(contractTransaction as ContractTransaction);
-			const canceclOrderSpy = jest
-				.spyOn(nftTrading.contract, "cancelERC1155Order")
-				.mockReturnValue(cancelOrderTxPromise);
-			const enterNftLimitTxPromise = Promise.resolve(postOrderResponseMock as PostOrderResponsePayload);
+			const executeSpy = jest.spyOn(shared, "execute");
+			const enterNftLimitTxPromise = Promise.resolve([postOrderResponseMock] as PostOrderResponsePayload[]);
 			const enterNftLimitSpy = jest.spyOn(nftTrading, "enterNFTLimit").mockReturnValue(enterNftLimitTxPromise);
 			const queryOrderByNonceSpy = jest
 				.spyOn(nftTrading.orderBook, "queryOrderByNonce")
 				.mockResolvedValue(queryOrderByNonceTransaction as PostOrderResponsePayload);
 			const result = await nftTrading.updateOrder(orderId, price, quantity);
-			expect(canceclOrderSpy).toHaveBeenCalled();
+			expect(executeSpy).toHaveBeenCalledWith(txPromise, {
+				name: ZeroExExchange_ABI.contractName,
+				address: contractAddress,
+				contractFunction: "cancelERC1155Order"
+			});
 			expect(queryOrderByNonceSpy).toHaveBeenCalled();
 			expect(enterNftLimitSpy).toHaveBeenCalled();
-			expect(result).toMatchObject(postOrderResponseMock);
+			expect(result).toMatchObject([postOrderResponseMock]);
 		});
 	});
 
@@ -187,11 +208,20 @@ describe("NFTTrading", () => {
 		it("should throw error that typed data signer is required", async () => {
 			const orderBook = new Orderbook(network);
 			nftTrading = new NFTTrading(new JsonRpcProvider(), network, orderBook);
-			await expect(nftTrading.updateOrder(orderId, 10, 1)).rejects.toThrow(
+			await expect(nftTrading.enterNFTLimit(tokenId, "sell", 10, 1)).rejects.toThrow(
 				new TheaError({
 					type: "TYPED_DATA_SIGNER_REQUIRED",
 					message:
 						"TypedDataSigner is required for this operation. You must pass in a TypedDataSigner(Wallet) on SDK initialization"
+				})
+			);
+		});
+
+		it("should throw error that quantity isn't breakable on desired chunks", async () => {
+			await expect(nftTrading.enterNFTLimit(tokenId, "sell", 10, 3, 2)).rejects.toThrow(
+				new TheaError({
+					type: "INVALID_CHUNK_SIZE",
+					message: "Quantity must be divisible by chunks"
 				})
 			);
 		});
@@ -223,7 +253,7 @@ describe("NFTTrading", () => {
 			});
 			expect(buildOrderSpy).toHaveBeenCalled();
 			expect(signOrderSpy).toHaveBeenCalled();
-			expect(result).toMatchObject(postOrderResponseMock);
+			expect(result).toMatchObject([postOrderResponseMock]);
 		});
 
 		it("should call create buy order and post order to orderbook", async () => {
@@ -252,11 +282,214 @@ describe("NFTTrading", () => {
 			});
 			expect(approveSpy).toHaveBeenCalledWith(providerOrSigner, network, {
 				token: "ERC20",
-				amount: stableTokenAmount,
+				amount: MAX_APPROVAL.toString(),
 				tokenName: "Stable",
 				spender: exchangeProxyContractAddress
 			});
-			expect(result).toMatchObject(postOrderResponseMock);
+			expect(result).toMatchObject([postOrderResponseMock]);
+		});
+	});
+
+	describe("fillOrder", () => {
+		it("should throw error that data signer is required", async () => {
+			const orderBook = new Orderbook(network);
+			const sellOrder = priceListingReturnMockSell[0].orderToBeFilled;
+			nftTrading = new NFTTrading(new JsonRpcProvider(), network, orderBook);
+			await expect(nftTrading.fillOrder(sellOrder, sellOrder.erc1155TokenAmount)).rejects.toThrow(
+				new TheaError({
+					type: "SIGNER_REQUIRED",
+					message: "Signer is required for this operation. You must pass in a signer on SDK initialization"
+				})
+			);
+		});
+		it("should throw error that wanted amount is larger than given order amount", async () => {
+			const sellOrder = priceListingReturnMockSell[0].orderToBeFilled;
+			await expect(nftTrading.fillOrder(sellOrder, parseInt(sellOrder.erc1155TokenAmount) + 1)).rejects.toThrow(
+				new TheaError({
+					type: "INVALID_AMOUNT",
+					message: "Amount to be filled is greater than the token amount in the order"
+				})
+			);
+		});
+
+		it("should fill sell order if amount wanted is equal or less than what is in order", async () => {
+			const sellOrder = priceListingReturnMockSell[0].orderToBeFilled;
+			const checkBalanceSpy = jest.spyOn(shared, "checkBalance").mockReturnThis();
+			const approveSpy = jest.spyOn(shared, "approve");
+			const executeSpy = jest.spyOn(shared, "execute");
+			await nftTrading.fillOrder(sellOrder, sellOrder.erc1155TokenAmount);
+			expect(checkBalanceSpy).toHaveBeenCalledWith(providerOrSigner, network, {
+				token: "ERC20",
+				amount: sellOrder.erc20TokenAmount,
+				tokenName: "Stable"
+			});
+			expect(approveSpy).toHaveBeenCalledWith(providerOrSigner, network, {
+				token: "ERC20",
+				amount: MAX_APPROVAL.toString(),
+				tokenName: "Stable",
+				spender: exchangeProxyContractAddress
+			});
+			expect(executeSpy).toHaveBeenCalledWith(txPromise, {
+				name: ZeroExExchange_ABI.contractName,
+				address: contractAddress,
+				contractFunction: "buyERC1155"
+			});
+		});
+		it("should fill buy order if amount wanted is equal or less than what is in order", async () => {
+			const buyOrder = priceListingReturnMockBuy[0].orderToBeFilled;
+			const checkBalanceSpy = jest.spyOn(shared, "checkBalance").mockReturnThis();
+			const approveSpy = jest.spyOn(shared, "approve");
+			const executeSpy = jest.spyOn(shared, "execute");
+			await nftTrading.fillOrder(buyOrder, buyOrder.erc1155TokenAmount);
+			expect(checkBalanceSpy).toHaveBeenCalledWith(providerOrSigner, network, {
+				token: "ERC1155",
+				tokenId,
+				amount: buyOrder.erc1155TokenAmount
+			});
+			expect(approveSpy).toHaveBeenCalledWith(providerOrSigner, network, {
+				token: "ERC1155",
+				spender: contractAddress
+			});
+			expect(executeSpy).toHaveBeenCalledWith(txPromise, {
+				name: ZeroExExchange_ABI.contractName,
+				address: contractAddress,
+				contractFunction: "sellERC1155"
+			});
+		});
+	});
+
+	describe("enterNFTOrderAtMarket", () => {
+		it("should throw error that typed data signer is required", async () => {
+			const orderBook = new Orderbook(network);
+			nftTrading = new NFTTrading(new JsonRpcProvider(), network, orderBook);
+			await expect(nftTrading.enterNFTOrderAtMarket(orderId, "sell", 1)).rejects.toThrow(
+				new TheaError({
+					type: "SIGNER_REQUIRED",
+					message: "Signer is required for this operation. You must pass in a signer on SDK initialization"
+				})
+			);
+		});
+		it("should throw error that there is no price listings for tokenId and side", async () => {
+			jest.spyOn(nftTrading.orderBook, "queryPriceListing").mockResolvedValue([]);
+			await expect(nftTrading.enterNFTOrderAtMarket(tokenId, "sell", 1)).rejects.toThrow(
+				new TheaError({
+					type: "NO_PRICE_LISTING_FOUND",
+					message: "No price listing found for this tokenId and side"
+				})
+			);
+		});
+		it("should throw error if there is not enough liquidity on orderbook to fill the buy order", async () => {
+			const quantity = 30;
+			jest.spyOn(nftTrading.orderBook, "queryPriceListing").mockResolvedValue(priceListingReturnMockSell);
+			await expect(nftTrading.enterNFTOrderAtMarket(tokenId, "buy", quantity)).rejects.toThrow(
+				new TheaError({
+					type: "NO_PRICE_LISTING_FOUND",
+					message: "Not enough liquidity in market to sell tokens"
+				})
+			);
+		});
+		it("should fullfill buy market order for exact amount as 1. order from price listing", async () => {
+			const quantity = 10;
+			const queryPriceListingSpy = jest
+				.spyOn(nftTrading.orderBook, "queryPriceListing")
+				.mockResolvedValue(priceListingReturnMockSell);
+			const signerRequiredSpy = jest.spyOn(utils, "signerRequired");
+			const executeSpy = jest.spyOn(shared, "execute");
+			const checkBalance = jest.spyOn(shared, "checkBalance");
+			const approveSpy = jest.spyOn(shared, "approve");
+			const parseSellOrdersAndAmountsToBeFilledSpy = jest.spyOn(nftTrading, "parseSellOrdersAndAmountsToBeFilled");
+
+			await nftTrading.enterNFTOrderAtMarket(tokenId, "buy", quantity);
+
+			expect(queryPriceListingSpy).toHaveBeenCalledWith(tokenId, "sell");
+			expect(signerRequiredSpy).toHaveBeenCalledWith(providerOrSigner);
+			expect(parseSellOrdersAndAmountsToBeFilledSpy).toHaveBeenCalledWith(priceListingReturnMockSell, quantity);
+			expect(checkBalance).toHaveBeenCalledWith(providerOrSigner, network, {
+				token: "ERC20",
+				amount: priceListingReturnMockSell[0].orderToBeFilled.erc20TokenAmount,
+				tokenName: "Stable"
+			});
+			expect(approveSpy).toHaveBeenCalledWith(providerOrSigner, network, {
+				token: "ERC20",
+				amount: priceListingReturnMockSell[0].orderToBeFilled.erc20TokenAmount,
+				spender: contractAddress,
+				tokenName: "Stable"
+			});
+			expect(executeSpy).toHaveBeenCalledWith(txPromise, {
+				name: ZeroExExchange_ABI.contractName,
+				address: contractAddress,
+				contractFunction: "batchBuyERC1155s"
+			});
+		});
+		it("should fullfill buy market order for amount less than 1. order from price listing", async () => {
+			const quantity = 1;
+			const queryPriceListingSpy = jest
+				.spyOn(nftTrading.orderBook, "queryPriceListing")
+				.mockResolvedValue(priceListingReturnMockSell);
+			const signerRequiredSpy = jest.spyOn(utils, "signerRequired");
+			const executeSpy = jest.spyOn(shared, "execute");
+			const checkBalance = jest.spyOn(shared, "checkBalance");
+			const approveSpy = jest.spyOn(shared, "approve");
+			const parseSellOrdersAndAmountsToBeFilledSpy = jest.spyOn(nftTrading, "parseSellOrdersAndAmountsToBeFilled");
+
+			await nftTrading.enterNFTOrderAtMarket(tokenId, "buy", quantity);
+
+			expect(queryPriceListingSpy).toHaveBeenCalledWith(tokenId, "sell");
+			expect(signerRequiredSpy).toHaveBeenCalledWith(providerOrSigner);
+			expect(parseSellOrdersAndAmountsToBeFilledSpy).toHaveBeenCalledWith(priceListingReturnMockSell, quantity);
+			expect(checkBalance).toHaveBeenCalledWith(providerOrSigner, network, {
+				token: "ERC20",
+				amount: (parseInt(priceListingReturnMockSell[0].orderToBeFilled.erc20TokenAmount) / 10).toString(),
+				tokenName: "Stable"
+			});
+			expect(approveSpy).toHaveBeenCalledWith(providerOrSigner, network, {
+				token: "ERC20",
+				amount: (parseInt(priceListingReturnMockSell[0].orderToBeFilled.erc20TokenAmount) / 10).toString(),
+				spender: contractAddress,
+				tokenName: "Stable"
+			});
+			expect(executeSpy).toHaveBeenCalledWith(txPromise, {
+				name: ZeroExExchange_ABI.contractName,
+				address: contractAddress,
+				contractFunction: "batchBuyERC1155s"
+			});
+		});
+		it("should throw error if there is not enough liquidity on orderbook to fill the sell order", async () => {
+			const quantity = 30;
+			jest.spyOn(nftTrading.orderBook, "queryPriceListing").mockResolvedValue(priceListingReturnMockBuy);
+			await expect(nftTrading.enterNFTOrderAtMarket(tokenId, "sell", quantity)).rejects.toThrow(
+				new TheaError({
+					type: "NO_PRICE_LISTING_FOUND",
+					message: "Not enough liquidity in market to buy tokens"
+				})
+			);
+		});
+		it("should fullfill sell market order for exact amount as 1. order from price listing", async () => {
+			const quantity = 10;
+			const queryPriceListingSpy = jest
+				.spyOn(nftTrading.orderBook, "queryPriceListing")
+				.mockResolvedValue(priceListingReturnMockBuy);
+			const signerRequiredSpy = jest.spyOn(utils, "signerRequired");
+			const executeSpy = jest.spyOn(shared, "execute");
+			const checkBalance = jest.spyOn(shared, "checkBalance");
+			const approveSpy = jest.spyOn(shared, "approve");
+			const getTransactionSpy = jest.spyOn(nftTrading.signer, "getTransactionCount").mockResolvedValue(1);
+			const parseBuyOrdersAndAmountsToBeFilledSpy = jest.spyOn(nftTrading, "parseBuyOrdersAndAmountsToBeFilled");
+			await nftTrading.enterNFTOrderAtMarket(tokenId, "sell", quantity);
+			expect(getTransactionSpy).toHaveBeenCalled();
+			expect(queryPriceListingSpy).toHaveBeenCalledWith(tokenId, "buy");
+			expect(signerRequiredSpy).toHaveBeenCalledWith(providerOrSigner);
+			expect(parseBuyOrdersAndAmountsToBeFilledSpy).toHaveBeenCalledWith(priceListingReturnMockBuy, quantity);
+			expect(checkBalance).toHaveBeenCalledWith(providerOrSigner, network, {
+				token: "ERC1155",
+				tokenId,
+				amount: quantity
+			});
+			expect(approveSpy).toHaveBeenCalledWith(providerOrSigner, network, {
+				token: "ERC1155",
+				spender: contractAddress
+			});
+			expect(executeSpy).toHaveBeenCalled();
 		});
 	});
 
@@ -371,7 +604,7 @@ describe("NFTTrading", () => {
 				direction: 0,
 				erc20Token: "0x6b175474e89094c44da98b954eedeac495271d0f",
 				erc20TokenAmount: "11000000000000000000",
-				erc1155Token: "0x0cfb090683ea58b740f583c348ff8730a82f3f64",
+				erc1155Token: "0x2e1f232a9439c3d459fceca0beef13acc8259dd8",
 				erc1155TokenId: "113604032257357238510303590891918450986076622282835488971632849699550347132938",
 				erc1155TokenAmount: "1",
 				erc1155TokenProperties: [],
@@ -399,7 +632,7 @@ describe("NFTTrading", () => {
 				direction: 1,
 				erc20Token: "0x6b175474e89094c44da98b954eedeac495271d0f",
 				erc20TokenAmount: "11000000000000000000",
-				erc1155Token: "0x0cfb090683ea58b740f583c348ff8730a82f3f64",
+				erc1155Token: "0x2e1f232a9439c3d459fceca0beef13acc8259dd8",
 				erc1155TokenId: "113604032257357238510303590891918450986076622282835488971632849699550347132938",
 				erc1155TokenAmount: "1",
 				erc1155TokenProperties: [],
@@ -429,7 +662,7 @@ describe("NFTTrading", () => {
 				direction: 1,
 				erc20Token: "0x6b175474e89094c44da98b954eedeac495271d0f",
 				erc20TokenAmount: "11000000000000000000",
-				erc1155Token: "0x0cfb090683ea58b740f583c348ff8730a82f3f64",
+				erc1155Token: "0x2e1f232a9439c3d459fceca0beef13acc8259dd8",
 				erc1155TokenId: "113604032257357238510303590891918450986076622282835488971632849699550347132938",
 				erc1155TokenAmount: "1",
 				erc1155TokenProperties: [],

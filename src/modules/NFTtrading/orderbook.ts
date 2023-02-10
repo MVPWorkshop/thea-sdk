@@ -61,7 +61,8 @@ export class Orderbook {
 				priceForOneNFT:
 					parseInt(element.erc20TokenAmount) / STABLE_TOKEN_DECIMALS_MULTIPLIER / parseInt(element.nftTokenAmount),
 				nftTokenAmount: element.nftTokenAmount,
-				orderId: element.order.nonce
+				orderId: element.order.nonce,
+				orderToBeFilled: element.order
 			} as PriceListings;
 		});
 		if (side == "sell") {
@@ -70,7 +71,6 @@ export class Orderbook {
 			return priceList.sort((a, b) => b.priceForOneNFT - a.priceForOneNFT);
 		}
 	}
-
 	async postOrder(signedOrder: SignedERC1155OrderStruct) {
 		const payload: PostOrderRequestPayload = {
 			order: this.serializeNftOrder(signedOrder),

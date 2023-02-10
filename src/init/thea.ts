@@ -16,7 +16,7 @@ import {
 	RollBaseTokens
 } from "../modules";
 import { TheaNetwork, ProviderOrSigner } from "../types";
-import { consts, getCurrentNBTTokenAddress, TheaError } from "../utils";
+import { consts, isProvider, isSigner, TheaError, validateAddress } from "../utils";
 
 // SDK initialization options
 export type InitOptions = {
@@ -52,6 +52,7 @@ export class TheaSDK {
 		this.nftTrading = new NFTTrading(this.providerOrSigner, network, this.nftOrderbook);
 		this.rollBaseTokens = new RollBaseTokens(this.providerOrSigner, network);
 		this.carbonInfo = new CarbonInfo(network);
+		this.tokenization = new Tokenization(network);
 	}
 
 	/**
@@ -68,23 +69,41 @@ export class TheaSDK {
 		let providerOrSigner: ProviderOrSigner;
 
 		if (options.web3Provider) providerOrSigner = options.web3Provider.getSigner() as Signer & TypedDataSigner;
-		else if (options.signer) providerOrSigner = options.signer;
-		else if (options.privateKey) {
+		else if (options.signer) {
+			if (!options.signer.provider)
+				throw new TheaError({ type: "SIGNER_REQUIRES_PROVIDER", message: "Signer must be have provider" });
+			providerOrSigner = options.signer;
+		} else if (options.privateKey) {
 			if (!options.provider) {
 				throw new TheaError({
 					type: "MISSING_PROVIDER",
 					message: "You must pass in a provider together with private key"
 				});
 			}
-
 			providerOrSigner = new Wallet(options.privateKey, options.provider);
 		} else if (options.provider) providerOrSigner = options.provider;
 		else throw new TheaError({ type: "EMPTY_OPTIONS", message: "Non of optional parameters were provided" });
 
-		consts[`${options.network}`].currentNbtTokenContract = await getCurrentNBTTokenAddress(
-			options.network,
-			providerOrSigner
-		);
+		let providerNetwork;
+		if (isSigner(providerOrSigner)) {
+			const chainId = await (providerOrSigner as Signer).getChainId();
+			providerNetwork = chainId;
+		} else if (isProvider(providerOrSigner)) {
+			const { chainId } = await (providerOrSigner as Provider).getNetwork();
+			providerNetwork = chainId;
+		}
+
+		if (providerNetwork != options.network)
+			throw new TheaError({
+				type: "NETWORK_MISMATCH",
+				message: `Provided network is ${options.network} but provider is connected to ${providerNetwork} network`
+			});
+
 		return new TheaSDK(providerOrSigner, options.network);
 	}
+
+	setCurrentNBTContractAddress = (address: string) => {
+		validateAddress(address);
+		consts[`${this.network}`].currentNbtTokenContract = address;
+	};
 }

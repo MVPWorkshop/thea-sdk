@@ -25,4 +25,13 @@ export interface IZeroExContract extends Contract {
 		callbackData: PromiseOrValue<BytesLike>,
 		overrides?: Overrides & { from?: PromiseOrValue<string> }
 	): Promise<ContractTransaction>;
+
+	batchBuyERC1155s(
+		sellOrders: ERC1155OrderStructPromiseOrValue[],
+		signatures: SignatureStructPromiseOrValue[],
+		erc1155TokenAmounts: PromiseOrValue<BigNumberish>[],
+		callbackData: PromiseOrValue<BytesLike>[],
+		revertIfIncomplete: PromiseOrValue<boolean>,
+		overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
+	): Promise<ContractTransaction>;
 }

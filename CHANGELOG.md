@@ -1,5 +1,55 @@
 # Changelog
 
+## [0.9.4](https://github.com/MVPWorkshop/thea-sdk/compare/v0.9.3...v0.9.4) (2023-02-09)
+
+
+### Bug Fixes
+
+* address of stable coin on mumbai ([5526e1e](https://github.com/MVPWorkshop/thea-sdk/commit/5526e1ee9f380c1f434015e126372737e52df775))
+
+## [0.9.3](https://github.com/MVPWorkshop/thea-sdk/compare/v0.9.2...v0.9.3) (2023-02-08)
+
+
+### Bug Fixes
+
+* thea api fix ([64b7c26](https://github.com/MVPWorkshop/thea-sdk/commit/64b7c26b3e4af2ce49fb3caf0520d6877573dcb3))
+
+## [0.9.2](https://github.com/MVPWorkshop/thea-sdk/compare/v0.9.1...v0.9.2) (2023-02-08)
+
+
+### Bug Fixes
+
+* added missing module in sdk ([587265d](https://github.com/MVPWorkshop/thea-sdk/commit/587265da06689734118974b43999936da1e44226))
+
+## [0.9.1](https://github.com/MVPWorkshop/thea-sdk/compare/v0.9.0...v0.9.1) (2023-02-08)
+
+
+### Bug Fixes
+
+* fix on setting current nbt contract address ([76cfb67](https://github.com/MVPWorkshop/thea-sdk/commit/76cfb67c341ee21252046220c1ac29048dd157af))
+* token addreses updated ([5ef93e5](https://github.com/MVPWorkshop/thea-sdk/commit/5ef93e50aed9f9ac66d47dd5d09a1ffb89f36eaf))
+
+## [0.9.0](https://github.com/MVPWorkshop/thea-sdk/compare/v0.8.1...v0.9.0) (2023-02-08)
+
+
+### Features
+
+* create limit orders in chunks ([f755fb0](https://github.com/MVPWorkshop/thea-sdk/commit/f755fb073aa25ee640e2107cc6ebecea6d820506))
+
+## [0.8.1](https://github.com/MVPWorkshop/thea-sdk/compare/v0.8.0...v0.8.1) (2023-02-03)
+
+
+### Bug Fixes
+
+* init and provider network  mismatch ([86fdf0d](https://github.com/MVPWorkshop/thea-sdk/commit/86fdf0db5625490c840351307c05f9b6b3f2164c))
+
+## [0.8.0](https://github.com/MVPWorkshop/thea-sdk/compare/v0.7.1...v0.8.0) (2023-02-03)
+
+
+### Features
+
+* estimate footprint calculator ([bf85a9b](https://github.com/MVPWorkshop/thea-sdk/commit/bf85a9b157b5fe14acb7b36c6921f084a386d613))
+
 ## [0.7.1](https://github.com/MVPWorkshop/thea-sdk/compare/v0.7.0...v0.7.1) (2023-02-02)
 
 

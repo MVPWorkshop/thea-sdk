@@ -4,7 +4,7 @@ import { TheaContractCallError } from "../../utils";
 
 export const execute = async (
 	txPromise: Promise<ContractTransaction>,
-	details: ContractDetails & { contractFunction: string }
+	details: ContractDetails & { contractFunction: string; contractArgs?: string[] }
 ): Promise<ContractReceipt> => {
 	try {
 		const tx = await txPromise;

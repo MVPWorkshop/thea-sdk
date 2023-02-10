@@ -6,6 +6,7 @@ import { consts } from "./consts";
 import { TheaError } from "./theaError";
 import BaseTokenManager_ABI from "../abi/BaseTokenManager_ABI.json";
 import { BigNumber, BigNumberish } from "@ethersproject/bignumber";
+import { Provider } from "@ethersproject/providers";
 
 /* eslint-disable  @typescript-eslint/no-explicit-any */
 export const castAbiInterface = (abi: any) => {
@@ -25,9 +26,12 @@ export const validateAddress = (address: string) => {
 
 /* eslint-disable  @typescript-eslint/no-explicit-any */
 export function isSigner(providerOrSigner: any): providerOrSigner is Signer {
-	return !!providerOrSigner.signMessage;
+	return !!providerOrSigner._isSigner;
 }
 
+export function isProvider(providerOrSigner: any): providerOrSigner is Provider {
+	return !!providerOrSigner._isProvider;
+}
 export const signerRequired = (providerOrSigner: ProviderOrSigner) => {
 	if (!isSigner(providerOrSigner)) {
 		throw new TheaError({
@@ -62,8 +66,15 @@ export const getERC20ContractAddress = (token: TheaERC20Token, network: TheaNetw
 			return consts[`${network}`].vintageTokenContract;
 		case "Stable":
 			return consts[`${network}`].stableTokenContract;
-		case "CurrentNBT":
-			return consts[`${network}`].currentNbtTokenContract;
+		case "CurrentNBT": {
+			const currentNbtTokenContract = consts[`${network}`].currentNbtTokenContract;
+			if (!currentNbtTokenContract)
+				throw new TheaError({
+					type: "MISSING_CURRENT_NBT_CONTRACT_ADDRESSS",
+					message: `Missing CurrentNBT contract address for ${network} chain id. Please use setCurrentNBTContractAddress to set address !`
+				});
+			return currentNbtTokenContract;
+		}
 		default:
 			return consts[`${network}`].ratingTokenContract;
 	}

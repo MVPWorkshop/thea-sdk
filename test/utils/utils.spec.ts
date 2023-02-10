@@ -9,6 +9,7 @@ import {
 	getAddress,
 	getCurrentNBTTokenAddress,
 	getERC20ContractAddress,
+	isProvider,
 	isSigner,
 	isTypedDataSigner,
 	signerRequired,
@@ -62,6 +63,18 @@ describe("Utils", () => {
 		it("should return false if providerOrSigner is not Signer", () => {
 			const provider = new InfuraProvider();
 			expect(isSigner(provider)).toBe(false);
+		});
+	});
+
+	describe("isProvider", () => {
+		it("should return true if providerOrSigner is Provider", () => {
+			const provider = new InfuraProvider();
+			expect(isProvider(provider)).toBe(true);
+		});
+
+		it("should return false if providerOrSigner is not Provider", () => {
+			const signer = new Wallet(PRIVATE_KEY);
+			expect(isProvider(signer)).toBe(false);
 		});
 	});
 
@@ -129,13 +142,21 @@ describe("Utils", () => {
 		});
 
 		it("should return current nbt token contract address if token is CurrentNBT", () => {
+			consts[`${network}`].currentNbtTokenContract = CONTRACT_ADDRESS;
 			const result = getERC20ContractAddress("CurrentNBT", TheaNetwork.GANACHE);
-			expect(result).toBe(consts[`${network}`].currentNbtTokenContract);
+			expect(result).toBe(CONTRACT_ADDRESS);
 		});
 
 		it("should return stable token contract address if token is Stable", () => {
 			const result = getERC20ContractAddress("Stable", TheaNetwork.GANACHE);
 			expect(result).toBe(consts[`${network}`].stableTokenContract);
+		});
+
+		it("should throw error for CurrentNBT if address isn't provided", () => {
+			consts[`${network}`].currentNbtTokenContract = "";
+			expect(() => getERC20ContractAddress("CurrentNBT", TheaNetwork.GANACHE)).toThrow(
+				"Missing CurrentNBT contract address for 1337 chain id. Please use setCurrentNBTContractAddress to set address !"
+			);
 		});
 	});
 
