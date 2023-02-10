@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.9.4](https://github.com/MVPWorkshop/thea-sdk/compare/v0.9.3...v0.9.4) (2023-02-09)
+
+
+### Bug Fixes
+
+* address of stable coin on mumbai ([5526e1e](https://github.com/MVPWorkshop/thea-sdk/commit/5526e1ee9f380c1f434015e126372737e52df775))
+
 ## [0.9.3](https://github.com/MVPWorkshop/thea-sdk/compare/v0.9.2...v0.9.3) (2023-02-08)
 
 
