@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.9.5](https://github.com/MVPWorkshop/thea-sdk/compare/v0.9.4...v0.9.5) (2023-02-10)
+
+
+### Bug Fixes
+
+* return object include event parameters ([51dabce](https://github.com/MVPWorkshop/thea-sdk/commit/51dabce64368bc5ec5de0b929a2fec5da0961436))
+
 ## [0.9.4](https://github.com/MVPWorkshop/thea-sdk/compare/v0.9.3...v0.9.4) (2023-02-09)
 
 

@@ -32,7 +32,7 @@ export class Recover extends ContractWrapper<IBaseTokenManagerContract> {
 	 * @param amount amount of tokens to recover
 	 * @returns A promise fulfilled with the contract transaction.
 	 */
-	async recoverNFT(tokenId: BigNumberish, amount: BigNumberish): Promise<ContractReceipt> {
+	async recoverNFT(tokenId: BigNumberish, amount: BigNumberish): Promise<ContractReceipt & RecoverEvent> {
 		signerRequired(this.providerOrSigner);
 		amountShouldBeGTZero(amount);
 

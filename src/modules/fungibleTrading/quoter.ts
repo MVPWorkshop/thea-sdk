@@ -9,11 +9,11 @@ export class Quoter extends ContractWrapper<IQuoterContract> {
 	}
 
 	/**
-	 * Search all pair pools and get the best price for given token in and token out
+	 * Call specified pair's pool to quote the best price
 	 * @param tokenIn - token in address
 	 * @param tokenOut - token out address
 	 * @param amount - amount of token in
-	 * @returns - amount of token out
+	 * @returns - amount of token out in WEI
 	 */
 	async quoteBestPrice(tokenIn: string, tokenOut: string, amount: BigNumberish): Promise<BigNumber> {
 		validateAddress(tokenIn);

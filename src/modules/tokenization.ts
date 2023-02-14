@@ -11,7 +11,7 @@ export class Tokenization {
 	/**
 	 * Requests tokenization
 	 * @param registry {@link TokenizationSource}
-	 * @param accountId - Subaccount ID
+	 * @param accountId - `Subaccount ID`
 	 * @param batchId
 	 * @param client.email
 	 * @param client.ethAddr
@@ -44,7 +44,7 @@ export class Tokenization {
 	/**
 	 * Query tokenization state by tokenization ID
 	 * @param tokenizationId
-	 * returns TokenizationState {@link TokenizationState}
+	 * @returns TokenizationState {@link TokenizationState}
 	 */
 	getTokenizationState(tokenizationId: string): Promise<TokenizationState> {
 		this.validateTokenizationId(tokenizationId);
@@ -52,7 +52,7 @@ export class Tokenization {
 	}
 
 	/**
-	 * Tokenization request builder function. Returns TokenizationRequest {@link TokenizationRequest} and validates input fields
+	 * Tokenization request builder function. Returns `TokenizationRequest` and validates input fields
 	 * @param source - {@link TokenizationSource}
 	 * @param accountId - Subaccount ID
 	 * @param batchId
