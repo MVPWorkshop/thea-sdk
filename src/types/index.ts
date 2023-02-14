@@ -240,10 +240,53 @@ export type GraphqlQuery = {
 	variables?: { [key: string]: any };
 };
 
+export type QueryResponse<T> = { data: T };
+export type QueryError = Record<string, any>;
+export type QueryErrorResponse = { errors: QueryError[] };
+
 export type TokenizationHistory = {
+	id: string;
+	projectId: string;
+	vintage: string;
+};
+
+export type TokenizationStats = {
 	id: string;
 	unwrappedAmount: string;
 	vintage: string;
+	activeAmount: string;
+	mintedAmount: string;
+	projectId: string;
+	retiredAmount: string;
+	tokenURI: string;
+} | null;
+
+export type OffsetHistory = {
+	id: string;
+	amount: string;
+	timestamp: string;
+};
+export type OffsetStats = {
+	id: string;
+	amount: string;
+	timestamp: string;
+	token: TokenizationStats;
+} | null;
+
+export type TheaERC1155Balance = {
+	amount: string;
+	token: {
+		id: string;
+	};
+};
+export type UserBalance = {
+	fungible: {
+		vintage: string;
+		rating: string;
+		sdg: string;
+		nbt: string;
+	};
+	nft: Record<string, string>;
 };
 export * from "./IRegistryContract";
 export * from "./IBaseTokenManagerContract";

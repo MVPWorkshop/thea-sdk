@@ -1,13 +1,17 @@
 import { IERC20Contract, ProviderOrSigner } from "../../types";
 import { ContractWrapper, TheaError, validateAddress } from "../../utils";
 import TheaERC20_ABI from "../../abi/TheaERC20_ABI.json";
-import { BigNumberish } from "@ethersproject/bignumber";
+import { BigNumber, BigNumberish } from "@ethersproject/bignumber";
 import { execute } from "./execute";
 import { ContractReceipt } from "@ethersproject/contracts";
 
 export class TheaERC20 extends ContractWrapper<IERC20Contract> {
 	constructor(readonly providerOrSigner: ProviderOrSigner, address: string) {
 		super(providerOrSigner, TheaERC20_ABI, address);
+	}
+
+	async getBalance(owner: string): Promise<BigNumber> {
+		return this.contract.balanceOf(owner);
 	}
 
 	async checkERC20Balance(owner: string, amount: BigNumberish): Promise<void> {

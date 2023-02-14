@@ -1,4 +1,17 @@
-import { CarbonInfo, TheaError } from "../../src";
+import { JsonRpcProvider } from "@ethersproject/providers";
+import {
+	CarbonInfo,
+	offsetHistoryQuery,
+	OffsetStats,
+	offsetStatsQuery,
+	QueryError,
+	TheaError,
+	TheaNetwork,
+	tokenizationHistoryQuery,
+	TokenizationStats,
+	tokenizationStatsQuery
+} from "../../src";
+import { offsetHistory, offsetStats, tokenizationHistory, tokenizationStats } from "../mocks";
 jest.mock("../../src/co2dataset.json", () => {
 	return {
 		USA: {
@@ -32,8 +45,11 @@ jest.mock("../../src/co2dataset.json", () => {
 		}
 	};
 });
+
+jest.mock("../../src/modules/shared/httpClient");
+
 describe("Carbon info", () => {
-	const carbonInfo: CarbonInfo = new CarbonInfo();
+	const carbonInfo: CarbonInfo = new CarbonInfo(new JsonRpcProvider(), TheaNetwork.GANACHE);
 
 	describe("countries", () => {
 		it("should return list of countries and iso codes", () => {
@@ -112,6 +128,92 @@ describe("Carbon info", () => {
 					message: "Year of birth cannot be greater than first location year"
 				})
 			);
+		});
+	});
+
+	describe("tokenization query", () => {
+		it("should query tokenization history", async () => {
+			const httpClient = jest
+				.spyOn(carbonInfo.httpClient, "post")
+				.mockResolvedValueOnce({ data: { tokens: tokenizationHistory } });
+
+			const result = await carbonInfo.queryTokenizationHistory();
+			expect(result.length).toBe(3);
+			expect(result[0].id).toBe(tokenizationHistory[0].id);
+			expect(httpClient).toBeCalledWith("", tokenizationHistoryQuery);
+		});
+
+		it("should list of errors if something went wrong", async () => {
+			const expectedResult = { errors: [{ error: "indexing_error" }] };
+			jest.spyOn(carbonInfo.httpClient, "post").mockResolvedValueOnce(expectedResult);
+
+			const result: QueryError = await carbonInfo.queryTokenizationHistory();
+			expect(result.length).toBe(1);
+			expect(result[0].error).toBe("indexing_error");
+		});
+
+		/* eslint-disable  @typescript-eslint/no-non-null-assertion */
+		it("should return tokenization stats", async () => {
+			const httpClient = jest
+				.spyOn(carbonInfo.httpClient, "post")
+				.mockResolvedValueOnce({ data: { token: tokenizationStats } });
+
+			const result = (await carbonInfo.queryTokenizationStats("1")) as TokenizationStats;
+
+			expect(result!.id).toBe(tokenizationStats!.id);
+			expect(result!.mintedAmount).toBe(tokenizationStats!.mintedAmount);
+			expect(httpClient).toBeCalledWith("", tokenizationStatsQuery("1"));
+		});
+
+		it("should return null if tokenization stats doesn't exists", async () => {
+			jest.spyOn(carbonInfo.httpClient, "post").mockResolvedValueOnce({ data: { token: null } });
+
+			const result = (await carbonInfo.queryTokenizationStats("1")) as TokenizationStats;
+
+			expect(result).toBeNull();
+		});
+	});
+
+	describe("offset query", () => {
+		it("should query offset history", async () => {
+			const httpClient = jest
+				.spyOn(carbonInfo.httpClient, "post")
+				.mockResolvedValueOnce({ data: { retireds: offsetHistory } });
+
+			const result = await carbonInfo.queryOffsetHistory();
+
+			expect(result.length).toBe(2);
+			expect(result[0].id).toBe(offsetHistory[0].id);
+			expect(httpClient).toBeCalledWith("", offsetHistoryQuery);
+		});
+
+		it("should list of errors if something went wrong", async () => {
+			const expectedResult = { errors: [{ error: "indexing_error" }] };
+			jest.spyOn(carbonInfo.httpClient, "post").mockResolvedValueOnce(expectedResult);
+
+			const result: QueryError = await carbonInfo.queryOffsetHistory();
+			expect(result.length).toBe(1);
+			expect(result[0].error).toBe("indexing_error");
+		});
+
+		it("should return offset stats", async () => {
+			const httpClient = jest
+				.spyOn(carbonInfo.httpClient, "post")
+				.mockResolvedValueOnce({ data: { retired: offsetStats } });
+
+			const result = (await carbonInfo.queryOffsetStats("1-1360-0")) as OffsetStats;
+
+			expect(result!.id).toBe(offsetStats!.id);
+			expect(result!.token!.mintedAmount).toBe(offsetStats!.token!.mintedAmount);
+			expect(httpClient).toBeCalledWith("", offsetStatsQuery("1-1360-0"));
+		});
+
+		it("should return null if offset stats doesn't exists", async () => {
+			jest.spyOn(carbonInfo.httpClient, "post").mockResolvedValueOnce({ data: { retired: null } });
+
+			const result = (await carbonInfo.queryOffsetStats("1")) as OffsetStats;
+
+			expect(result).toBeNull();
 		});
 	});
 });

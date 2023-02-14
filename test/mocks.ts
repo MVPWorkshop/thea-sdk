@@ -1,8 +1,12 @@
 import {
+	OffsetHistory,
+	OffsetStats,
 	PriceListings,
 	SearchOrdersResponsePayload,
+	TokenizationHistory,
 	TokenizationSource,
 	TokenizationState,
+	TokenizationStats,
 	TokenizationStatus,
 	TokenListResponsePayload
 } from "../src";
@@ -311,3 +315,61 @@ export const priceListingReturnMockBuy: PriceListings[] = [
 		}
 	}
 ];
+
+export const tokenizationHistory: TokenizationHistory[] = [
+	{
+		id: "1",
+		projectId: "1748",
+		vintage: "2019"
+	},
+	{
+		id: "2",
+		projectId: "1749",
+		vintage: "2020"
+	},
+	{
+		id: "3",
+		projectId: "1750",
+		vintage: "2021"
+	}
+];
+
+export const tokenizationStats: TokenizationStats = {
+	id: "1",
+	projectId: "1748",
+	vintage: "2019",
+	tokenURI: "1.json",
+	activeAmount: "99000",
+	mintedAmount: "100000",
+	retiredAmount: "1000",
+	unwrappedAmount: "0"
+};
+
+export const offsetHistory: OffsetHistory[] = [
+	{
+		id: "1-1360-0",
+		amount: "1000",
+		timestamp: "1676365774"
+	},
+	{
+		id: "1-1361-0",
+		amount: "2000",
+		timestamp: "1676365999"
+	}
+];
+
+export const offsetStats: OffsetStats = {
+	id: "1-1360-0",
+	amount: "1000",
+	timestamp: "1676365999",
+	token: {
+		id: "1",
+		projectId: "1748",
+		vintage: "2019",
+		tokenURI: "1.json",
+		activeAmount: "99000",
+		mintedAmount: "100000",
+		retiredAmount: "1000",
+		unwrappedAmount: "0"
+	}
+};

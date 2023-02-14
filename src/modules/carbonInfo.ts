@@ -1,4 +1,4 @@
-import { consts, ISO_CODES, TheaError } from "../utils";
+import { consts, getERC20ContractAddress, ISO_CODES, TheaError } from "../utils";
 import co2dataset from "../co2dataset.json";
 import {
 	Co2DataSet,
@@ -7,66 +7,239 @@ import {
 	FootprintQuery,
 	FootprintSummary,
 	GraphqlQuery,
+	OffsetHistory,
+	OffsetStats,
+	ProviderOrSigner,
+	QueryError,
+	QueryErrorResponse,
+	QueryResponse,
+	TheaERC1155Balance,
+	TheaERC20Token,
 	TheaNetwork,
-	TokenizationHistory
+	TokenizationHistory,
+	TokenizationStats,
+	UserBalance
 } from "../types";
-import { HttpClient } from "./shared";
-/* eslint-disable  @typescript-eslint/no-explicit-any */
-type QueryResponse<T> = { data: T };
-type QueryError = Record<string, any>;
-type QueryErrorResponse = { errors: QueryError[] };
+import { HttpClient, TheaERC20 } from "./shared";
 
+export const tokenizationHistoryQuery: GraphqlQuery = {
+	query: `{
+		tokens {
+			id
+			projectId
+			vintage
+		}
+	}`
+};
+export const tokenizationStatsQuery = (id: string): GraphqlQuery => ({
+	query: `
+			query ($id: ID!){
+				token(id: $id) {
+					id
+					projectId
+					vintage
+					tokenURI
+					activeAmount
+					mintedAmount
+					retiredAmount
+					unwrappedAmount
+				}
+			}
+		  `,
+	variables: {
+		id
+	}
+});
+export const offsetHistoryQuery: GraphqlQuery = {
+	query: `{
+		retireds {
+		  id
+		  amount
+		  timestamp
+		}
+	  }`
+};
+export const offsetStatsQuery = (id: string): GraphqlQuery => ({
+	query: `
+			query ($id: ID!){
+				retired(id: $id) {
+					id
+					amount
+					token {
+						id
+						projectId
+						vintage
+						tokenURI
+						activeAmount
+						mintedAmount
+						retiredAmount
+						unwrappedAmount
+					}
+				}
+			}
+		  `,
+	variables: {
+		id
+	}
+});
+
+export const theaERC1155BalancesQuery = (owner: string) => ({
+	query: `
+			query ($owner: String!){
+				theaERC1155Balances(
+				  where: {owner: $owner}
+				) {
+				  amount
+				  token {
+					id
+				  }
+				}
+			  }
+		  `,
+	variables: {
+		owner
+	}
+});
 /* eslint-disable  @typescript-eslint/no-non-null-assertion */
 export class CarbonInfo {
 	private dataSet: Co2DataSet;
 	private lastYearInDataset: number;
-	private httpClient: HttpClient;
-	constructor(network: TheaNetwork) {
+	readonly httpClient: HttpClient;
+	constructor(readonly providerOrSigner: ProviderOrSigner, readonly network: TheaNetwork) {
 		this.dataSet = co2dataset as Co2DataSet;
 		this.lastYearInDataset = this.dataSet["USA"].data[this.dataSet["USA"].data.length - 1].year;
 		this.httpClient = new HttpClient(consts[`${network}`].subGraphUrl);
 	}
 
+	/**
+	 * Function to give summary history of tokenizations from subgraph
+	 * @returns TokenizationHistory[] | QueryError[]
+	 */
 	async queryTokenizationHistory(): Promise<TokenizationHistory[] | QueryError[]> {
-		const query: GraphqlQuery = {
-			query: `{
-				tokens {
-					id
-					unwrappedAmount
-					vintage
-				}
-			}`
-		};
 		const response = await this.httpClient.post<
 			GraphqlQuery,
 			QueryResponse<{ tokens: TokenizationHistory[] }> | QueryErrorResponse
-		>("", query);
+		>("", tokenizationHistoryQuery);
 
 		return this.handleResponse<{ tokens: TokenizationHistory[] }, TokenizationHistory[]>(response, "tokens");
 	}
 
-	async queryTokenizationStats(id: string): Promise<TokenizationHistory | QueryError[]> {
-		const query: GraphqlQuery = {
-			query: `
-				query ($id: ID!){
-					token(id: $id) {
-					vintage
-					unwrappedAmount
-					id
-					}
-				}
-			  `,
-			variables: {
-				id
-			}
-		};
-
+	/**
+	 * Function to give stats info of tokenization by passing ID from subgraph
+	 * @returns TokenizationStats | QueryError[]
+	 */
+	async queryTokenizationStats(id: string): Promise<TokenizationStats | QueryError[]> {
 		const response = await this.httpClient.post<
 			GraphqlQuery,
-			QueryResponse<{ token: TokenizationHistory }> | QueryErrorResponse
-		>("", query);
+			QueryResponse<{ token: TokenizationStats }> | QueryErrorResponse
+		>("", tokenizationStatsQuery(id));
 
-		return this.handleResponse<{ token: TokenizationHistory }, TokenizationHistory>(response, "token");
+		return this.handleResponse<{ token: TokenizationStats }, TokenizationStats>(response, "token");
+	}
+
+	/**
+	 * Function to give summary history of offsets from subgraph
+	 * @returns OffsetHistory[] | QueryError[]
+	 */
+	async queryOffsetHistory(): Promise<OffsetHistory[] | QueryError[]> {
+		const response = await this.httpClient.post<
+			GraphqlQuery,
+			QueryResponse<{ retireds: OffsetHistory[] }> | QueryErrorResponse
+		>("", offsetHistoryQuery);
+
+		return this.handleResponse<{ retireds: OffsetHistory[] }, OffsetHistory[]>(response, "retireds");
+	}
+
+	/**
+	 * Function to give stats info of offset by passing ID from subgraph
+	 * @returns OffsetStats | QueryError[]
+	 */
+	async queryOffsetStats(id: string): Promise<OffsetStats | QueryError[]> {
+		const response = await this.httpClient.post<
+			GraphqlQuery,
+			QueryResponse<{ retired: OffsetStats }> | QueryErrorResponse
+		>("", offsetStatsQuery(id));
+
+		return this.handleResponse<{ retired: OffsetStats }, OffsetStats>(response, "retired");
+	}
+
+	async getUsersBalance(walletAddress: string) {
+		const response = await this.httpClient.post<
+			GraphqlQuery,
+			QueryResponse<{ theaERC1155Balances: TheaERC1155Balance[] }> | QueryErrorResponse
+		>("", theaERC1155BalancesQuery(walletAddress));
+
+		if ("errors" in response) {
+			return response.errors;
+		}
+
+		const balances = response.data.theaERC1155Balances;
+
+		const nft = this.getNFTAmounts(balances);
+		const fungible = await this.getFungibleAmounts(walletAddress);
+		const userBalance: UserBalance = {
+			fungible,
+			nft
+		};
+		return userBalance;
+	}
+
+	// {
+	// 	"1": "29000",
+	// 	"2": "30000",
+	// 	"3": "123321"
+	// }
+	private getNFTAmounts(balances: TheaERC1155Balance[]): Record<string, string> {
+		return balances.reduce((acc, cur: TheaERC1155Balance) => {
+			const tokenId = cur.token.id;
+			acc[`${tokenId}`] = cur.amount;
+			return acc;
+		}, {} as Record<string, string>);
+	}
+
+	private async getFungibleAmounts(walletAddress: string): Promise<{
+		vintage: string;
+		rating: string;
+		sdg: string;
+		nbt: string;
+	}> {
+		const tokens = ["SDG", "Vintage", "Rating", "CurrentNBT"];
+		const fungible: {
+			vintage: string;
+			rating: string;
+			sdg: string;
+			nbt: string;
+		} = {
+			vintage: "0",
+			rating: "0",
+			sdg: "0",
+			nbt: "0"
+		};
+		for (const token of tokens) {
+			const response = await new TheaERC20(
+				this.providerOrSigner,
+				getERC20ContractAddress(token as TheaERC20Token, this.network)
+			).getBalance(walletAddress);
+			const amount = response.toString();
+			switch (token) {
+				case "SDG":
+					fungible.sdg = amount;
+					break;
+				case "Vintage":
+					fungible.vintage = amount;
+					break;
+				case "Rating":
+					fungible.rating = amount;
+					break;
+				case "CurrentNBT":
+					fungible.nbt = amount;
+					break;
+				default:
+					break;
+			}
+		}
+
+		return fungible;
 	}
 	private handleResponse<T, Response>(
 		response: QueryResponse<T> | QueryErrorResponse,
