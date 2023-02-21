@@ -1,14 +1,251 @@
-import { ISO_CODES, TheaError } from "../utils";
+import { consts, getERC20ContractAddress, ISO_CODES, TheaError, TheaSubgraphError } from "../utils";
 import co2dataset from "../co2dataset.json";
-import { Co2DataSet, EstimatedFootprint, FootprintDetail, FootprintQuery, FootprintSummary } from "../types";
+import {
+	Co2DataSet,
+	EstimatedFootprint,
+	FootprintDetail,
+	FootprintQuery,
+	FootprintSummary,
+	GraphqlQuery,
+	OffsetHistory,
+	OffsetStats,
+	ProviderOrSigner,
+	QueryError,
+	QueryErrorResponse,
+	QueryResponse,
+	TheaERC1155Balance,
+	TheaERC20Token,
+	TheaNetwork,
+	TokenizationHistory,
+	TokenizationStats,
+	UserBalance
+} from "../types";
+import { HttpClient, TheaERC20 } from "./shared";
 
+export const tokenizationHistoryQuery: GraphqlQuery = {
+	query: `{
+		tokens {
+			id
+			projectId
+			vintage
+		}
+	}`
+};
+export const tokenizationStatsQuery = (id: string): GraphqlQuery => ({
+	query: `
+			query ($id: ID!){
+				token(id: $id) {
+					id
+					projectId
+					vintage
+					tokenURI
+					activeAmount
+					mintedAmount
+					retiredAmount
+					unwrappedAmount
+				}
+			}
+		  `,
+	variables: {
+		id
+	}
+});
+export const offsetHistoryQuery: GraphqlQuery = {
+	query: `{
+		retireds {
+		  id
+		  amount
+		  timestamp
+		}
+	  }`
+};
+export const offsetStatsQuery = (id: string): GraphqlQuery => ({
+	query: `
+			query ($id: ID!){
+				retired(id: $id) {
+					id
+					amount
+					token {
+						id
+						projectId
+						vintage
+						tokenURI
+						activeAmount
+						mintedAmount
+						retiredAmount
+						unwrappedAmount
+					}
+				}
+			}
+		  `,
+	variables: {
+		id
+	}
+});
+
+export const theaERC1155BalancesQuery = (owner: string) => ({
+	query: `
+			query ($owner: String!){
+				theaERC1155Balances(
+				  where: {owner: $owner}
+				) {
+				  amount
+				  token {
+					id
+				  }
+				}
+			  }
+		  `,
+	variables: {
+		owner
+	}
+});
 /* eslint-disable  @typescript-eslint/no-non-null-assertion */
 export class CarbonInfo {
 	private dataSet: Co2DataSet;
 	private lastYearInDataset: number;
-	constructor() {
+	readonly httpClient: HttpClient;
+	constructor(readonly providerOrSigner: ProviderOrSigner, readonly network: TheaNetwork) {
 		this.dataSet = co2dataset as Co2DataSet;
 		this.lastYearInDataset = this.dataSet["USA"].data[this.dataSet["USA"].data.length - 1].year;
+		this.httpClient = new HttpClient(consts[`${network}`].subGraphUrl);
+	}
+
+	/**
+	 * Function to give summary history of tokenizations from subgraph
+	 * @returns TokenizationHistory[] {@link TokenizationHistory}
+	 */
+	async queryTokenizationHistory(): Promise<TokenizationHistory[]> {
+		const response = await this.httpClient.post<
+			GraphqlQuery,
+			QueryResponse<{ tokens: TokenizationHistory[] }> | QueryErrorResponse
+		>("", tokenizationHistoryQuery);
+
+		return this.handleResponse<{ tokens: TokenizationHistory[] }, TokenizationHistory[]>(response, "tokens");
+	}
+
+	/**
+	 * Function to give stats info of tokenization by passing ID from subgraph
+	 * @returns TokenizationStats {@link TokenizationStats}
+	 */
+	async queryTokenizationStats(id: string): Promise<TokenizationStats> {
+		const response = await this.httpClient.post<
+			GraphqlQuery,
+			QueryResponse<{ token: TokenizationStats }> | QueryErrorResponse
+		>("", tokenizationStatsQuery(id));
+
+		return this.handleResponse<{ token: TokenizationStats }, TokenizationStats>(response, "token");
+	}
+
+	/**
+	 * Function to give summary history of offsets from subgraph
+	 * @returns OffsetHistory[] {@link OffsetHistory}
+	 */
+	async queryOffsetHistory(): Promise<OffsetHistory[]> {
+		const response = await this.httpClient.post<
+			GraphqlQuery,
+			QueryResponse<{ retireds: OffsetHistory[] }> | QueryErrorResponse
+		>("", offsetHistoryQuery);
+
+		return this.handleResponse<{ retireds: OffsetHistory[] }, OffsetHistory[]>(response, "retireds");
+	}
+
+	/**
+	 * Function to give stats info of offset by passing ID from subgraph
+	 * @returns OffsetStats {@link OffsetStats}
+	 */
+	async queryOffsetStats(id: string): Promise<OffsetStats> {
+		const response = await this.httpClient.post<
+			GraphqlQuery,
+			QueryResponse<{ retired: OffsetStats }> | QueryErrorResponse
+		>("", offsetStatsQuery(id));
+
+		return this.handleResponse<{ retired: OffsetStats }, OffsetStats>(response, "retired");
+	}
+
+	/**
+	 * Returns balances of ERC20 and ERC1155 tokens for a given wallet address
+	 * @param walletAddress - wallet address of user
+	 * @returns UserBalance {@link UserBalance}
+	 */
+	async getUsersBalance(walletAddress: string): Promise<UserBalance> {
+		this.queryOffsetStats;
+		const response = await this.httpClient.post<
+			GraphqlQuery,
+			QueryResponse<{ theaERC1155Balances: TheaERC1155Balance[] }> | QueryErrorResponse
+		>("", theaERC1155BalancesQuery(walletAddress));
+
+		if ("errors" in response) throw new TheaSubgraphError("Subgraph call error", response.errors as QueryError[]);
+
+		const balances = response.data.theaERC1155Balances;
+
+		const nft = this.getNFTAmounts(balances);
+		const fungible = await this.getFungibleAmounts(walletAddress);
+		const userBalance: UserBalance = {
+			fungible,
+			nft
+		};
+		return userBalance;
+	}
+
+	private getNFTAmounts(balances: TheaERC1155Balance[]): Record<string, string> {
+		return balances.reduce((acc, cur: TheaERC1155Balance) => {
+			const tokenId = cur.token.id;
+			acc[`${tokenId}`] = cur.amount;
+			return acc;
+		}, {} as Record<string, string>);
+	}
+
+	private async getFungibleAmounts(walletAddress: string): Promise<{
+		vintage: string;
+		rating: string;
+		sdg: string;
+		nbt: string;
+	}> {
+		const tokens = ["SDG", "Vintage", "Rating", "CurrentNBT"];
+		const fungible: {
+			vintage: string;
+			rating: string;
+			sdg: string;
+			nbt: string;
+		} = {
+			vintage: "0",
+			rating: "0",
+			sdg: "0",
+			nbt: "0"
+		};
+		for (const token of tokens) {
+			const response = await new TheaERC20(
+				this.providerOrSigner,
+				getERC20ContractAddress(token as TheaERC20Token, this.network)
+			).getBalance(walletAddress);
+			const amount = response.toString();
+			switch (token) {
+				case "SDG":
+					fungible.sdg = amount;
+					break;
+				case "Vintage":
+					fungible.vintage = amount;
+					break;
+				case "Rating":
+					fungible.rating = amount;
+					break;
+				default:
+					fungible.nbt = amount;
+					break;
+			}
+		}
+
+		return fungible;
+	}
+	private handleResponse<T, Response>(
+		response: QueryResponse<T> | QueryErrorResponse,
+		responseProperty: keyof T
+	): Response {
+		if ("errors" in response) throw new TheaSubgraphError("Subgraph call error", response.errors as QueryError[]);
+
+		// eslint-disable-next-line security/detect-object-injection
+		return response.data[responseProperty] as Response;
 	}
 
 	/**

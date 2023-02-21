@@ -107,4 +107,16 @@ describe("TheaERC20", () => {
 			);
 		});
 	});
+
+	describe("get ERC20 balance", () => {
+		it("should return balance", async () => {
+			const balanceSpy = jest.spyOn(mockContract, "balanceOf").mockResolvedValueOnce(BigNumber.from(100));
+
+			const result = await theaERC1155.getBalance(owner);
+
+			expect(balanceSpy).toBeCalledWith(owner);
+			expect(result).toEqual(BigNumber.from(100));
+			expect(validateAddressSpy).toHaveBeenCalledTimes(1);
+		});
+	});
 });

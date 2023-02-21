@@ -1,4 +1,4 @@
-import { ContractDetails } from "../types";
+import { ContractDetails, QueryError } from "../types";
 
 export type ErrorType =
 	| "EMPTY_OPTIONS"
@@ -35,7 +35,8 @@ export type ErrorType =
 	| "NETWORK_MISMATCH"
 	| "INVALID_CHUNK_SIZE"
 	| "SIGNER_REQUIRES_PROVIDER"
-	| "MISSING_CURRENT_NBT_CONTRACT_ADDRESSS";
+	| "MISSING_CURRENT_NBT_CONTRACT_ADDRESSS"
+	| "SUBGRAPH_CALL_ERROR";
 
 export type ErrorProps = {
 	type: ErrorType;
@@ -63,5 +64,14 @@ export class TheaAPICallError extends TheaError {
 	constructor(readonly message: string, readonly method: "GET" | "POST", readonly endpoint: string) {
 		super({ type: "API_CALL_ERROR", message });
 		Object.setPrototypeOf(this, TheaAPICallError.prototype);
+	}
+}
+
+export class TheaSubgraphError extends TheaError {
+	readonly queryErrors: QueryError[];
+	constructor(readonly message: string, queryErrors: QueryError[]) {
+		super({ type: "SUBGRAPH_CALL_ERROR", message });
+		this.queryErrors = queryErrors;
+		Object.setPrototypeOf(this, TheaSubgraphError.prototype);
 	}
 }
