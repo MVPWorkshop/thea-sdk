@@ -55,13 +55,18 @@ export class Recover extends ContractWrapper<IBaseTokenManagerContract> {
 	async queryRecoverFungibles(tokenId: BigNumberish, amount: BigNumberish): Promise<BaseTokenAmounts> {
 		const baseTokenCharactaristics = await this.contract.baseCharacteristics();
 		const btAmount = await this.calculateBaseTokensAmounts(tokenId, amount, baseTokenCharactaristics);
-		return btAmount;
+		return {
+			cbt: btAmount.cbt.toString(),
+			sdg: btAmount.sdg.toString(),
+			vintage: btAmount.vintage.toString(),
+			rating: btAmount.rating.toString()
+		};
 	}
 
 	async checkBalancesForAllBaseTokens(btAmount: BaseTokenAmounts) {
 		await checkBalance(this.providerOrSigner as Signer, this.network, {
 			token: "ERC20",
-			amount: btAmount.btVintage,
+			amount: btAmount.cbt,
 			tokenName: "CurrentNBT"
 		});
 		await checkBalance(this.providerOrSigner as Signer, this.network, {
@@ -86,7 +91,7 @@ export class Recover extends ContractWrapper<IBaseTokenManagerContract> {
 		await approve(this.providerOrSigner as Signer, this.network, {
 			token: "ERC20",
 			spender,
-			amount: btAmount.btVintage,
+			amount: btAmount.cbt,
 			tokenName: "CurrentNBT"
 		});
 
@@ -117,7 +122,7 @@ export class Recover extends ContractWrapper<IBaseTokenManagerContract> {
 		id: BigNumberish,
 		amount: BigNumberish,
 		baseTokenCharactaristics: BaseTokenCharactaristics
-	): Promise<{ btVintage: BigNumber; sdg: BigNumber; vintage: BigNumber; rating: BigNumber }> {
+	): Promise<{ cbt: BigNumber; sdg: BigNumber; vintage: BigNumber; rating: BigNumber }> {
 		const unitAmount = BigNumber.from(amount).mul(RATE_VCC_TO_BT);
 		const { sdgValue, vintageValue, ratingValue } = await this.getFeatureValue(id);
 
@@ -125,7 +130,7 @@ export class Recover extends ContractWrapper<IBaseTokenManagerContract> {
 		const vintageAmount = BigNumber.from(unitAmount).mul(vintageValue.sub(baseTokenCharactaristics.vintage));
 		const ratingAmount = BigNumber.from(unitAmount).mul(ratingValue.sub(baseTokenCharactaristics.rating));
 
-		return { btVintage: unitAmount, sdg: sdgAmount, vintage: vintageAmount, rating: ratingAmount };
+		return { cbt: unitAmount, sdg: sdgAmount, vintage: vintageAmount, rating: ratingAmount };
 	}
 
 	async getFeatureValue(

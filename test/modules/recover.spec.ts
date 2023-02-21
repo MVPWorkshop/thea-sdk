@@ -57,7 +57,7 @@ describe("Recover", () => {
 	};
 
 	const calculateBaseTokensAmountsTransaction: Partial<{
-		btVintage: BigNumber;
+		cbt: BigNumber;
 		sdg: BigNumber;
 		vintage: BigNumber;
 		rating: BigNumber;
@@ -65,7 +65,7 @@ describe("Recover", () => {
 		vintage: BigNumber.from(2022),
 		sdg: BigNumber.from(1),
 		rating: BigNumber.from(5),
-		btVintage: BigNumber.from(2020)
+		cbt: BigNumber.from(2020)
 	};
 
 	const getFeatureValueTransaction: Partial<{ vintageValue: BigNumber; sdgValue: BigNumber; ratingValue: BigNumber }> =
@@ -118,7 +118,7 @@ describe("Recover", () => {
 			);
 			const calculateBaseTokensAmountsTxPromise = Promise.resolve(
 				calculateBaseTokensAmountsTransaction as {
-					btVintage: BigNumber;
+					cbt: BigNumber;
 					sdg: BigNumber;
 					vintage: BigNumber;
 					rating: BigNumber;
@@ -212,7 +212,7 @@ describe("Recover", () => {
 			const result = await recover.calculateBaseTokensAmounts(id, amount, baseCharacteristics);
 
 			expect(getFeatureValueSpy).toHaveBeenCalledWith(id);
-			expect(result.btVintage).toEqual(unitAmount);
+			expect(result.cbt).toEqual(unitAmount);
 			expect(result.sdg).toEqual(unitAmount);
 			expect(result.vintage).toEqual(unitAmount);
 			expect(result.rating).toEqual(unitAmount);
@@ -232,7 +232,7 @@ describe("Recover", () => {
 
 			const calculateBaseTokensAmountsTxPromise = Promise.resolve(
 				calculateBaseTokensAmountsTransaction as {
-					btVintage: BigNumber;
+					cbt: BigNumber;
 					sdg: BigNumber;
 					vintage: BigNumber;
 					rating: BigNumber;
@@ -245,10 +245,10 @@ describe("Recover", () => {
 
 			expect(baseCharacteristicsSpy).toHaveBeenCalled();
 			expect(calculateBaseTokensAmountsSpy).toHaveBeenCalled();
-			expect(result.btVintage).toEqual(calculateBaseTokensAmountsTransaction.btVintage);
-			expect(result.sdg).toEqual(calculateBaseTokensAmountsTransaction.sdg);
-			expect(result.vintage).toEqual(calculateBaseTokensAmountsTransaction.vintage);
-			expect(result.rating).toEqual(calculateBaseTokensAmountsTransaction.rating);
+			expect(result.cbt).toEqual(calculateBaseTokensAmountsTransaction.cbt?.toString());
+			expect(result.sdg).toEqual(calculateBaseTokensAmountsTransaction.sdg?.toString());
+			expect(result.vintage).toEqual(calculateBaseTokensAmountsTransaction.vintage?.toString());
+			expect(result.rating).toEqual(calculateBaseTokensAmountsTransaction.rating?.toString());
 		});
 	});
 

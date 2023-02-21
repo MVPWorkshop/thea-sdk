@@ -1,5 +1,5 @@
-import { GraphqlQuery, QueryErrorResponse, QueryResponse, TheaNetwork, TokenInfo } from "src/types";
-import { TheaError } from "src/utils";
+import { GraphqlQuery, QueryError, QueryErrorResponse, QueryResponse, TheaNetwork, TokenInfo } from "src/types";
+import { TheaSubgraphError } from "src/utils";
 import { consts } from "src/utils/consts";
 import { HttpClient } from "../shared";
 
@@ -46,9 +46,8 @@ export class GetTokenList {
 		response: QueryResponse<T> | QueryErrorResponse,
 		responseProperty: keyof T
 	): Response {
-		if ("errors" in response) {
-			throw new TheaError(response.errors[0].message);
-		}
+		if ("errors" in response) throw new TheaSubgraphError("Subgraph call error", response.errors as QueryError[]);
+
 		// eslint-disable-next-line security/detect-object-injection
 		return response.data[responseProperty] as Response;
 	}

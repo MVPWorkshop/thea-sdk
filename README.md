@@ -63,6 +63,21 @@ const result = await theaSDK.recover.recoverNFT(tokenId, tokenAmount);
 }
 ```
 
+- Query recover fungible - Returns list of token amounts needed to recover amount of specified NFT (by tokenID).
+
+```js
+// call to unwrap method of Registry contract
+const result = await theaSDK.recover.queryRecoverFungibles(tokenId, tokenAmount);
+
+// Sample output
+{
+    "cbt": "100000000", // current base token amount
+    "sdg": '100000000', // sdg tokent amount
+    "vintage": '100000000', // vintage token amount
+    "rating": '100000000' // rating token amount
+}
+```
+
 ## Roll Tokens module
 
 - Roll base tokens - Rolls `tokenAmount` of Base Token based on their `vintage`. This means that old Base Tokens (defined by sent `vintage`) and vintage tokens are burned and the same amount(`tokenAmount`) of new Base Tokens (defined by `vintage + 1`) is beeing minted. These Base Tokens addresses are defined in BaseTokenManager contract under `baseTokens` mapping with `vintage` as key.
@@ -212,19 +227,18 @@ theaSDK.setCurrentNBTContractAddress("0x123...");
 ```js
 const priceInWEI = await theaSDK.nftTokenList.getTokenList();
 
-// Sample output
-[
-    {
-        "projectID": 1748,
-        "vintages": [
-            { 
-                "vintage": 2018,
-                "tokenID": "1",
-                ...
-            }
-        ]
-    }
-]
+// Sample output 
+// (Object which keys are projectIDs and values are arrays of tokens that belong to that project)
+{
+    "1784": // proojectId
+    [       // list of tokens in that project
+        { 
+            "vintage": 2018,
+            "tokenID": "1",
+            ...
+        }
+    ] 
+}
 ```
 
 - Query Orders Info - Returns a list of orders for a given tokenID and owner

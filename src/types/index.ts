@@ -154,10 +154,10 @@ export type BaseTokenCharactaristics = {
 };
 
 export type BaseTokenAmounts = {
-	btVintage: BigNumber;
-	sdg: BigNumber;
-	vintage: BigNumber;
-	rating: BigNumber;
+	cbt: BigNumberish;
+	sdg: BigNumberish;
+	vintage: BigNumberish;
+	rating: BigNumberish;
 };
 
 export type Co2DataSet = {
