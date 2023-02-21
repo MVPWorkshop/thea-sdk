@@ -219,6 +219,39 @@ describe("Recover", () => {
 		});
 	});
 
+	describe("queryRecoverFungibles", () => {
+		it("should return btVintage, sdg, vintage and rating amounts", async () => {
+			const tokenId = "1";
+			const amount = "1000";
+			const baseCharacteristicsTxPromise = Promise.resolve(
+				baseTokenCharacteristicsTransaction as BaseTokenCharactaristics
+			);
+			const baseCharacteristicsSpy = jest
+				.spyOn(recover.contract, "baseCharacteristics")
+				.mockReturnValue(baseCharacteristicsTxPromise);
+
+			const calculateBaseTokensAmountsTxPromise = Promise.resolve(
+				calculateBaseTokensAmountsTransaction as {
+					btVintage: BigNumber;
+					sdg: BigNumber;
+					vintage: BigNumber;
+					rating: BigNumber;
+				}
+			);
+			const calculateBaseTokensAmountsSpy = jest
+				.spyOn(recover, "calculateBaseTokensAmounts")
+				.mockReturnValue(calculateBaseTokensAmountsTxPromise);
+			const result = await recover.queryRecoverFungibles(tokenId, amount);
+
+			expect(baseCharacteristicsSpy).toHaveBeenCalled();
+			expect(calculateBaseTokensAmountsSpy).toHaveBeenCalled();
+			expect(result.btVintage).toEqual(calculateBaseTokensAmountsTransaction.btVintage);
+			expect(result.sdg).toEqual(calculateBaseTokensAmountsTransaction.sdg);
+			expect(result.vintage).toEqual(calculateBaseTokensAmountsTransaction.vintage);
+			expect(result.rating).toEqual(calculateBaseTokensAmountsTransaction.rating);
+		});
+	});
+
 	describe("getFeatureValue", () => {
 		it("should return sdgValue, vintageValue and ratingValue", async () => {
 			const id = "1";
