@@ -3,7 +3,6 @@ import { TheaNetwork } from "src/types";
 
 export const RATE_VCC_TO_BT = 10;
 export const STABLE_TOKEN_DECIMALS_MULTIPLIER = 10 ** 18;
-export const TOKEN_LIST_FETCHING_URL = "https://api.rarible.org/v0.1";
 export const ORDERBOOK_URL = "https://api.trader.xyz/orderbook";
 export const DEFAULT_SLIPPAGE_TOLERANCE = 0.5;
 export const INFINITE_EXPIRATION_TIMESTAMP_SEC = BigNumber.from(2524604400);
