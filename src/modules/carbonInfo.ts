@@ -1,4 +1,4 @@
-import { consts, getERC20ContractAddress, ISO_CODES, TheaError } from "../utils";
+import { consts, getERC20ContractAddress, ISO_CODES, TheaError, TheaSubgraphError } from "../utils";
 import co2dataset from "../co2dataset.json";
 import {
 	Co2DataSet,
@@ -113,9 +113,9 @@ export class CarbonInfo {
 
 	/**
 	 * Function to give summary history of tokenizations from subgraph
-	 * @returns TokenizationHistory[] | QueryError[]
+	 * @returns TokenizationHistory[] {@link TokenizationHistory}
 	 */
-	async queryTokenizationHistory(): Promise<TokenizationHistory[] | QueryError[]> {
+	async queryTokenizationHistory(): Promise<TokenizationHistory[]> {
 		const response = await this.httpClient.post<
 			GraphqlQuery,
 			QueryResponse<{ tokens: TokenizationHistory[] }> | QueryErrorResponse
@@ -126,9 +126,9 @@ export class CarbonInfo {
 
 	/**
 	 * Function to give stats info of tokenization by passing ID from subgraph
-	 * @returns TokenizationStats | QueryError[]
+	 * @returns TokenizationStats {@link TokenizationStats}
 	 */
-	async queryTokenizationStats(id: string): Promise<TokenizationStats | QueryError[]> {
+	async queryTokenizationStats(id: string): Promise<TokenizationStats> {
 		const response = await this.httpClient.post<
 			GraphqlQuery,
 			QueryResponse<{ token: TokenizationStats }> | QueryErrorResponse
@@ -139,9 +139,9 @@ export class CarbonInfo {
 
 	/**
 	 * Function to give summary history of offsets from subgraph
-	 * @returns OffsetHistory[] | QueryError[]
+	 * @returns OffsetHistory[] {@link OffsetHistory}
 	 */
-	async queryOffsetHistory(): Promise<OffsetHistory[] | QueryError[]> {
+	async queryOffsetHistory(): Promise<OffsetHistory[]> {
 		const response = await this.httpClient.post<
 			GraphqlQuery,
 			QueryResponse<{ retireds: OffsetHistory[] }> | QueryErrorResponse
@@ -152,9 +152,9 @@ export class CarbonInfo {
 
 	/**
 	 * Function to give stats info of offset by passing ID from subgraph
-	 * @returns OffsetStats | QueryError[]
+	 * @returns OffsetStats {@link OffsetStats}
 	 */
-	async queryOffsetStats(id: string): Promise<OffsetStats | QueryError[]> {
+	async queryOffsetStats(id: string): Promise<OffsetStats> {
 		const response = await this.httpClient.post<
 			GraphqlQuery,
 			QueryResponse<{ retired: OffsetStats }> | QueryErrorResponse
@@ -163,15 +163,19 @@ export class CarbonInfo {
 		return this.handleResponse<{ retired: OffsetStats }, OffsetStats>(response, "retired");
 	}
 
-	async getUsersBalance(walletAddress: string) {
+	/**
+	 * Returns balances of ERC20 and ERC1155 tokens for a given wallet address
+	 * @param walletAddress - wallet address of user
+	 * @returns UserBalance {@link UserBalance}
+	 */
+	async getUsersBalance(walletAddress: string): Promise<UserBalance> {
+		this.queryOffsetStats;
 		const response = await this.httpClient.post<
 			GraphqlQuery,
 			QueryResponse<{ theaERC1155Balances: TheaERC1155Balance[] }> | QueryErrorResponse
 		>("", theaERC1155BalancesQuery(walletAddress));
 
-		if ("errors" in response) {
-			return response.errors;
-		}
+		if ("errors" in response) throw new TheaSubgraphError("Subgraph call error", response.errors as QueryError[]);
 
 		const balances = response.data.theaERC1155Balances;
 
@@ -184,11 +188,6 @@ export class CarbonInfo {
 		return userBalance;
 	}
 
-	// {
-	// 	"1": "29000",
-	// 	"2": "30000",
-	// 	"3": "123321"
-	// }
 	private getNFTAmounts(balances: TheaERC1155Balance[]): Record<string, string> {
 		return balances.reduce((acc, cur: TheaERC1155Balance) => {
 			const tokenId = cur.token.id;
@@ -231,10 +230,8 @@ export class CarbonInfo {
 				case "Rating":
 					fungible.rating = amount;
 					break;
-				case "CurrentNBT":
-					fungible.nbt = amount;
-					break;
 				default:
+					fungible.nbt = amount;
 					break;
 			}
 		}
@@ -244,10 +241,9 @@ export class CarbonInfo {
 	private handleResponse<T, Response>(
 		response: QueryResponse<T> | QueryErrorResponse,
 		responseProperty: keyof T
-	): QueryError[] | Response {
-		if ("errors" in response) {
-			return response.errors;
-		}
+	): Response {
+		if ("errors" in response) throw new TheaSubgraphError("Subgraph call error", response.errors as QueryError[]);
+
 		// eslint-disable-next-line security/detect-object-injection
 		return response.data[responseProperty] as Response;
 	}
