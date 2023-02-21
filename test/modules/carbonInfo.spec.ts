@@ -1,17 +1,28 @@
 import { JsonRpcProvider } from "@ethersproject/providers";
 import {
 	CarbonInfo,
+	consts,
 	offsetHistoryQuery,
-	OffsetStats,
 	offsetStatsQuery,
 	QueryError,
+	theaERC1155BalancesQuery,
 	TheaError,
 	TheaNetwork,
+	TheaSubgraphError,
 	tokenizationHistoryQuery,
-	TokenizationStats,
-	tokenizationStatsQuery
+	tokenizationStatsQuery,
+	UserBalance
 } from "../../src";
-import { offsetHistory, offsetStats, tokenizationHistory, tokenizationStats } from "../mocks";
+import {
+	CONTRACT_ADDRESS,
+	offsetHistory,
+	offsetStats,
+	theaERC1155Balances,
+	tokenizationHistory,
+	tokenizationStats,
+	WALLET_ADDRESS
+} from "../mocks";
+import * as utils from "../../src/utils/utils";
 jest.mock("../../src/co2dataset.json", () => {
 	return {
 		USA: {
@@ -47,7 +58,20 @@ jest.mock("../../src/co2dataset.json", () => {
 });
 
 jest.mock("../../src/modules/shared/httpClient");
-
+jest.mock("../../src/modules/shared/theaERC20", () => {
+	return {
+		TheaERC20: jest.fn().mockImplementation(() => {
+			return {
+				getBalance: jest.fn().mockResolvedValue(100)
+			};
+		})
+	};
+});
+jest.mock("../../src/utils/utils", () => {
+	return {
+		getERC20ContractAddress: jest.fn()
+	};
+});
 describe("Carbon info", () => {
 	const carbonInfo: CarbonInfo = new CarbonInfo(new JsonRpcProvider(), TheaNetwork.GANACHE);
 
@@ -143,13 +167,13 @@ describe("Carbon info", () => {
 			expect(httpClient).toBeCalledWith("", tokenizationHistoryQuery);
 		});
 
-		it("should list of errors if something went wrong", async () => {
+		it("should throw error with list of query errors", async () => {
 			const expectedResult = { errors: [{ error: "indexing_error" }] };
 			jest.spyOn(carbonInfo.httpClient, "post").mockResolvedValueOnce(expectedResult);
 
-			const result: QueryError = await carbonInfo.queryTokenizationHistory();
-			expect(result.length).toBe(1);
-			expect(result[0].error).toBe("indexing_error");
+			await expect(carbonInfo.queryTokenizationHistory()).rejects.toThrow(
+				new TheaSubgraphError("Subgraph call error", [{ error: "indexing_error" }] as QueryError[])
+			);
 		});
 
 		/* eslint-disable  @typescript-eslint/no-non-null-assertion */
@@ -158,7 +182,7 @@ describe("Carbon info", () => {
 				.spyOn(carbonInfo.httpClient, "post")
 				.mockResolvedValueOnce({ data: { token: tokenizationStats } });
 
-			const result = (await carbonInfo.queryTokenizationStats("1")) as TokenizationStats;
+			const result = await carbonInfo.queryTokenizationStats("1");
 
 			expect(result!.id).toBe(tokenizationStats!.id);
 			expect(result!.mintedAmount).toBe(tokenizationStats!.mintedAmount);
@@ -167,9 +191,7 @@ describe("Carbon info", () => {
 
 		it("should return null if tokenization stats doesn't exists", async () => {
 			jest.spyOn(carbonInfo.httpClient, "post").mockResolvedValueOnce({ data: { token: null } });
-
-			const result = (await carbonInfo.queryTokenizationStats("1")) as TokenizationStats;
-
+			const result = await carbonInfo.queryTokenizationStats("1");
 			expect(result).toBeNull();
 		});
 	});
@@ -187,13 +209,13 @@ describe("Carbon info", () => {
 			expect(httpClient).toBeCalledWith("", offsetHistoryQuery);
 		});
 
-		it("should list of errors if something went wrong", async () => {
+		it("should throw error with list of query errors", async () => {
 			const expectedResult = { errors: [{ error: "indexing_error" }] };
 			jest.spyOn(carbonInfo.httpClient, "post").mockResolvedValueOnce(expectedResult);
 
-			const result: QueryError = await carbonInfo.queryOffsetHistory();
-			expect(result.length).toBe(1);
-			expect(result[0].error).toBe("indexing_error");
+			await expect(carbonInfo.queryOffsetHistory()).rejects.toThrow(
+				new TheaSubgraphError("Subgraph call error", [{ error: "indexing_error" }] as QueryError[])
+			);
 		});
 
 		it("should return offset stats", async () => {
@@ -201,7 +223,7 @@ describe("Carbon info", () => {
 				.spyOn(carbonInfo.httpClient, "post")
 				.mockResolvedValueOnce({ data: { retired: offsetStats } });
 
-			const result = (await carbonInfo.queryOffsetStats("1-1360-0")) as OffsetStats;
+			const result = await carbonInfo.queryOffsetStats("1-1360-0");
 
 			expect(result!.id).toBe(offsetStats!.id);
 			expect(result!.token!.mintedAmount).toBe(offsetStats!.token!.mintedAmount);
@@ -211,9 +233,34 @@ describe("Carbon info", () => {
 		it("should return null if offset stats doesn't exists", async () => {
 			jest.spyOn(carbonInfo.httpClient, "post").mockResolvedValueOnce({ data: { retired: null } });
 
-			const result = (await carbonInfo.queryOffsetStats("1")) as OffsetStats;
+			const result = await carbonInfo.queryOffsetStats("1");
 
 			expect(result).toBeNull();
+		});
+	});
+
+	describe("get user balance", () => {
+		consts[`${TheaNetwork.GANACHE}`].currentNbtTokenContract = CONTRACT_ADDRESS;
+		it("should return user balance", async () => {
+			const httpClient = jest
+				.spyOn(carbonInfo.httpClient, "post")
+				.mockResolvedValueOnce({ data: { theaERC1155Balances } });
+			const getERC20ContractAddressSpy = jest.spyOn(utils, "getERC20ContractAddress");
+
+			const result: UserBalance = (await carbonInfo.getUsersBalance(WALLET_ADDRESS)) as UserBalance;
+
+			expect(httpClient).toBeCalledWith("", theaERC1155BalancesQuery(WALLET_ADDRESS));
+			expect(getERC20ContractAddressSpy).toBeCalledTimes(4);
+			expect(result.nft).toEqual({ "1": "1000", "2": "2000" });
+			expect(result.fungible).toEqual({ vintage: "100", rating: "100", sdg: "100", nbt: "100" });
+		});
+
+		it("should throw error with list of query errors", async () => {
+			const expectedResult = { errors: [{ error: "indexing_error" }] };
+			jest.spyOn(carbonInfo.httpClient, "post").mockResolvedValueOnce(expectedResult);
+			await expect(carbonInfo.getUsersBalance(WALLET_ADDRESS)).rejects.toThrow(
+				new TheaSubgraphError("Subgraph call error", [{ error: "indexing_error" }] as QueryError[])
+			);
 		});
 	});
 });

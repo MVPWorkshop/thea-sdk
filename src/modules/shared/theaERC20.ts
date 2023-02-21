@@ -11,6 +11,7 @@ export class TheaERC20 extends ContractWrapper<IERC20Contract> {
 	}
 
 	async getBalance(owner: string): Promise<BigNumber> {
+		validateAddress(owner);
 		return this.contract.balanceOf(owner);
 	}
 

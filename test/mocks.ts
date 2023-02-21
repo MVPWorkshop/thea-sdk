@@ -3,6 +3,7 @@ import {
 	OffsetStats,
 	PriceListings,
 	SearchOrdersResponsePayload,
+	TheaERC1155Balance,
 	TokenizationHistory,
 	TokenizationSource,
 	TokenizationState,
@@ -345,3 +346,18 @@ export const offsetStats: OffsetStats = {
 		unwrappedAmount: "0"
 	}
 };
+
+export const theaERC1155Balances: TheaERC1155Balance[] = [
+	{
+		amount: "1000",
+		token: {
+			id: "1"
+		}
+	},
+	{
+		amount: "2000",
+		token: {
+			id: "2"
+		}
+	}
+];

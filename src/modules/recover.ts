@@ -52,6 +52,12 @@ export class Recover extends ContractWrapper<IBaseTokenManagerContract> {
 		);
 	}
 
+	async queryRecoverFungibles(tokenId: BigNumberish, amount: BigNumberish): Promise<BaseTokenAmounts> {
+		const baseTokenCharactaristics = await this.contract.baseCharacteristics();
+		const btAmount = await this.calculateBaseTokensAmounts(tokenId, amount, baseTokenCharactaristics);
+		return btAmount;
+	}
+
 	async checkBalancesForAllBaseTokens(btAmount: BaseTokenAmounts) {
 		await checkBalance(this.providerOrSigner as Signer, this.network, {
 			token: "ERC20",
