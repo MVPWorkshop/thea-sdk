@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.10.0](https://github.com/MVPWorkshop/thea-sdk/compare/v0.9.5...v0.10.0) (2023-02-21)
+
+
+### Features
+
+* query recover fungibles ([ae9fe5b](https://github.com/MVPWorkshop/thea-sdk/commit/ae9fe5bbae81b5eb71fca90f509d94fab38c45e0))
+
 ## [0.9.5](https://github.com/MVPWorkshop/thea-sdk/compare/v0.9.4...v0.9.5) (2023-02-10)
 
 
