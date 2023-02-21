@@ -8,8 +8,7 @@ import {
 	TokenizationSource,
 	TokenizationState,
 	TokenizationStats,
-	TokenizationStatus,
-	TokenListResponsePayload
+	TokenizationStatus
 } from "../src";
 
 export const PRIVATE_KEY = "5b5354654516fb598d5c51594e0b50c8f1e1fac0b27424b6251b3e6fd96f4207";
@@ -58,50 +57,43 @@ export const tokenizationState: TokenizationState = {
 	error: null,
 	errorMessage: null
 };
-export const itemsByCollection: TokenListResponsePayload = {
-	continuation: "1669946173376_ETHEREUM:0xd07dc4262bcdbf85190c01c996b4c06a461d2430:654210",
-	items: [
-		{
-			id: "ETHEREUM:0xd07dc4262bcdbf85190c01c996b4c06a461d2430:463956",
-			blockchain: "ETHEREUM",
-			collection: "ETHEREUM:0xd07dc4262bcdbf85190c01c996b4c06a461d2430",
-			contract: "ETHEREUM:0xd07dc4262bcdbf85190c01c996b4c06a461d2430",
-			tokenId: "463956",
-			creators: [{ account: "ETHEREUM:0x6f87176de6060e004f0181bd913cd22b9428fd94", value: 10000 }],
-			lazySupply: "0",
-			pending: [],
-			mintedAt: "2021-04-10T15:17:56Z",
-			lastUpdatedAt: "2023-01-15T16:02:53.453Z",
-			supply: "0",
-			meta: {
-				name: "Freestyle",
-				description: "Freestyle - Digital Graffiti",
-				tags: [],
-				genres: [],
-				attributes: [{ key: "Laruad", value: "Laruad" }],
-				content: [
-					{
-						"@type": "IMAGE",
-						url: "https://ipfs.io/ipfs/QmdThej2WVTPdKWapfgmQYWZZuFRRz4fqK2BFHHRhT5Qvh/image.jpeg",
-						representation: "ORIGINAL",
-						mimeType: "image/jpeg",
-						size: 157565,
-						width: 650,
-						height: 460
-					}
-				],
-				restrictions: []
+export const subgraphResponse = {
+	data: {
+		tokens: [
+			{
+				id: "1",
+				tokenURI: "1.json",
+				projectId: "1748",
+				vintage: "2019",
+				activeAmount: "100000",
+				mintedAmount: "100000",
+				retiredAmount: "0",
+				unwrappedAmount: "0"
 			},
-			deleted: true,
-			originOrders: [],
-			ammOrders: { ids: [] },
-			auctions: [],
-			totalStock: "0",
-			sellers: 0,
-			suspicious: false
-		}
-	]
+			{
+				id: "2",
+				tokenURI: "1.json",
+				projectId: "1749",
+				vintage: "2019",
+				activeAmount: "100000",
+				mintedAmount: "100000",
+				retiredAmount: "0",
+				unwrappedAmount: "0"
+			},
+			{
+				id: "3",
+				tokenURI: "1.json",
+				projectId: "1749",
+				vintage: "2019",
+				activeAmount: "100000",
+				mintedAmount: "100000",
+				retiredAmount: "0",
+				unwrappedAmount: "0"
+			}
+		]
+	}
 };
+
 export const postOrderResponseMock = {
 	erc20Token: "0xd393b1e02da9831ff419e22ea105aae4c47e1253",
 	erc20TokenAmount: "12000000000000000000",

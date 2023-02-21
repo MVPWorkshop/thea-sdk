@@ -154,54 +154,10 @@ export type BaseTokenCharactaristics = {
 };
 
 export type BaseTokenAmounts = {
-	btVintage: BigNumber;
-	sdg: BigNumber;
-	vintage: BigNumber;
-	rating: BigNumber;
-};
-
-export type TokenListResponsePayload = {
-	continuation: string;
-	items: TokenResponseFromRaribleAPI[];
-};
-export type TokenResponseFromRaribleAPI = {
-	id: string;
-	blockchain: string;
-	collection: string;
-	contract: string;
-	tokenId: string;
-	creators: [{ account: string; value: number }];
-	lazySupply: string;
-	pending: [];
-	mintedAt: string;
-	lastUpdatedAt: string;
-	supply: string;
-	meta: {
-		name: string;
-		description: string;
-		tags: [];
-		genres: [];
-		attributes: [{ key: string; value: string }];
-		content: [
-			{
-				"@type": "IMAGE";
-				url: string;
-				representation: string;
-				mimeType: string;
-				size: number;
-				width: number;
-				height: number;
-			}
-		];
-		restrictions: [];
-	};
-	deleted: true;
-	originOrders: [];
-	ammOrders: { ids: [] };
-	auctions: [];
-	totalStock: string;
-	sellers: number;
-	suspicious: boolean;
+	cbt: BigNumberish;
+	sdg: BigNumberish;
+	vintage: BigNumberish;
+	rating: BigNumberish;
 };
 
 export type Co2DataSet = {
@@ -249,8 +205,7 @@ export type TokenizationHistory = {
 	projectId: string;
 	vintage: string;
 };
-
-export type TokenizationStats = {
+export type TokenInfo = {
 	id: string;
 	unwrappedAmount: string;
 	vintage: string;
@@ -259,7 +214,9 @@ export type TokenizationStats = {
 	projectId: string;
 	retiredAmount: string;
 	tokenURI: string;
-} | null;
+};
+
+export type TokenizationStats = TokenInfo | null;
 
 export type OffsetHistory = {
 	id: string;
