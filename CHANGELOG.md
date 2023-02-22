@@ -1,5 +1,20 @@
 # Changelog
 
+## [0.10.2](https://github.com/MVPWorkshop/thea-sdk/compare/v0.10.1...v0.10.2) (2023-02-22)
+
+
+### Bug Fixes
+
+* fix on handling errors from subgraph ([bed41c2](https://github.com/MVPWorkshop/thea-sdk/commit/bed41c228c4c8499eab12659a40aa4339bcaaa01))
+
+## [0.10.1](https://github.com/MVPWorkshop/thea-sdk/compare/v0.10.0...v0.10.1) (2023-02-21)
+
+
+### Bug Fixes
+
+* documentation updated and test coverage raised ([2fb1e08](https://github.com/MVPWorkshop/thea-sdk/commit/2fb1e08112f37129c48b88f9c2e90096355845f4))
+* get token list now uses subgraph ([a02927f](https://github.com/MVPWorkshop/thea-sdk/commit/a02927f8c063251a8f1439e0b94ba2f599ee6777))
+
 ## [0.10.0](https://github.com/MVPWorkshop/thea-sdk/compare/v0.9.5...v0.10.0) (2023-02-21)
 
 
