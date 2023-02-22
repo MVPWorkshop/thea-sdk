@@ -22,4 +22,6 @@ export interface IBaseTokenManagerContract extends Contract {
 	): Promise<ContractTransaction>;
 
 	baseCharacteristics(): Promise<BaseTokenCharactaristics>;
+
+	baseTokens(arg0: PromiseOrValue<BigNumberish>): Promise<string>;
 }

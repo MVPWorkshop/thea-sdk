@@ -1,4 +1,4 @@
-import { ProviderOrSigner, IRegistryContract, UnwrapTokenState, UnwrapRequestId, TheaNetwork } from "../types";
+import { ProviderOrSigner, IRegistryContract, UnwrapTokenState, RequestId, TheaNetwork } from "../types";
 import { consts, ContractWrapper, Events, signerRequired, TheaError, tokenAmountShouldBeTon } from "../utils";
 import Registry_ABI from "../abi/Registry_ABI.json";
 import { BigNumber, BigNumberish } from "@ethersproject/bignumber";
@@ -17,13 +17,13 @@ export class Unwrap extends ContractWrapper<IRegistryContract> {
 	 * @param tokenId id of the VCC token
 	 * @param amount amount of tokens to unwrap
 	 * @param offchainAccount offchain account to transfer the tokens to
-	 * @returns UnwrapRequestId&ContractReceipt  {@link UnwrapRequestId}
+	 * @returns RequestId & ContractReceipt  {@link RequestId}
 	 */
 	async unwrapToken(
 		tokenId: BigNumberish,
 		amount: BigNumberish,
 		offchainAccount: string
-	): Promise<ContractReceipt & UnwrapRequestId> {
+	): Promise<ContractReceipt & RequestId> {
 		signerRequired(this.providerOrSigner);
 		tokenAmountShouldBeTon(amount);
 
@@ -34,7 +34,7 @@ export class Unwrap extends ContractWrapper<IRegistryContract> {
 			spender: this.contractDetails.address
 		});
 
-		return executeWithResponse<UnwrapRequestId>(
+		return executeWithResponse<RequestId>(
 			this.contract.unwrap(tokenId, amount, offchainAccount),
 			{
 				...this.contractDetails,
@@ -77,10 +77,10 @@ export class Unwrap extends ContractWrapper<IRegistryContract> {
 	/**
 	 * Callback function to extract request ID from the `UnwrapRequested` event
 	 * @param events
-	 * @returns {@link UnwrapRequestId}
+	 * @returns {@link RequestId}
 	 */
-	extractRequestIdFromEvent(events?: Event[]): UnwrapRequestId {
-		const response: UnwrapRequestId = { requestId: undefined };
+	extractRequestIdFromEvent(events?: Event[]): RequestId {
+		const response: RequestId = { requestId: undefined };
 		if (events) {
 			const event = events.find((event) => event.event === Events.unwrap);
 			if (event) response.requestId = event.args?.requestId.toString();
