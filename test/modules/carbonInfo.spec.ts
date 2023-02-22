@@ -225,17 +225,17 @@ describe("Carbon info", () => {
 		it("should return offset stats", async () => {
 			const httpClient = jest
 				.spyOn(carbonInfo.httpClient, "post")
-				.mockResolvedValueOnce({ data: { retired: offsetStats } });
+				.mockResolvedValueOnce({ data: { retireds: [offsetStats] } });
 
 			const result = await carbonInfo.queryOffsetStats("1-1360-0");
 
-			expect(result!.id).toBe(offsetStats!.id);
-			expect(result!.token!.mintedAmount).toBe(offsetStats!.token!.mintedAmount);
+			expect(result[0]!.id).toBe(offsetStats!.id);
+			expect(result[0]!.token!.mintedAmount).toBe(offsetStats!.token!.mintedAmount);
 			expect(httpClient).toBeCalledWith("", offsetStatsQuery("1-1360-0"));
 		});
 
 		it("should return null if offset stats doesn't exists", async () => {
-			jest.spyOn(carbonInfo.httpClient, "post").mockResolvedValueOnce({ data: { retired: null } });
+			jest.spyOn(carbonInfo.httpClient, "post").mockResolvedValueOnce({ data: { retireds: null } });
 
 			const result = await carbonInfo.queryOffsetStats("1");
 
