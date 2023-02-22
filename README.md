@@ -592,34 +592,36 @@ const offsetHistory = await theaSDK.carbonInfo.queryOffsetHistory();
 
 // Sample output
 [
-    {
-        "id": "1-726-0",
-        "amount": "1000",
-        "timestamp": "1677058856"
-    }
-]
+	{
+		id: "1-726-0",
+		amount: "1000",
+		timestamp: "1677058856"
+	}
+];
 
-const offsetStats = await theaSDK.carbonInfo.queryOffsetStats("1-726-0");
+const offsetStats = await theaSDK.carbonInfo.queryOffsetStats("1");
 
 // Sample output
-{
-    "id": "1-726-0",
-    "amount": "1000",
-    "timestamp": "1677058856",
-    "token": {
-        "id": "1",
-        "projectId": "1748",
-        "vintage": "2019",
-        "tokenURI": "1.json",
-        "activeAmount": "99000",
-        "mintedAmount": "100000",
-        "retiredAmount": "1000",
-        "unwrappedAmount": "0"
-    },
-    "by": {
-        "id": "0x123..."
-    }
-}
+[
+	{
+		id: "1-726-0",
+		amount: "1000",
+		timestamp: "1677058856",
+		token: {
+			id: "1",
+			projectId: "1748",
+			vintage: "2019",
+			tokenURI: "1.json",
+			activeAmount: "99000",
+			mintedAmount: "100000",
+			retiredAmount: "1000",
+			unwrappedAmount: "0"
+		},
+		by: {
+			id: "0x123..."
+		}
+	}
+];
 ```
 
 - User balance - returns balances of ERC20 and ERC1155 tokens for a given wallet address

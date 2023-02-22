@@ -59,10 +59,10 @@ export const offsetHistoryQuery: GraphqlQuery = {
 		}
 	  }`
 };
-export const offsetStatsQuery = (id: string): GraphqlQuery => ({
+export const offsetStatsQuery = (tokenId: string): GraphqlQuery => ({
 	query: `
-			query ($id: ID!){
-				retired(id: $id) {
+			query ($token: String!){
+				retireds(where: {token: $token}) {
 					id
 					amount
 					timestamp
@@ -83,7 +83,7 @@ export const offsetStatsQuery = (id: string): GraphqlQuery => ({
 			}
 		  `,
 	variables: {
-		id
+		token: tokenId
 	}
 });
 
@@ -157,16 +157,16 @@ export class CarbonInfo {
 
 	/**
 	 * Returns stats info of offset by passing ID from subgraph
-	 * @param id - id of offset
+	 * @param id - id of token
 	 * @returns OffsetStats {@link OffsetStats}
 	 */
-	async queryOffsetStats(id: string): Promise<OffsetStats> {
+	async queryOffsetStats(id: string): Promise<OffsetStats[]> {
 		const response = await this.httpClient.post<
 			GraphqlQuery,
-			QueryResponse<{ retired: OffsetStats }> | QueryErrorResponse
+			QueryResponse<{ retireds: OffsetStats[] }> | QueryErrorResponse
 		>("", offsetStatsQuery(id));
 
-		return this.handleResponse<{ retired: OffsetStats }, OffsetStats>(response, "retired");
+		return this.handleResponse<{ retireds: OffsetStats[] }, OffsetStats[]>(response, "retireds");
 	}
 
 	/**
