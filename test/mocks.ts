@@ -342,12 +342,18 @@ export const offsetHistory: OffsetHistory[] = [
 	{
 		id: "1-1360-0",
 		amount: "1000",
-		timestamp: "1676365774"
+		timestamp: "1676365774",
+		by: {
+			id: WALLET_ADDRESS
+		}
 	},
 	{
 		id: "1-1361-0",
 		amount: "2000",
-		timestamp: "1676365999"
+		timestamp: "1676365999",
+		by: {
+			id: WALLET_ADDRESS
+		}
 	}
 ];
 
@@ -355,6 +361,9 @@ export const offsetStats: OffsetStats = {
 	id: "1-1360-0",
 	amount: "1000",
 	timestamp: "1676365999",
+	by: {
+		id: WALLET_ADDRESS
+	},
 	token: {
 		id: "1",
 		projectId: "1748",
