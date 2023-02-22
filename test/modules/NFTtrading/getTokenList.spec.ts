@@ -20,7 +20,9 @@ describe("GetTokenList", () => {
 		jest.spyOn(getTokenList.httpClient, "post").mockResolvedValueOnce(expectedResult);
 
 		await expect(getTokenList.getTokenList()).rejects.toThrow(
-			new TheaSubgraphError("Subgraph call error", [{ error: "indexing_error" }] as QueryError[])
+			new TheaSubgraphError("Subgraph call error when trying to query tokens", [
+				{ error: "indexing_error" }
+			] as QueryError[])
 		);
 	});
 
