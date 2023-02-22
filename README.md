@@ -227,17 +227,17 @@ theaSDK.setCurrentNBTContractAddress("0x123...");
 ```js
 const priceInWEI = await theaSDK.nftTokenList.getTokenList();
 
-// Sample output 
+// Sample output
 // (Object which keys are projectIDs and values are arrays of tokens that belong to that project)
 {
     "1784": // proojectId
     [       // list of tokens in that project
-        { 
+        {
             "vintage": 2018,
             "tokenID": "1",
             ...
         }
-    ] 
+    ]
 }
 ```
 
@@ -292,8 +292,6 @@ const transactionReceipt = await theaSDK.nftOrderbook.queryOrdersInfo(tokenId, o
 ```
 
 - Query Price Listings - Returns sorted price listing for a given tokenID and side (buy or sell)
-
-
 
 ```js
 const transactionReceipt = await theaSDK.nftOrderbook.queryPriceListing(tokenId, side);
@@ -492,3 +490,153 @@ const transactionReceipt = await theaSDK.nftTrading.enterNFTOrderAtMarket(tokenI
 const transactionReceipt = await theaSDK.nftOrderbook.fillOrder(order, amount);
 ```
 
+## Carbon informations
+
+- Estimate footprint - estimates footprint and returns summary and details about co2 emission for each year per country
+
+```js
+const footprint = theaSDK.carbonInfo.estimateFootprint(1996, [
+    {
+      isoCode: "USA",
+      year: 2003,
+    },
+    {
+      isoCode: "FRA",
+      year: 2008,
+    },
+    {
+      isoCode: "GBR",
+      year: null,
+    },
+  ]);
+
+// Sample output
+{
+    "footprint": 300.6559133529663,
+    "summary": [
+        {
+            "country": "United States",
+            "isoCode": "USA",
+            "from": 1996,
+            "to": 2003,
+            "co2Emission": 166.7100372314453
+        },
+        {
+            "country": "France",
+            "isoCode": "FRA",
+            "from": 2003,
+            "to": 2008,
+            "co2Emission": 40.139599323272705
+        },
+        {
+            "country": "United Kingdom",
+            "isoCode": "GBR",
+            "from": 2008,
+            "to": 2021,
+            "co2Emission": 93.80627679824829
+        }
+    ],
+    "details": [
+        {
+            "year": 1996,
+            "co2Emission": 20.880138397216797,
+            "country": "United States",
+            "isoCode": "USA"
+        },
+        {
+            "year": 1997,
+            "co2Emission": 20.89559555053711,
+            "country": "United States",
+            "isoCode": "USA"
+        }
+        ...
+    ]
+}
+
+// Get list of all country codes
+const countries = theaSDK.carbonInfo.countries()
+```
+
+- Tokenization informations - returns history or stats informations about tokenization
+
+```js
+const tokenizationHistory = await theaSDK.carbonInfo.queryTokenizationHistory();
+
+// Sample output
+[
+    {
+        "id": "1",
+        "projectId": "1748",
+        "vintage": "2019"
+    }
+]
+const tokenizationStats = await theaSDK.carbonInfo.queryTokenizationStats("1");
+
+// Sample output
+{
+    "id": "1",
+    "projectId": "1748",
+    "vintage": "2019",
+    "tokenURI": "1.json",
+    "activeAmount": "99000",
+    "mintedAmount": "100000",
+    "retiredAmount": "1000",
+    "unwrappedAmount": "0"
+}
+```
+
+- Offset informations - returns history or stats informations about offset
+
+```js
+const offsetHistory = await theaSDK.carbonInfo.queryOffsetHistory();
+
+// Sample output
+[
+    {
+        "id": "1-726-0",
+        "amount": "1000",
+        "timestamp": "1677058856"
+    }
+]
+
+const offsetStats = await theaSDK.carbonInfo.queryOffsetStats("1-726-0");
+
+// Sample output
+{
+    "id": "1-726-0",
+    "amount": "1000",
+    "timestamp": "1677058856",
+    "token": {
+        "id": "1",
+        "projectId": "1748",
+        "vintage": "2019",
+        "tokenURI": "1.json",
+        "activeAmount": "99000",
+        "mintedAmount": "100000",
+        "retiredAmount": "1000",
+        "unwrappedAmount": "0"
+    },
+    "by": {
+        "id": "0x123..."
+    }
+}
+```
+
+- User balance - returns balances of ERC20 and ERC1155 tokens for a given wallet address
+
+```js
+const balance = await theaSDK.carbonInfo.getUsersBalance("0x123...");
+
+// Sample output
+{
+    "fungible": {
+        "vintage": "1000",
+        "rating": "1000",
+        "sdg": "1000",
+        "nbt": "80000"
+    },
+    "nft": {
+        "1": "29000"
+    }
+}
+```

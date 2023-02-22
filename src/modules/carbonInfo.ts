@@ -116,7 +116,7 @@ export class CarbonInfo {
 	}
 
 	/**
-	 * Function to give summary history of tokenizations from subgraph
+	 * Returns summary history of tokenizations from subgraph
 	 * @returns TokenizationHistory[] {@link TokenizationHistory}
 	 */
 	async queryTokenizationHistory(): Promise<TokenizationHistory[]> {
@@ -129,7 +129,8 @@ export class CarbonInfo {
 	}
 
 	/**
-	 * Function to give stats info of tokenization by passing ID from subgraph
+	 * Returns stats info of tokenization by passing ID from subgraph
+	 * @param id - id of token
 	 * @returns TokenizationStats {@link TokenizationStats}
 	 */
 	async queryTokenizationStats(id: string): Promise<TokenizationStats> {
@@ -142,7 +143,7 @@ export class CarbonInfo {
 	}
 
 	/**
-	 * Function to give summary history of offsets from subgraph
+	 * Returns summary history of offsets from subgraph
 	 * @returns OffsetHistory[] {@link OffsetHistory}
 	 */
 	async queryOffsetHistory(): Promise<OffsetHistory[]> {
@@ -155,7 +156,8 @@ export class CarbonInfo {
 	}
 
 	/**
-	 * Function to give stats info of offset by passing ID from subgraph
+	 * Returns stats info of offset by passing ID from subgraph
+	 * @param id - id of offset
 	 * @returns OffsetStats {@link OffsetStats}
 	 */
 	async queryOffsetStats(id: string): Promise<OffsetStats> {
