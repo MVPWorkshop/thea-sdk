@@ -68,10 +68,10 @@ export class TheaAPICallError extends TheaError {
 }
 
 export class TheaSubgraphError extends TheaError {
-	readonly queryErrors: QueryError[];
+	readonly queryErrors: string;
 	constructor(readonly message: string, queryErrors: QueryError[]) {
 		super({ type: "SUBGRAPH_CALL_ERROR", message });
-		this.queryErrors = queryErrors;
+		this.queryErrors = JSON.stringify(queryErrors);
 		Object.setPrototypeOf(this, TheaSubgraphError.prototype);
 	}
 }
