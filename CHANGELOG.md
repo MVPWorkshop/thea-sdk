@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.10.2](https://github.com/MVPWorkshop/thea-sdk/compare/v0.10.1...v0.10.2) (2023-02-22)
+
+
+### Bug Fixes
+
+* fix on handling errors from subgraph ([bed41c2](https://github.com/MVPWorkshop/thea-sdk/commit/bed41c228c4c8499eab12659a40aa4339bcaaa01))
+
 ## [0.10.1](https://github.com/MVPWorkshop/thea-sdk/compare/v0.10.0...v0.10.1) (2023-02-21)
 
 
