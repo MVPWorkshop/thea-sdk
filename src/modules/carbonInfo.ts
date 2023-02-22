@@ -65,6 +65,7 @@ export const offsetStatsQuery = (id: string): GraphqlQuery => ({
 				retired(id: $id) {
 					id
 					amount
+					timestamp
 					token {
 						id
 						projectId
@@ -74,6 +75,9 @@ export const offsetStatsQuery = (id: string): GraphqlQuery => ({
 						mintedAmount
 						retiredAmount
 						unwrappedAmount
+					}
+					by {
+						id
 					}
 				}
 			}

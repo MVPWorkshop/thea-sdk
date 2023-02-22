@@ -222,11 +222,17 @@ export type OffsetHistory = {
 	id: string;
 	amount: string;
 	timestamp: string;
+	by: {
+		id: string;
+	};
 };
 export type OffsetStats = {
 	id: string;
 	amount: string;
 	timestamp: string;
+	by: {
+		id: string;
+	};
 	token: TokenizationStats;
 } | null;
 
