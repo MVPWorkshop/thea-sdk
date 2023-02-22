@@ -46,7 +46,11 @@ export class GetTokenList {
 		response: QueryResponse<T> | QueryErrorResponse,
 		responseProperty: keyof T
 	): Response {
-		if ("errors" in response) throw new TheaSubgraphError("Subgraph call error", response.errors as QueryError[]);
+		if ("errors" in response)
+			throw new TheaSubgraphError(
+				`Subgraph call error when trying to query ${responseProperty.toString()}`,
+				response.errors as QueryError[]
+			);
 
 		// eslint-disable-next-line security/detect-object-injection
 		return response.data[responseProperty] as Response;

@@ -173,13 +173,16 @@ export class CarbonInfo {
 	 * @returns UserBalance {@link UserBalance}
 	 */
 	async getUsersBalance(walletAddress: string): Promise<UserBalance> {
-		this.queryOffsetStats;
 		const response = await this.httpClient.post<
 			GraphqlQuery,
 			QueryResponse<{ theaERC1155Balances: TheaERC1155Balance[] }> | QueryErrorResponse
 		>("", theaERC1155BalancesQuery(walletAddress));
 
-		if ("errors" in response) throw new TheaSubgraphError("Subgraph call error", response.errors as QueryError[]);
+		if ("errors" in response)
+			throw new TheaSubgraphError(
+				`Subgraph call error when trying to query theaERC1155Balances`,
+				response.errors as QueryError[]
+			);
 
 		const balances = response.data.theaERC1155Balances;
 
@@ -246,7 +249,11 @@ export class CarbonInfo {
 		response: QueryResponse<T> | QueryErrorResponse,
 		responseProperty: keyof T
 	): Response {
-		if ("errors" in response) throw new TheaSubgraphError("Subgraph call error", response.errors as QueryError[]);
+		if ("errors" in response)
+			throw new TheaSubgraphError(
+				`Subgraph call error when trying to query ${responseProperty.toString()}`,
+				response.errors as QueryError[]
+			);
 
 		// eslint-disable-next-line security/detect-object-injection
 		return response.data[responseProperty] as Response;

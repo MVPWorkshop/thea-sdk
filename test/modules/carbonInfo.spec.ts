@@ -172,7 +172,9 @@ describe("Carbon info", () => {
 			jest.spyOn(carbonInfo.httpClient, "post").mockResolvedValueOnce(expectedResult);
 
 			await expect(carbonInfo.queryTokenizationHistory()).rejects.toThrow(
-				new TheaSubgraphError("Subgraph call error", [{ error: "indexing_error" }] as QueryError[])
+				new TheaSubgraphError("Subgraph call error when trying to query tokens", [
+					{ error: "indexing_error" }
+				] as QueryError[])
 			);
 		});
 
@@ -214,7 +216,9 @@ describe("Carbon info", () => {
 			jest.spyOn(carbonInfo.httpClient, "post").mockResolvedValueOnce(expectedResult);
 
 			await expect(carbonInfo.queryOffsetHistory()).rejects.toThrow(
-				new TheaSubgraphError("Subgraph call error", [{ error: "indexing_error" }] as QueryError[])
+				new TheaSubgraphError("Subgraph call error when trying to query retireds", [
+					{ error: "indexing_error" }
+				] as QueryError[])
 			);
 		});
 
@@ -259,7 +263,9 @@ describe("Carbon info", () => {
 			const expectedResult = { errors: [{ error: "indexing_error" }] };
 			jest.spyOn(carbonInfo.httpClient, "post").mockResolvedValueOnce(expectedResult);
 			await expect(carbonInfo.getUsersBalance(WALLET_ADDRESS)).rejects.toThrow(
-				new TheaSubgraphError("Subgraph call error", [{ error: "indexing_error" }] as QueryError[])
+				new TheaSubgraphError("Subgraph call error when trying to query theaERC1155Balances", [
+					{ error: "indexing_error" }
+				] as QueryError[])
 			);
 		});
 	});
