@@ -58,7 +58,7 @@ export class TheaSDK {
 	/**
 	 * Function to initialize TheaSDK. It accepts a variety of options to instantiate provider or signer which will be used
 	 * to call Thea protocol.
-	 * @param options.network Thea network to connect to {@link TheaNetwork}
+	 * @param options.network Thea network to connect to @see TheaNetwork
 	 * @param options.provider Any ethers provider
 	 * @param options.privateKey Private key for instantiating a wallet
 	 * @param options.signer Passed as ethers.Signer (ethers.Wallet)

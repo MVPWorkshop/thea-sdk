@@ -43,7 +43,7 @@ export class Offset extends ContractWrapper<IRegistryContract> {
 	 * function after processing and validating the recovery and retire of VCC is successful.
 	 * @param vintage - vintage of NBT token
 	 * @param amount - amount of NBT token to retire
-	 * @returns RequestId & ContractReceipt  {@link RequestId}
+	 * @returns RequestId & ContractReceipt  @see RequestId
 	 */
 	async offsetFungible(vintage: number, amount: BigNumberish): Promise<ContractReceipt & RequestId> {
 		signerRequired(this.providerOrSigner);
@@ -73,7 +73,7 @@ export class Offset extends ContractWrapper<IRegistryContract> {
 	/**
 	 * Callback function to extract request ID from the `UnwrapRequested` event
 	 * @param events
-	 * @returns {@link RequestId}
+	 * @returns @see RequestId
 	 */
 	extractRequestIdFromEvent(events?: Event[]): RequestId {
 		const response: RequestId = { requestId: undefined };

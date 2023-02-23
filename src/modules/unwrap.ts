@@ -17,7 +17,7 @@ export class Unwrap extends ContractWrapper<IRegistryContract> {
 	 * @param tokenId id of the VCC token
 	 * @param amount amount of tokens to unwrap
 	 * @param offchainAccount offchain account to transfer the tokens to
-	 * @returns RequestId & ContractReceipt  {@link RequestId}
+	 * @returns RequestId & ContractReceipt  @see RequestId
 	 */
 	async unwrapToken(
 		tokenId: BigNumberish,
@@ -47,7 +47,7 @@ export class Unwrap extends ContractWrapper<IRegistryContract> {
 	/**
 	 * Returns the state of the unwrap token request. It calls the `requests` mapping of the Registry contract.
 	 * @param `requestId` id of the request
-	 * @returns UnwrapTokenState {@link UnwrapTokenState}
+	 * @returns UnwrapTokenState @see UnwrapTokenState
 	 */
 	async getUnwrapTokenState(requestId: BigNumberish): Promise<UnwrapTokenState> {
 		this.requestIdShouldBeGTZero(requestId);
@@ -77,7 +77,7 @@ export class Unwrap extends ContractWrapper<IRegistryContract> {
 	/**
 	 * Callback function to extract request ID from the `UnwrapRequested` event
 	 * @param events
-	 * @returns {@link RequestId}
+	 * @returns @see RequestId
 	 */
 	extractRequestIdFromEvent(events?: Event[]): RequestId {
 		const response: RequestId = { requestId: undefined };

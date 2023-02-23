@@ -117,7 +117,7 @@ export class CarbonInfo {
 
 	/**
 	 * Returns summary history of tokenizations from subgraph
-	 * @returns TokenizationHistory[] {@link TokenizationHistory}
+	 * @returns TokenizationHistory[] @see TokenizationHistory
 	 */
 	async queryTokenizationHistory(): Promise<TokenizationHistory[]> {
 		const response = await this.httpClient.post<
@@ -131,7 +131,7 @@ export class CarbonInfo {
 	/**
 	 * Returns stats info of tokenization by passing ID from subgraph
 	 * @param id - id of token
-	 * @returns TokenizationStats {@link TokenizationStats}
+	 * @returns TokenizationStats @see TokenizationStats
 	 */
 	async queryTokenizationStats(id: string): Promise<TokenizationStats> {
 		const response = await this.httpClient.post<
@@ -144,7 +144,7 @@ export class CarbonInfo {
 
 	/**
 	 * Returns summary history of offsets from subgraph
-	 * @returns OffsetHistory[] {@link OffsetHistory}
+	 * @returns OffsetHistory[] @see OffsetHistory
 	 */
 	async queryOffsetHistory(): Promise<OffsetHistory[]> {
 		const response = await this.httpClient.post<
@@ -158,7 +158,7 @@ export class CarbonInfo {
 	/**
 	 * Returns stats info of offset by passing ID from subgraph
 	 * @param id - id of token
-	 * @returns OffsetStats {@link OffsetStats}
+	 * @returns OffsetStats @see OffsetStats
 	 */
 	async queryOffsetStats(id: string): Promise<OffsetStats[]> {
 		const response = await this.httpClient.post<
@@ -172,7 +172,7 @@ export class CarbonInfo {
 	/**
 	 * Returns balances of ERC20 and ERC1155 tokens for a given wallet address
 	 * @param walletAddress - wallet address of user
-	 * @returns UserBalance {@link UserBalance}
+	 * @returns UserBalance @see UserBalance
 	 */
 	async getUsersBalance(walletAddress: string): Promise<UserBalance> {
 		const response = await this.httpClient.post<
@@ -267,7 +267,7 @@ export class CarbonInfo {
 	 * @param yearOfBirth Year of birth of the person for which we are calculating co2 emission
 	 * @param query Array of countries and years
 	 * @param query.year Year of specified country to which we are calculating co2 emission. If null, it will use the last year in the dataset
-	 * @param query.isoCode ISO code of the country {@link ISO_CODES}
+	 * @param query.isoCode ISO code of the country @see ISO_CODES
 	 * @returns
 	 */
 	estimateFootprint(yearOfBirth: number, query: FootprintQuery[]): EstimatedFootprint {
