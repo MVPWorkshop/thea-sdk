@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.11.0](https://github.com/MVPWorkshop/thea-sdk/compare/v0.10.2...v0.11.0) (2023-02-23)
+
+
+### Features
+
+* offset fungible ([4a76353](https://github.com/MVPWorkshop/thea-sdk/commit/4a76353e5b726c8c4d2281b8be047e4a189e5a5d))
+
 ## [0.10.2](https://github.com/MVPWorkshop/thea-sdk/compare/v0.10.1...v0.10.2) (2023-02-22)
 
 
