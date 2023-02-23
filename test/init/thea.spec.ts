@@ -127,6 +127,19 @@ describe("TheaSDK", () => {
 			expect(result.providerOrSigner).toBeInstanceOf(Wallet);
 		});
 
+		it("should return TheaSDK instance when currentNBToken address is passed", async () => {
+			const signer = new Wallet(PRIVATE_KEY, new InfuraProvider());
+			const result = await TheaSDK.init({
+				network: TheaNetwork.MUMBAI,
+				signer,
+				currentNBTokenAddress: "0x5FbDB2315678afecb367f032d93F642f64180aa3"
+			});
+
+			expect(result).toBeInstanceOf(TheaSDK);
+			expect(result.network).toBe(TheaNetwork.MUMBAI);
+			expect(result.providerOrSigner).toBeInstanceOf(Wallet);
+		});
+
 		it("should return TheaSDK instance using private key", async () => {
 			const result = await TheaSDK.init({
 				network: TheaNetwork.MUMBAI,

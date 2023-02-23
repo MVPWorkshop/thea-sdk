@@ -25,6 +25,7 @@ export type InitOptions = {
 	privateKey?: string;
 	signer?: Signer;
 	web3Provider?: Web3Provider;
+	currentNBTokenAddress?: string;
 };
 
 export class TheaSDK {
@@ -99,10 +100,14 @@ export class TheaSDK {
 				message: `Provided network is ${options.network} but provider is connected to ${providerNetwork} network`
 			});
 
-		consts[`${options.network}`].currentNbtTokenContract = await getCurrentNBTTokenAddress(
-			options.network,
-			providerOrSigner
-		);
+		if (options.currentNBTokenAddress) {
+			consts[`${options.network}`].currentNbtTokenContract = options.currentNBTokenAddress;
+		} else {
+			consts[`${options.network}`].currentNbtTokenContract = await getCurrentNBTTokenAddress(
+				options.network,
+				providerOrSigner
+			);
+		}
 		return new TheaSDK(providerOrSigner, options.network);
 	}
 
