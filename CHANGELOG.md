@@ -1,5 +1,16 @@
 # Changelog
 
+## [0.11.2](https://github.com/MVPWorkshop/thea-sdk/compare/v0.11.1...v0.11.2) (2023-02-23)
+
+
+### Bug Fixes
+
+* currentNBTokenAddress as a optional parameter for sdk initialization ([2f30e35](https://github.com/MVPWorkshop/thea-sdk/commit/2f30e350fb8d5dd1b5a6ca2121caaa563527e1d5))
+* extra test removed ([e01397e](https://github.com/MVPWorkshop/thea-sdk/commit/e01397e2f3141d548ae30d75a64e761e688243de))
+* get current NBT on thea sdk initialization ([cf79f9e](https://github.com/MVPWorkshop/thea-sdk/commit/cf79f9e11e0a8c56b13bbb5ec4120a788a52fae5))
+* getERC20ContractAddress checck removed for currnet nbt ([056ac41](https://github.com/MVPWorkshop/thea-sdk/commit/056ac41ac66bf7abb4ac3015ab61ba096cedd17c))
+* spender in roll tokens approve ([4a96d31](https://github.com/MVPWorkshop/thea-sdk/commit/4a96d314a73b4970f15ca2c50fad352f39ce03cf))
+
 ## [0.11.1](https://github.com/MVPWorkshop/thea-sdk/compare/v0.11.0...v0.11.1) (2023-02-23)
 
 
