@@ -10,13 +10,13 @@ export class Tokenization {
 
 	/**
 	 * Requests tokenization
-	 * @param registry {@link TokenizationSource}
+	 * @param registry @see TokenizationSource
 	 * @param accountId - `Subaccount ID`
 	 * @param batchId
 	 * @param client.email
 	 * @param client.ethAddr
 	 * @param client.fullName
-	 * @returns TokenizationState {@link TokenizationState}
+	 * @returns TokenizationState @see TokenizationState
 	 */
 	requestTokenization(
 		registry: TokenizationSource,
@@ -33,7 +33,7 @@ export class Tokenization {
 	/**
 	 * Used to claim tokens after tokenization request is performed and admin approves it
 	 * @param tokenizationId - Tokenization ID
-	 * @returns TokenizationState {@link TokenizationState}
+	 * @returns TokenizationState @see TokenizationState
 	 */
 	tokenize(tokenizationId: string): Promise<TokenizationState> {
 		this.validateTokenizationId(tokenizationId);
@@ -44,7 +44,7 @@ export class Tokenization {
 	/**
 	 * Query tokenization state by tokenization ID
 	 * @param tokenizationId
-	 * @returns TokenizationState {@link TokenizationState}
+	 * @returns TokenizationState @see TokenizationState
 	 */
 	getTokenizationState(tokenizationId: string): Promise<TokenizationState> {
 		this.validateTokenizationId(tokenizationId);
@@ -53,11 +53,11 @@ export class Tokenization {
 
 	/**
 	 * Tokenization request builder function. Returns `TokenizationRequest` and validates input fields
-	 * @param source - {@link TokenizationSource}
+	 * @param source - @see TokenizationSource
 	 * @param accountId - Subaccount ID
 	 * @param batchId
 	 * @param client - client details
-	 * @returns TokenizationRequest {@link TokenizationRequest}
+	 * @returns TokenizationRequest @see TokenizationRequest
 	 */
 	private buildTokenizationRequest(
 		source: TokenizationSource,

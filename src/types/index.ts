@@ -39,7 +39,7 @@ export type ExactInputSingleParams = {
 	sqrtPriceLimitX96: BigNumberish;
 };
 
-type FungibleERC20Options = {
+export type FungibleERC20Options = {
 	tokenIn: TheaERC20Token;
 	amountIn: BigNumberish;
 };

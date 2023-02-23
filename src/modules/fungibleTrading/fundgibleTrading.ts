@@ -71,7 +71,7 @@ export class FungibleTrading {
 	}
 	/**
 	 * Get token price by querying specific pair's pool
-	 * @param token - token in {@link TheaERC20Token}
+	 * @param token - token in @see TheaERC20Token
 	 * @param amount - amount of token in
 	 * @returns - amount of token out in WEI
 	 */

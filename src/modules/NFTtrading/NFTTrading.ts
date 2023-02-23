@@ -464,8 +464,8 @@ export class NFTTrading extends ContractWrapper<IZeroExContract> {
 	/**
 	 * Generates a 256bit nonce.
 	 * The format:
-	 *   First 128bits:  ${SDK_PREFIX}${APP_ID}000000 (right padded zeroes to fill)
-	 *   Second 128bits: ${RANDOM_GENERATED_128BIT_ORDER_HASH}
+	 * @example First 128bits:  ${SDK_PREFIX}${APP_ID}000000 (right padded zeroes to fill)
+	 * @example Second 128bits: ${RANDOM_GENERATED_128BIT_ORDER_HASH}
 	 * @returns 128bit nonce as string (0x orders can handle up to 256 bit nonce)
 	 */
 	generateRandomV4OrderNonce(appId: string = DEFAULT_APP_ID): string {
