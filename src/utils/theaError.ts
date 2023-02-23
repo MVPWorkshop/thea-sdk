@@ -36,7 +36,8 @@ export type ErrorType =
 	| "INVALID_CHUNK_SIZE"
 	| "SIGNER_REQUIRES_PROVIDER"
 	| "MISSING_CURRENT_NBT_CONTRACT_ADDRESSS"
-	| "SUBGRAPH_CALL_ERROR";
+	| "SUBGRAPH_CALL_ERROR"
+	| "TOKEN_NOT_FOUND";
 
 export type ErrorProps = {
 	type: ErrorType;

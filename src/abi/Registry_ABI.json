@@ -136,6 +136,61 @@
 			],
 			"stateMutability": "nonpayable",
 			"type": "function"
+		},
+		{
+			"inputs": [
+				{
+					"internalType": "uint256",
+					"name": "vintage",
+					"type": "uint256"
+				},
+				{
+					"internalType": "uint256",
+					"name": "amount",
+					"type": "uint256"
+				}
+			],
+			"name": "requestRetireFungible",
+			"outputs": [
+				{
+					"internalType": "uint256",
+					"name": "requestId",
+					"type": "uint256"
+				}
+			],
+			"stateMutability": "nonpayable",
+			"type": "function"
+		},
+		{
+			"anonymous": false,
+			"inputs": [
+				{
+					"indexed": true,
+					"internalType": "uint256",
+					"name": "requestId",
+					"type": "uint256"
+				},
+				{
+					"indexed": false,
+					"internalType": "contract BaseERC20",
+					"name": "baseToken",
+					"type": "address"
+				},
+				{
+					"indexed": false,
+					"internalType": "uint256",
+					"name": "amount",
+					"type": "uint256"
+				},
+				{
+					"indexed": false,
+					"internalType": "address",
+					"name": "maker",
+					"type": "address"
+				}
+			],
+			"name": "RetireFungibleRequested",
+			"type": "event"
 		}
 	]
 }

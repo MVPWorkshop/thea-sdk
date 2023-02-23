@@ -57,7 +57,7 @@ export type SwapOptions = {
 	deadline?: number; // Unix timestamp
 	recipient?: string;
 };
-export type UnwrapRequestId = { requestId?: string };
+export type RequestId = { requestId?: string };
 
 export enum TokenizationStatus {
 	IN_QUEUE = "IN_QUEUE",
