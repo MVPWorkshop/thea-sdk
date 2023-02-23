@@ -66,15 +66,8 @@ export const getERC20ContractAddress = (token: TheaERC20Token, network: TheaNetw
 			return consts[`${network}`].vintageTokenContract;
 		case "Stable":
 			return consts[`${network}`].stableTokenContract;
-		case "CurrentNBT": {
-			const currentNbtTokenContract = consts[`${network}`].currentNbtTokenContract;
-			if (!currentNbtTokenContract)
-				throw new TheaError({
-					type: "MISSING_CURRENT_NBT_CONTRACT_ADDRESSS",
-					message: `Missing CurrentNBT contract address for ${network} chain id. Please use setCurrentNBTContractAddress to set address !`
-				});
-			return currentNbtTokenContract;
-		}
+		case "CurrentNBT":
+			return consts[`${network}`].currentNbtTokenContract;
 		default:
 			return consts[`${network}`].ratingTokenContract;
 	}
