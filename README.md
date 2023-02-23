@@ -176,6 +176,21 @@ const tokenizationState = await theaSDK.tokenization.getTokenizationState(tokeni
 const tokenizationState = await theaSDK.tokenization.tokenize(tokenizationId);
 ```
 
+## Offset module
+
+- Offset NFT - offsets specified amount of ERC1155 token
+
+```js
+const transactionReceipt = await theaSDK.offset.offsetNFT(1, "2000");
+```
+
+- Offset fungible - offsets specified amount of ERC20 token for specified vintage
+
+```js
+// Returns requestId in transaction receipt
+const transactionReceipt = await theaSDK.offset.offsetFungible(2017, "2000");
+```
+
 ## Fungible trading
 
 - Query token price - Used to fetch best price by calling Uniswap's V3 Quoter contract
