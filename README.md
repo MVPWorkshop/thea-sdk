@@ -26,6 +26,22 @@ const theaSDK = await TheaSDK.init({
 	signer: new Wallet(privateKey, provider)
 });
 ```
+You can also pass in a current NBT address as an optional parameter to the SDK initialization. If you don't pass in a current NBT address, the SDK will fetch current base token addres from BaseTokenManager SC. Here is an example of passing in a current NBT address as a parameter:
+
+```js
+// Server side init with signer and current NBT address
+const theaSDK = await TheaSDK.init({
+	network: TheaNetwork.MUMBAI,
+	signer: new Wallet(privateKey, provider),
+    currentNBTokenAddress: "0x123..."
+});
+```
+
+- **Note!** You can set new `CurrentNBT` token address anytime by calling:
+
+```js
+theaSDK.setCurrentNBTContractAddress("0x123...");
+```
 
 ## Convert module
 
@@ -227,12 +243,6 @@ const transactionReceipt = await theaSDK.fungibleTrading.swapTokens({
 	tokenOut: "SDG",
 	amountIn: "1000000000000000000"
 });
-```
-
-- **Note!** In order to use `CurrentNBT` token in swap or query token price methods you will have to specify his current address. You can do that by calling:
-
-```js
-theaSDK.setCurrentNBTContractAddress("0x123...");
 ```
 
 ## NFT orderbook
