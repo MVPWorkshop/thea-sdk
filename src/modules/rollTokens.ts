@@ -38,7 +38,7 @@ export class RollBaseTokens extends ContractWrapper<IBaseTokenManagerContract> {
 		const spender = this.contractDetails.address;
 
 		// Approve old base tokens
-		await token.approveERC20(owner, this.contractDetails.address, amount);
+		await token.approveERC20(owner, spender, amount);
 
 		await approve(this.providerOrSigner as Signer, this.network, {
 			token: "ERC20",
