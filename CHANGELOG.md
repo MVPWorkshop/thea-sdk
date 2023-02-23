@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.11.1](https://github.com/MVPWorkshop/thea-sdk/compare/v0.11.0...v0.11.1) (2023-02-23)
+
+
+### Bug Fixes
+
+* local addresses updated ([3c477d1](https://github.com/MVPWorkshop/thea-sdk/commit/3c477d14b062e28a9c6d3cc1f441f5632ace1a1a))
+
 ## [0.11.0](https://github.com/MVPWorkshop/thea-sdk/compare/v0.10.2...v0.11.0) (2023-02-23)
 
 
