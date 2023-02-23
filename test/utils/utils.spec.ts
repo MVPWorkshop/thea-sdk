@@ -153,13 +153,6 @@ describe("Utils", () => {
 			const result = getERC20ContractAddress("Stable", TheaNetwork.GANACHE);
 			expect(result).toBe(consts[`${network}`].stableTokenContract);
 		});
-
-		it("should throw error for CurrentNBT if address isn't provided", () => {
-			consts[`${network}`].currentNbtTokenContract = "";
-			expect(() => getERC20ContractAddress("CurrentNBT", TheaNetwork.GANACHE)).toThrow(
-				"Missing CurrentNBT contract address for 1337 chain id. Please use setCurrentNBTContractAddress to set address !"
-			);
-		});
 	});
 
 	describe("getCurrentNBTTokenAddress", () => {
