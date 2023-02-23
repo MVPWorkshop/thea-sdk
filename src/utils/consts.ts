@@ -75,13 +75,13 @@ export const consts: { [key in TheaNetwork]: EnvConfig } = {
 	[TheaNetwork.GANACHE]: {
 		networkName: "GANACHE",
 		registryContract: "0x686AfD6e502A81D2e77f2e038A23C0dEf4949A20",
-		theaERC1155Contract: "0x2E1f232a9439C3D459FcEca0BeEf13acc8259Dd8",
+		theaERC1155Contract: "0xe135783649BfA7c9c4c6F8E528C7f56166efC8a6",
 		vintageTokenContract: "0x686AfD6e502A81D2e77f2e038A23C0dEf4949A20",
 		sdgTokenContract: "0x43D1F9096674B5722D359B6402381816d5B22F28",
 		ratingTokenContract: "0x4261D524bc701dA4AC49339e5F8b299977045eA5",
 		currentNbtTokenContract: "", // Call setCurrentNBTContractAddress to set address at init/thea.ts
 		baseTokenManagerContract: "0x95C8f889701f20b624875a5188bEbDc9289b4F51",
-		baseTokenManagerDeployerContract: "0x3ace09bba3b8507681146252d3dd33cd4e2d4f63",
+		baseTokenManagerDeployerContract: "0x63491c5363329afb6f370E9D297025481E0277e6",
 		stableTokenContract: "0x6B175474E89094C44Da98b954EedeAC495271d0F", //DAI
 		quoterContract: "0xb27308f9F90D607463bb33eA1BeBb41C27CE5AB6",
 		swapRouterContract: "0xE592427A0AEce92De3Edee1F18E0157C05861564",
