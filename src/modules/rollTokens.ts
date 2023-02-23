@@ -1,9 +1,9 @@
 import { ProviderOrSigner, IBaseTokenManagerContract, ConvertEvent, TheaNetwork, RollTokensEvent } from "../types";
-import { ContractWrapper, signerRequired, Events, consts, amountShouldBeGTZero } from "../utils";
+import { ContractWrapper, signerRequired, Events, consts, amountShouldBeGTZero, TheaError, getAddress } from "../utils";
 import BaseTokenManager_ABI from "../abi/BaseTokenManager_ABI.json";
-import { BigNumberish } from "@ethersproject/bignumber";
+import { BigNumber, BigNumberish } from "@ethersproject/bignumber";
 import { ContractReceipt, Event } from "@ethersproject/contracts";
-import { approve, checkBalance, executeWithResponse } from "./shared";
+import { approve, checkBalance, executeWithResponse, TheaERC20 } from "./shared";
 import { Signer } from "@ethersproject/abstract-signer";
 
 export class RollBaseTokens extends ContractWrapper<IBaseTokenManagerContract> {
@@ -21,11 +21,14 @@ export class RollBaseTokens extends ContractWrapper<IBaseTokenManagerContract> {
 		signerRequired(this.providerOrSigner);
 		amountShouldBeGTZero(amount);
 
-		await checkBalance(this.providerOrSigner as Signer, this.network, {
-			token: "ERC20",
-			amount,
-			tokenName: "CurrentNBT"
-		});
+		const address = await this.getBaseTokenAddressByVintage(parseInt(vintage.toString()));
+
+		const token = new TheaERC20(this.providerOrSigner, address);
+		const owner = await getAddress(this.providerOrSigner as Signer);
+
+		// Check balance of old base tokens
+		await token.checkERC20Balance(owner, amount);
+
 		await checkBalance(this.providerOrSigner as Signer, this.network, {
 			token: "ERC20",
 			amount,
@@ -33,12 +36,9 @@ export class RollBaseTokens extends ContractWrapper<IBaseTokenManagerContract> {
 		});
 
 		const spender = this.contractDetails.address;
-		await approve(this.providerOrSigner as Signer, this.network, {
-			token: "ERC20",
-			spender,
-			amount,
-			tokenName: "CurrentNBT"
-		});
+
+		// Approve old base tokens
+		await token.approveERC20(owner, this.contractDetails.address, amount);
 
 		await approve(this.providerOrSigner as Signer, this.network, {
 			token: "ERC20",
@@ -69,5 +69,13 @@ export class RollBaseTokens extends ContractWrapper<IBaseTokenManagerContract> {
 		}
 
 		return response;
+	}
+
+	private async getBaseTokenAddressByVintage(vintage: number): Promise<string> {
+		const address = await this.contract.baseTokens(vintage);
+		if (BigNumber.from(address).isZero())
+			throw new TheaError({ type: "TOKEN_NOT_FOUND", message: `Token by ${vintage} vintage not found` });
+
+		return address;
 	}
 }

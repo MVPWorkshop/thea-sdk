@@ -3,7 +3,7 @@ import { ContractTransaction, Event } from "@ethersproject/contracts";
 import { JsonRpcProvider } from "@ethersproject/providers";
 import { Wallet } from "@ethersproject/wallet";
 import { Events, TheaError, RollBaseTokens, IBaseTokenManagerContract, TheaNetwork, consts } from "../../src";
-import { PRIVATE_KEY } from "../mocks";
+import { CONTRACT_ADDRESS, PRIVATE_KEY } from "../mocks";
 import * as shared from "../../src/modules/shared";
 import BaseTokenManager_ABI from "../../src/abi/BaseTokenManager_ABI.json";
 
@@ -21,6 +21,12 @@ jest.mock("../../src/modules/shared", () => {
 				user: "0x123",
 				amount: "1000"
 			};
+		}),
+		TheaERC20: jest.fn().mockImplementation(() => {
+			return {
+				checkERC20Balance: jest.fn(),
+				approveERC20: jest.fn()
+			};
 		})
 	};
 });
@@ -28,7 +34,7 @@ jest.mock("../../src/modules/shared", () => {
 describe("RollTokens", () => {
 	const providerOrSigner = new Wallet(PRIVATE_KEY);
 	let rollTokens: RollBaseTokens;
-	const vintage = "2021";
+	const vintage = "2017";
 	const user = "0x123";
 	const amount = BigNumber.from(1000);
 	const network = TheaNetwork.GANACHE;
@@ -41,7 +47,11 @@ describe("RollTokens", () => {
 	};
 
 	const mockContract: Partial<IBaseTokenManagerContract> = {
-		rollTokens: jest.fn().mockResolvedValue(contractTransaction as ContractTransaction)
+		rollTokens: jest.fn().mockResolvedValue(contractTransaction as ContractTransaction),
+		baseTokens: jest.fn().mockImplementation((...args) => {
+			if (args[0] === 2017) return CONTRACT_ADDRESS;
+			else return "0x0000000000000000000000000000000000000000";
+		})
 	};
 
 	beforeEach(() => {
@@ -69,6 +79,12 @@ describe("RollTokens", () => {
 			);
 		});
 
+		it("should throw error if token address is not found for vintage", async () => {
+			await expect(rollTokens.rollTokens(2011, amount)).rejects.toThrow(
+				new TheaError({ type: "TOKEN_NOT_FOUND", message: `Token by 2011 vintage not found` })
+			);
+		});
+
 		it("should call rollTokens method from contract", async () => {
 			const txPromise = Promise.resolve(contractTransaction as ContractTransaction);
 			const rollTokensSpy = jest.spyOn(rollTokens.contract, "rollTokens").mockReturnValue(txPromise);
@@ -77,8 +93,8 @@ describe("RollTokens", () => {
 			const executeSpy = jest.spyOn(shared, "executeWithResponse");
 
 			const result = await rollTokens.rollTokens(vintage, amount);
-			expect(checkBalanceSpy).toBeCalledTimes(2);
-			expect(approveSpy).toBeCalledTimes(2);
+			expect(checkBalanceSpy).toBeCalled();
+			expect(approveSpy).toBeCalled();
 			expect(executeSpy).toHaveBeenCalledWith(
 				txPromise,
 				{

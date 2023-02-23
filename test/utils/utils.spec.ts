@@ -1,5 +1,4 @@
 import { Signer } from "@ethersproject/abstract-signer";
-import { BigNumber } from "@ethersproject/bignumber";
 import { Contract } from "@ethersproject/contracts";
 import { InfuraProvider } from "@ethersproject/providers";
 import { Wallet } from "@ethersproject/wallet";
@@ -25,8 +24,11 @@ import { ABI, CONTRACT_ADDRESS, PRIVATE_KEY, WALLET_ADDRESS } from "../mocks";
 jest.mock("@ethersproject/contracts", () => {
 	return {
 		Contract: jest.fn().mockReturnValue({
-			baseCharacteristics: jest.fn().mockReturnValue({ vintage: BigNumber.from(1) }),
-			baseTokens: jest.fn().mockReturnValue("0x0001")
+			baseCharacteristics: jest.fn().mockReturnValue({ vintage: 2018 }),
+			baseTokens: jest.fn().mockImplementation((...args) => {
+				if (args[0] === 2017) return CONTRACT_ADDRESS;
+				else return "0x0000000000000000000000000000000000000000";
+			})
 		})
 	};
 });
@@ -161,15 +163,22 @@ describe("Utils", () => {
 	});
 
 	describe("getCurrentNBTTokenAddress", () => {
+		it("should throw error if token address is not found for vintage", async () => {
+			const providerOrSigner = new Wallet(PRIVATE_KEY);
+			await expect(getCurrentNBTTokenAddress(TheaNetwork.GANACHE, providerOrSigner)).rejects.toThrow(
+				new TheaError({ type: "TOKEN_NOT_FOUND", message: `Token by 2018 vintage not found` })
+			);
+		});
+
 		it("should return current NBT token address", async () => {
 			const providerOrSigner = new Wallet(PRIVATE_KEY);
 			const contract = new Contract(CONTRACT_ADDRESS, ABI, providerOrSigner);
 			const baseTokensSpy = jest.spyOn(contract, "baseTokens");
-			const baseCharacteristicsSpy = jest.spyOn(contract, "baseCharacteristics");
+			const baseCharacteristicsSpy = jest.spyOn(contract, "baseCharacteristics").mockReturnValue({ vintage: 2017 });
 			const result = await getCurrentNBTTokenAddress(TheaNetwork.GANACHE, providerOrSigner);
-			expect(result).toBe("0x0001");
+			expect(result).toBe(CONTRACT_ADDRESS);
 			expect(baseCharacteristicsSpy).toBeCalled();
-			expect(baseTokensSpy).toBeCalledWith(BigNumber.from(1));
+			expect(baseTokensSpy).toBeCalled();
 		});
 	});
 

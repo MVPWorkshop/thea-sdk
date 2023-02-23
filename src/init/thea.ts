@@ -16,7 +16,7 @@ import {
 	RollBaseTokens
 } from "../modules";
 import { TheaNetwork, ProviderOrSigner } from "../types";
-import { consts, isProvider, isSigner, TheaError, validateAddress } from "../utils";
+import { consts, getCurrentNBTTokenAddress, isProvider, isSigner, TheaError, validateAddress } from "../utils";
 
 // SDK initialization options
 export type InitOptions = {
@@ -99,6 +99,10 @@ export class TheaSDK {
 				message: `Provided network is ${options.network} but provider is connected to ${providerNetwork} network`
 			});
 
+		consts[`${options.network}`].currentNbtTokenContract = await getCurrentNBTTokenAddress(
+			options.network,
+			providerOrSigner
+		);
 		return new TheaSDK(providerOrSigner, options.network);
 	}
 

@@ -87,7 +87,10 @@ export const getCurrentNBTTokenAddress = async (network: TheaNetwork, providerOr
 		providerOrSigner
 	) as IBaseTokenManagerContract;
 	const { vintage } = await baseTokenManagerContract.baseCharacteristics();
-	return baseTokenManagerContract.baseTokens(vintage);
+	const address = await baseTokenManagerContract.baseTokens(vintage);
+	if (BigNumber.from(address).isZero())
+		throw new TheaError({ type: "TOKEN_NOT_FOUND", message: `Token by ${vintage} vintage not found` });
+	return address;
 };
 
 export const amountShouldBeGTZero = (amount: BigNumberish): void => {
