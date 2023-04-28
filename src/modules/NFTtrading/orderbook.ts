@@ -65,11 +65,11 @@ export class Orderbook {
 				orderToBeFilled: element.order
 			} as PriceListings;
 		});
-		if (side == "sell") {
-			return priceList.sort((a, b) => a.priceForOneNFT - b.priceForOneNFT);
-		} else {
-			return priceList.sort((a, b) => b.priceForOneNFT - a.priceForOneNFT);
-		}
+		const comparator = (side === "sell")
+			? (a, b) => a.priceForOneNFT - b.priceForOneNFT
+			: (a, b) => b.priceForOneNFT - a.priceForOneNFT;
+
+		return priceList.sort(comparator);
 	}
 	async postOrder(signedOrder: SignedERC1155OrderStruct) {
 		const payload: PostOrderRequestPayload = {
