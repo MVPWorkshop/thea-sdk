@@ -69,45 +69,35 @@ export class TheaSDK {
 	static async init(options: InitOptions): Promise<TheaSDK> {
 		let providerOrSigner: ProviderOrSigner;
 
-		if (options.web3Provider) providerOrSigner = options.web3Provider.getSigner() as Signer & TypedDataSigner;
-		else if (options.signer) {
-			if (!options.signer.provider)
-				throw new TheaError({ type: "SIGNER_REQUIRES_PROVIDER", message: "Signer must be have provider" });
+		if (options.web3Provider) {
+			providerOrSigner = options.web3Provider.getSigner() as Signer & TypedDataSigner;
+		} else if (options.signer && options.signer.provider) {
 			providerOrSigner = options.signer;
-		} else if (options.privateKey) {
-			if (!options.provider) {
-				throw new TheaError({
-					type: "MISSING_PROVIDER",
-					message: "You must pass in a provider together with private key"
-				});
-			}
+		} else if (options.privateKey && options.provider) {
 			providerOrSigner = new Wallet(options.privateKey, options.provider);
-		} else if (options.provider) providerOrSigner = options.provider;
-		else throw new TheaError({ type: "EMPTY_OPTIONS", message: "Non of optional parameters were provided" });
-
-		let providerNetwork;
-		if (isSigner(providerOrSigner)) {
-			const chainId = await (providerOrSigner as Signer).getChainId();
-			providerNetwork = chainId;
-		} else if (isProvider(providerOrSigner)) {
-			const { chainId } = await (providerOrSigner as Provider).getNetwork();
-			providerNetwork = chainId;
+		} else if (options.provider) {
+			providerOrSigner = options.provider;
+		} else {
+			throw new TheaError({ type: "EMPTY_OPTIONS", message: "None of the optional parameters were provided" });
 		}
 
-		if (providerNetwork != options.network)
+		const providerNetwork = isSigner(providerOrSigner)
+			? await providerOrSigner.getChainId()
+			: isProvider(providerOrSigner)
+				? (await providerOrSigner.getNetwork()).chainId
+				: null;
+
+		if (providerNetwork !== options.network) {
 			throw new TheaError({
 				type: "NETWORK_MISMATCH",
-				message: `Provided network is ${options.network} but provider is connected to ${providerNetwork} network`
+				message: `Provided network is ${options.network}, but the provider is connected to ${providerNetwork} network`
 			});
-
-		if (options.currentNBTokenAddress) {
-			consts[`${options.network}`].currentNbtTokenContract = options.currentNBTokenAddress;
-		} else {
-			consts[`${options.network}`].currentNbtTokenContract = await getCurrentNBTTokenAddress(
-				options.network,
-				providerOrSigner
-			);
 		}
+
+		const currentNbtTokenContract = options.currentNBTokenAddress || await getCurrentNBTTokenAddress(options.network, providerOrSigner);
+
+		consts[options.network].currentNbtTokenContract = currentNbtTokenContract;
+
 		return new TheaSDK(providerOrSigner, options.network);
 	}
 
